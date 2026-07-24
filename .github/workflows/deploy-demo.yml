@@ -1,0 +1,37 @@
+name: Deploy Demo
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm nx build demo
+      - uses: actions/configure-pages@v5
+        id: configure-pages
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/apps/demo/browser
+      - uses: actions/deploy-pages@v4
+        id: deployment
