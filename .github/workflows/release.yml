@@ -51,9 +51,11 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: dist
+      - name: Debug artifact structure
+        run: ls -la packages/mat-extended/package.json
       - name: Publish to npm
         run: |
-          cd dist/packages/mat-extended
+          cd packages/mat-extended
           npm publish --provenance --access public
 
   deploy-demo:
@@ -74,6 +76,6 @@ jobs:
         id: configure-pages
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: dist/apps/demo/browser
+          path: apps/demo/browser
       - uses: actions/deploy-pages@v4
         id: deployment
