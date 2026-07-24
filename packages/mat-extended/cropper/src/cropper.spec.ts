@@ -41,6 +41,9 @@ const { mockCanvas } = vi.hoisted(() => {
     getCropPixelSize: vi.fn().mockReturnValue({ width: 400, height: 300 }),
     getDisplayWidth: vi.fn().mockReturnValue(800),
     getDisplayHeight: vi.fn().mockReturnValue(600),
+    getRotationFitScale: vi.fn().mockReturnValue(1),
+    panX: 0,
+    panY: 0,
     imageWidth: 800,
     imageHeight: 600,
   };
@@ -66,6 +69,24 @@ describe('RuiCropper', () => {
     mockCanvas.getCropPixelSize.mockReturnValue({ width: 400, height: 300 });
     mockCanvas.getOutput.mockReset();
     mockCanvas.getOutput.mockReturnValue('data:image/png;base64,test');
+    mockCanvas.getDisplayWidth.mockReset();
+    mockCanvas.getDisplayWidth.mockReturnValue(800);
+    mockCanvas.getDisplayHeight.mockReset();
+    mockCanvas.getDisplayHeight.mockReturnValue(600);
+    mockCanvas.getImageBoundsInView.mockReset();
+    mockCanvas.getImageBoundsInView.mockReturnValue({ left: 0, top: 0, right: 800, bottom: 600 });
+    mockCanvas.getRotation.mockReset();
+    mockCanvas.getRotation.mockReturnValue(0);
+    mockCanvas.getRotationFitScale.mockReset();
+    mockCanvas.getRotationFitScale.mockReturnValue(1);
+    mockCanvas.render.mockReset();
+    mockCanvas.setCropRect.mockReset();
+    mockCanvas.setZoom.mockReset();
+    mockCanvas.clearImage.mockReset();
+    mockCanvas.getZoom.mockReset();
+    mockCanvas.getZoom.mockReturnValue(1);
+    mockCanvas.panX = 0;
+    mockCanvas.panY = 0;
     await TestBed.configureTestingModule({
       imports: [RuiCropper],
     }).compileComponents();
@@ -426,8 +447,8 @@ describe('RuiCropper', () => {
     asCropper(comp)._initCanvas();
     fixture.detectChanges();
 
-    comp.liveRotationDragging.set(true);
     comp.imageLoaded.set(true);
+    comp.onRotateSliderStart();
     mockCanvas.render.mockReset();
     mockCanvas.setRotation.mockReset();
 
@@ -450,6 +471,49 @@ describe('RuiCropper', () => {
     comp.liveRotationDragging.set(true);
     fixture.detectChanges();
     expect(comp.canvasTransform()).toBe('rotate(30deg)');
+  });
+
+  it('canvasTransform uses delta during drag when rotation was baked', () => {
+    const fixture = TestBed.createComponent(RuiCropper);
+    const comp = fixture.componentInstance;
+    fixture.detectChanges();
+
+    comp.rotationOffset.set(90);
+
+    comp.onRotateSliderStart();
+    fixture.detectChanges();
+
+    expect(comp.canvasTransform()).toBe('none');
+
+    comp.rotationAngle.set(5);
+    fixture.detectChanges();
+    expect(comp.canvasTransform()).toBe('rotate(5deg)');
+
+    comp.rotationAngle.set(-3);
+    fixture.detectChanges();
+    expect(comp.canvasTransform()).toBe('rotate(-3deg)');
+  });
+
+  it('canvasTransform includes scale compensation during drag', () => {
+    const fixture = TestBed.createComponent(RuiCropper);
+    const comp = fixture.componentInstance;
+    fixture.detectChanges();
+
+    asCropper(comp)._initCanvas();
+    asCropper(comp)._canvasReady.set(true);
+    fixture.detectChanges();
+
+    mockCanvas.getRotationFitScale.mockReturnValue(1.414);
+    comp.rotationOffset.set(45);
+    comp.onRotateSliderStart();
+    fixture.detectChanges();
+
+    mockCanvas.getRotationFitScale.mockReturnValue(1.174);
+    comp.rotationAngle.set(10);
+    fixture.detectChanges();
+    expect(comp.canvasTransform()).toContain('rotate(10deg)');
+    expect(comp.canvasTransform()).toContain('scale(');
+    expect(comp.canvasTransform()).toMatch(/scale\(0\.83\d{2}\)/);
   });
 
   it('rotation effect does NOT call render when liveRotationDragging is true', () => {
@@ -497,6 +561,7 @@ describe('RuiCropper', () => {
     fixture.detectChanges();
 
     comp.imageLoaded.set(true);
+    comp.effectiveAspectRatio.set('free');
     mockCanvas.getDisplayWidth.mockReturnValue(800);
     mockCanvas.getDisplayHeight.mockReturnValue(600);
     mockCanvas.getImageBoundsInView.mockReturnValue({ left: 100, top: 0, right: 500, bottom: 600 });
@@ -520,6 +585,7 @@ describe('RuiCropper', () => {
     fixture.detectChanges();
 
     comp.imageLoaded.set(true);
+    comp.effectiveAspectRatio.set('free');
     mockCanvas.getDisplayWidth.mockReturnValue(800);
     mockCanvas.getDisplayHeight.mockReturnValue(600);
     mockCanvas.getImageBoundsInView.mockReturnValue({ left: 0, top: 0, right: 800, bottom: 600 });
@@ -608,6 +674,59 @@ describe('RuiCropper', () => {
 
     expect(emitSpy).toHaveBeenCalled();
     emitSpy.mockRestore();
+  });
+
+  it('emits cropChange when aspectRatio input changes externally', async () => {
+    const fixture = TestBed.createComponent(RuiCropper);
+    const comp = fixture.componentInstance;
+    fixture.detectChanges();
+
+    asCropper(comp)._initCanvas();
+    asCropper(comp)._canvasReady.set(true);
+    comp.imageLoaded.set(true);
+    fixture.detectChanges();
+
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    mockCanvas.getOutput.mockReturnValue('data:image/png;base64,updated');
+
+    const emitSpy = vi.fn();
+    comp.cropChange.subscribe(emitSpy);
+
+    fixture.componentRef.setInput('aspectRatio', '1:1');
+    fixture.detectChanges();
+    await new Promise(resolve => setTimeout(resolve, 200));
+    fixture.detectChanges();
+
+    expect(emitSpy).toHaveBeenCalledTimes(1);
+    expect(emitSpy.mock.calls[0][0].dataUrl).toBe('data:image/png;base64,updated');
+    expect(comp.croppedImage()).toBe('data:image/png;base64,updated');
+  });
+
+  it('emits cropChange when rotationAngle set from outside', async () => {
+    const fixture = TestBed.createComponent(RuiCropper);
+    const comp = fixture.componentInstance;
+    fixture.detectChanges();
+
+    asCropper(comp)._initCanvas();
+    asCropper(comp)._canvasReady.set(true);
+    comp.imageLoaded.set(true);
+    fixture.detectChanges();
+
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    mockCanvas.getOutput.mockReturnValue('data:image/png;base64,rotated');
+
+    const emitSpy = vi.fn();
+    comp.cropChange.subscribe(emitSpy);
+
+    comp.rotationAngle.set(90);
+    fixture.detectChanges();
+    await new Promise(resolve => setTimeout(resolve, 200));
+    fixture.detectChanges();
+
+    expect(emitSpy).toHaveBeenCalledTimes(1);
+    expect(comp.croppedImage()).toBe('data:image/png;base64,rotated');
   });
 
   it('constraint is applied during onPointerMove', () => {
@@ -787,6 +906,178 @@ describe('RuiCropper', () => {
 
     expect(mockCanvas.render).toHaveBeenCalled();
     expect(mockCanvas.setCropRect).toHaveBeenCalled();
+  });
+
+  it('starts panning when clicking outside crop rect but inside image bounds', () => {
+    const fixture = TestBed.createComponent(RuiCropper);
+    const comp = fixture.componentInstance;
+    fixture.detectChanges();
+    asCropper(comp)._initCanvas();
+    comp.imageLoaded.set(true);
+    mockCanvas.getDisplayWidth.mockReturnValue(800);
+    mockCanvas.getDisplayHeight.mockReturnValue(600);
+    mockCanvas.getImageBoundsInView.mockReturnValue({ left: 100, top: 50, right: 700, bottom: 550 });
+
+    const viewportRef = comp.viewportRef();
+    if (!viewportRef) return;
+    const viewportEl = viewportRef.nativeElement;
+    vi.spyOn(viewportEl, 'getBoundingClientRect').mockReturnValue({ left: 0, top: 0, width: 800, height: 600 } as DOMRect);
+    Object.defineProperty(viewportEl, 'setPointerCapture', { value: vi.fn(), writable: true });
+
+    comp.onPointerDown({ clientX: 150, clientY: 300, pointerId: 1 } as PointerEvent);
+
+    const panning = (comp as unknown as { _panning: boolean })._panning;
+    expect(panning).toBe(true);
+  });
+
+  it('updates canvas panX/panY during panning', () => {
+    const fixture = TestBed.createComponent(RuiCropper);
+    const comp = fixture.componentInstance;
+    fixture.detectChanges();
+    asCropper(comp)._initCanvas();
+    comp.imageLoaded.set(true);
+    mockCanvas.getDisplayWidth.mockReturnValue(800);
+    mockCanvas.getDisplayHeight.mockReturnValue(600);
+    mockCanvas.getImageBoundsInView.mockReturnValue({ left: 100, top: 50, right: 700, bottom: 550 });
+    mockCanvas.getRotation.mockReturnValue(0);
+
+    const viewportRef = comp.viewportRef();
+    if (!viewportRef) return;
+    const viewportEl = viewportRef.nativeElement;
+    vi.spyOn(viewportEl, 'getBoundingClientRect').mockReturnValue({ left: 0, top: 0, width: 800, height: 600 } as DOMRect);
+    Object.defineProperty(viewportEl, 'setPointerCapture', { value: vi.fn(), writable: true });
+
+    comp.onPointerDown({ clientX: 150, clientY: 200, pointerId: 1 } as PointerEvent);
+    mockCanvas.render.mockReset();
+    comp.onPointerMove({ clientX: 200, clientY: 300 } as PointerEvent);
+
+    expect(mockCanvas.panX).toBe(50);
+    expect(mockCanvas.panY).toBe(100);
+    expect(mockCanvas.render).toHaveBeenCalled();
+  });
+
+  it('ends panning on pointer up and emits result', () => {
+    const fixture = TestBed.createComponent(RuiCropper);
+    const comp = fixture.componentInstance;
+    fixture.detectChanges();
+    asCropper(comp)._initCanvas();
+    comp.imageLoaded.set(true);
+    mockCanvas.getDisplayWidth.mockReturnValue(800);
+    mockCanvas.getDisplayHeight.mockReturnValue(600);
+    mockCanvas.getImageBoundsInView.mockReturnValue({ left: 100, top: 50, right: 700, bottom: 550 });
+
+    const viewportRef = comp.viewportRef();
+    if (!viewportRef) return;
+    const viewportEl = viewportRef.nativeElement;
+    vi.spyOn(viewportEl, 'getBoundingClientRect').mockReturnValue({ left: 0, top: 0, width: 800, height: 600 } as DOMRect);
+    Object.defineProperty(viewportEl, 'setPointerCapture', { value: vi.fn(), writable: true });
+
+    comp.onPointerDown({ clientX: 150, clientY: 200, pointerId: 1 } as PointerEvent);
+
+    const emitSpy = vi.spyOn(comp as unknown as { _emitResult: () => Promise<void> }, '_emitResult').mockResolvedValue(undefined);
+
+    comp.onPointerUp();
+
+    const panning = (comp as unknown as { _panning: boolean })._panning;
+    expect(panning).toBe(false);
+    expect(emitSpy).toHaveBeenCalled();
+    emitSpy.mockRestore();
+  });
+
+  it('panning compensates for rotation', () => {
+    const fixture = TestBed.createComponent(RuiCropper);
+    const comp = fixture.componentInstance;
+    fixture.detectChanges();
+    asCropper(comp)._initCanvas();
+    comp.imageLoaded.set(true);
+    mockCanvas.getDisplayWidth.mockReturnValue(800);
+    mockCanvas.getDisplayHeight.mockReturnValue(600);
+    mockCanvas.getImageBoundsInView.mockReturnValue({ left: 100, top: 50, right: 700, bottom: 550 });
+    mockCanvas.getRotation.mockReturnValue(90);
+
+    mockCanvas.panX = 100;
+    mockCanvas.panY = 50;
+
+    const viewportRef = comp.viewportRef();
+    if (!viewportRef) return;
+    const viewportEl = viewportRef.nativeElement;
+    vi.spyOn(viewportEl, 'getBoundingClientRect').mockReturnValue({ left: 0, top: 0, width: 800, height: 600 } as DOMRect);
+    Object.defineProperty(viewportEl, 'setPointerCapture', { value: vi.fn(), writable: true });
+
+    comp.onPointerDown({ clientX: 150, clientY: 200, pointerId: 1 } as PointerEvent);
+    comp.onPointerMove({ clientX: 250, clientY: 100 } as PointerEvent);
+
+    expect(mockCanvas.panX).toBeCloseTo(0, 10);
+    expect(mockCanvas.panY).toBeCloseTo(-50, 10);
+  });
+
+  it('does not start panning when clicking outside image bounds', () => {
+    const fixture = TestBed.createComponent(RuiCropper);
+    const comp = fixture.componentInstance;
+    fixture.detectChanges();
+    asCropper(comp)._initCanvas();
+    comp.imageLoaded.set(true);
+    mockCanvas.getDisplayWidth.mockReturnValue(800);
+    mockCanvas.getDisplayHeight.mockReturnValue(600);
+    mockCanvas.getImageBoundsInView.mockReturnValue({ left: 200, top: 150, right: 600, bottom: 450 });
+
+    const viewportRef = comp.viewportRef();
+    if (!viewportRef) return;
+    const viewportEl = viewportRef.nativeElement;
+    vi.spyOn(viewportEl, 'getBoundingClientRect').mockReturnValue({ left: 0, top: 0, width: 800, height: 600 } as DOMRect);
+    Object.defineProperty(viewportEl, 'setPointerCapture', { value: vi.fn(), writable: true });
+
+    comp.onPointerDown({ clientX: 50, clientY: 50, pointerId: 1 } as PointerEvent);
+
+    const panning = (comp as unknown as { _panning: boolean })._panning;
+    expect(panning).toBe(false);
+  });
+
+  it('_constrainCropToImage enforces aspect ratio within image bounds', () => {
+    const fixture = TestBed.createComponent(RuiCropper);
+    const comp = fixture.componentInstance;
+    fixture.detectChanges();
+    asCropper(comp)._initCanvas();
+    fixture.detectChanges();
+    comp.imageLoaded.set(true);
+    comp.effectiveAspectRatio.set('1:1');
+    mockCanvas.getDisplayWidth.mockReturnValue(800);
+    mockCanvas.getDisplayHeight.mockReturnValue(600);
+    mockCanvas.getImageBoundsInView.mockReturnValue({ left: 100, top: 0, right: 700, bottom: 600 });
+
+    const constrained = (comp as unknown as Record<string, (...args: unknown[]) => unknown>)['_constrainCropToImage'](
+      { x: 0, y: 0, width: 1, height: 1 },
+    ) as RuiCropRect;
+
+    expect(constrained.width).toBeLessThanOrEqual(0.75);
+    expect(Math.abs(constrained.width / constrained.height - 0.75)).toBeLessThan(0.001);
+  });
+
+  it('resets panning on lostpointercapture event', () => {
+    const fixture = TestBed.createComponent(RuiCropper);
+    const comp = fixture.componentInstance;
+    fixture.detectChanges();
+    asCropper(comp)._initCanvas();
+    comp.imageLoaded.set(true);
+    mockCanvas.getDisplayWidth.mockReturnValue(800);
+    mockCanvas.getDisplayHeight.mockReturnValue(600);
+    mockCanvas.getImageBoundsInView.mockReturnValue({ left: 100, top: 50, right: 700, bottom: 550 });
+
+    const viewportRef = comp.viewportRef();
+    if (!viewportRef) return;
+    const viewportEl = viewportRef.nativeElement;
+    vi.spyOn(viewportEl, 'getBoundingClientRect').mockReturnValue({ left: 0, top: 0, width: 800, height: 600 } as DOMRect);
+    Object.defineProperty(viewportEl, 'setPointerCapture', { value: vi.fn(), writable: true });
+
+    comp.onPointerDown({ clientX: 150, clientY: 200, pointerId: 1 } as PointerEvent);
+
+    const panningBefore = (comp as unknown as { _panning: boolean })._panning;
+    expect(panningBefore).toBe(true);
+
+    viewportEl.dispatchEvent(new Event('lostpointercapture'));
+
+    const panningAfter = (comp as unknown as { _panning: boolean })._panning;
+    expect(panningAfter).toBe(false);
   });
 
   describe('A11y', () => {

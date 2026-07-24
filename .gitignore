@@ -61,6 +61,9 @@ __screenshots__/
 playwright-report/
 test-results/
 
+# Test output artifacts (cropper etc.)
+test-output/
+
 # AI tool folders
 .opencode
 .agents

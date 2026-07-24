@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RuiMultiSelect } from './multi-select';
+import { RuiArrayValueAccessor } from '@all-the.rest/mat-extended';
 
 @Component({
   standalone: true,
@@ -156,7 +157,7 @@ describe('RuiMultiSelect', () => {
     it('initial values are set via values model', () => {
       const fixture = TestBed.createComponent(SignalHostComponent);
       fixture.detectChanges();
-      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as RuiMultiSelect<string>;
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
       expect(multiSelect.values()).toEqual(['Apple']);
     });
 
@@ -165,7 +166,7 @@ describe('RuiMultiSelect', () => {
       fixture.detectChanges();
       fixture.componentInstance.selected.set(['Apple', 'Banana']);
       fixture.detectChanges();
-      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as RuiMultiSelect<string>;
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
       expect(multiSelect.values()).toEqual(['Apple', 'Banana']);
     });
 
@@ -196,7 +197,7 @@ describe('RuiMultiSelect', () => {
     it('initial formControl value is propagated to component', () => {
       const fixture = TestBed.createComponent(ReactiveHostComponent);
       fixture.detectChanges();
-      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as RuiMultiSelect<string>;
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
       expect(multiSelect.values()).toEqual(['Banana']);
     });
 
@@ -205,7 +206,7 @@ describe('RuiMultiSelect', () => {
       fixture.detectChanges();
       fixture.componentInstance.control.setValue(['Apple', 'Cherry']);
       fixture.detectChanges();
-      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as RuiMultiSelect<string>;
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
       expect(multiSelect.values()).toEqual(['Apple', 'Cherry']);
     });
 
@@ -219,7 +220,7 @@ describe('RuiMultiSelect', () => {
       const fixture = TestBed.createComponent(ReactiveHostComponent);
       fixture.componentInstance.control.disable();
       fixture.detectChanges();
-      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as RuiMultiSelect<string>;
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
       expect(multiSelect.disabled()).toBe(true);
     });
   });
@@ -243,7 +244,7 @@ describe('RuiMultiSelect', () => {
       const fixture = TestBed.createComponent(TemplateDrivenHostComponent);
       fixture.detectChanges();
       await fixture.whenStable();
-      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as RuiMultiSelect<string>;
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
       expect(multiSelect.values()).toEqual(['Cherry']);
     });
   });
@@ -259,7 +260,7 @@ describe('RuiMultiSelect', () => {
     it('initializes values with object items', () => {
       const fixture = TestBed.createComponent(ObjectOptionsHostComponent);
       fixture.detectChanges();
-      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as RuiMultiSelect<{ id: number; name: string }>;
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<{ id: number; name: string }> & RuiArrayValueAccessor<{ id: number; name: string }>;
       expect(multiSelect.values().length).toBe(1);
       expect(multiSelect.values()[0]?.name).toBe('Alice');
     });
@@ -272,7 +273,7 @@ describe('RuiMultiSelect', () => {
         { id: 3, name: 'Charlie' },
       ]);
       fixture.detectChanges();
-      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as RuiMultiSelect<{ id: number; name: string }>;
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<{ id: number; name: string }> & RuiArrayValueAccessor<{ id: number; name: string }>;
       expect(multiSelect.values().length).toBe(2);
     });
   });
@@ -288,7 +289,7 @@ describe('RuiMultiSelect', () => {
     it('accepts sortable input', () => {
       const fixture = TestBed.createComponent(SortableHostComponent);
       fixture.detectChanges();
-      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as RuiMultiSelect<string>;
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
       expect(multiSelect.sortable()).toBe(true);
     });
   });
@@ -304,7 +305,7 @@ describe('RuiMultiSelect', () => {
     it('exposes values model signal', () => {
       const fixture = TestBed.createComponent(SignalHostComponent);
       fixture.detectChanges();
-      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as RuiMultiSelect<string>;
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
       expect(multiSelect.values).toBeDefined();
       expect(multiSelect.values()).toEqual(['Apple']);
     });
@@ -312,7 +313,7 @@ describe('RuiMultiSelect', () => {
     it('allows setting values via model', () => {
       const fixture = TestBed.createComponent(SignalHostComponent);
       fixture.detectChanges();
-      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as RuiMultiSelect<string>;
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
       multiSelect.values.set(['Banana', 'Cherry']);
       fixture.detectChanges();
       expect(multiSelect.values()).toEqual(['Banana', 'Cherry']);
@@ -321,7 +322,7 @@ describe('RuiMultiSelect', () => {
     it('exposes selectionChange output', () => {
       const fixture = TestBed.createComponent(SignalHostComponent);
       fixture.detectChanges();
-      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as RuiMultiSelect<string>;
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
       expect(multiSelect.selectionChange).toBeDefined();
     });
   });
@@ -337,7 +338,7 @@ describe('RuiMultiSelect', () => {
     it('implements writeValue', () => {
       const fixture = TestBed.createComponent(RuiMultiSelect);
       fixture.detectChanges();
-      const comp = fixture.componentInstance;
+      const comp = fixture.componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
       comp.writeValue(['A', 'B']);
       fixture.detectChanges();
       expect(comp.values()).toEqual(['A', 'B']);
@@ -346,7 +347,7 @@ describe('RuiMultiSelect', () => {
     it('implements setDisabledState', () => {
       const fixture = TestBed.createComponent(RuiMultiSelect);
       fixture.detectChanges();
-      const comp = fixture.componentInstance;
+      const comp = fixture.componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
       comp.setDisabledState(true);
       fixture.detectChanges();
       expect(comp.disabled()).toBe(true);
@@ -355,7 +356,7 @@ describe('RuiMultiSelect', () => {
     it('implements registerOnChange', () => {
       const fixture = TestBed.createComponent(RuiMultiSelect);
       fixture.detectChanges();
-      const comp = fixture.componentInstance;
+      const comp = fixture.componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
       let called = false;
       comp.registerOnChange(() => { called = true; });
       comp.values.set(['X']);
@@ -366,7 +367,7 @@ describe('RuiMultiSelect', () => {
     it('implements registerOnTouched', () => {
       const fixture = TestBed.createComponent(RuiMultiSelect);
       fixture.detectChanges();
-      const comp = fixture.componentInstance;
+      const comp = fixture.componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
       let called = false;
       comp.registerOnTouched(() => { called = true; });
       comp.markAsTouched();

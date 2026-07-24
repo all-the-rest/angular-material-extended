@@ -136,4 +136,5 @@ test.describe('Cropper', () => {
     const croppedImg = page.locator('section:has(#basic-cropper) img[alt="Cropped preview"]');
     await expect(croppedImg).toBeVisible({ timeout: 5000 });
   });
+
 });

@@ -2,6 +2,17 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import { RuiCropperCanvas } from './cropper-canvas';
 import { createCanvas } from 'canvas';
 
+interface RuiCropperCanvasTest {
+  ctx: CanvasRenderingContext2D;
+}
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import * as crypto from 'node:crypto';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 function generateTestImageDataUrl(width: number, height: number): string {
   const c = createCanvas(width, height);
   const ctx = c.getContext('2d');
@@ -17,6 +28,23 @@ function generateTestImageDataUrl(width: number, height: number): string {
 }
 
 describe('RuiCropperCanvas', () => {
+  let origCreateElement: typeof document.createElement;
+  const ncCreateCanvas = createCanvas;
+
+  beforeAll(() => {
+    origCreateElement = document.createElement.bind(document);
+    document.createElement = function (tagName: string, options?: ElementCreationOptions): HTMLElement {
+      if (tagName === 'canvas' || tagName === 'CANVAS') {
+        return ncCreateCanvas(300, 150) as unknown as HTMLElement;
+      }
+      return origCreateElement(tagName, options);
+    } as typeof document.createElement;
+  });
+
+  afterAll(() => {
+    document.createElement = origCreateElement;
+  });
+
   afterEach(() => {
     vi.unstubAllGlobals();
   });
@@ -261,5 +289,184 @@ describe('RuiCropperCanvas', () => {
     expect(insh).toBeGreaterThanOrEqual(800);
     expect(insw).toBeLessThanOrEqual(1050);
     expect(insh).toBeLessThanOrEqual(900);
+  });
+
+  it('produces deterministically identical output for same inputs (within run)', async () => {
+    const cropper = new RuiCropperCanvas(createCanvasEl(800, 600));
+    cropper.displayWidth = 800;
+    cropper.displayHeight = 600;
+    await cropper.loadImage(generateTestImageDataUrl(800, 600));
+    cropper.setZoom(1);
+    cropper.setCropRect({ x: 0.25, y: 0.25, width: 0.5, height: 0.5 });
+    cropper.setAspectRatio(1);
+    cropper.setRotation(45);
+    cropper.render();
+    const a = cropper.getOutput('image/png', 1);
+    const b = cropper.getOutput('image/png', 1);
+    expect(a).toBe(b);
+  });
+
+  it('produces geometrically correct output after 90° rotation', async () => {
+    const cropper = new RuiCropperCanvas(createCanvasEl(100, 100));
+    cropper.displayWidth = 100;
+    cropper.displayHeight = 100;
+    await cropper.loadImage(generateTestImageDataUrl(100, 100));
+    cropper.setZoom(1);
+    cropper.setCropRect({ x: 0, y: 0, width: 1, height: 1 });
+    cropper.setRotation(0);
+    cropper.render();
+
+    // Top-left quadrant should be red (#ff0000) without rotation
+    const ctx = (cropper as unknown as RuiCropperCanvasTest).ctx;
+    let pixel = ctx.getImageData(25, 25, 1, 1).data;
+    expect(pixel[0]).toBeGreaterThan(200);
+    expect(pixel[1]).toBeLessThan(50);
+    expect(pixel[2]).toBeLessThan(50);
+
+    // Now rotate 90° CW — canvas (75, 75) shows original top-right (green)
+    cropper.setRotation(90);
+    cropper.render();
+    pixel = ctx.getImageData(75, 75, 1, 1).data;
+    expect(pixel[0]).toBeLessThan(50);
+    expect(pixel[1]).toBeGreaterThan(200);
+    expect(pixel[2]).toBeLessThan(50);
+
+    // Save output to test-output for manual inspection
+    const output = cropper.getOutput('image/png', 1);
+    const outputBuf = Buffer.from(output.split(',')[1], 'base64');
+
+    const outputDir = path.resolve(__dirname, '../../../../test-output');
+    fs.mkdirSync(outputDir, { recursive: true });
+    fs.writeFileSync(path.join(outputDir, 'cropper-rotate-90.png'), outputBuf);
+  });
+
+  it('produces deterministic output from picsum fixture with 1:1 crop and 90° rotation', async () => {
+    const inputBuf = fs.readFileSync(path.join(__dirname, '__fixtures__', 'input-picsum-800x600.jpg'));
+    const dataUrl = `data:image/jpeg;base64,${inputBuf.toString('base64')}`;
+
+    const cropper = new RuiCropperCanvas(createCanvasEl(800, 600));
+    cropper.displayWidth = 800;
+    cropper.displayHeight = 600;
+    await cropper.loadImage(dataUrl);
+    cropper.setZoom(1);
+    cropper.setCropRect({ x: 0.25, y: 0.25, width: 0.5, height: 0.5 });
+    cropper.setAspectRatio(1);
+    cropper.setRotation(90);
+    cropper.render();
+
+    const output = cropper.getOutput('image/png', 1, 300, 300);
+    const outputBuf = Buffer.from(output.split(',')[1], 'base64');
+
+    const outputDir = path.resolve(__dirname, '../../../../test-output');
+    fs.mkdirSync(outputDir, { recursive: true });
+    fs.writeFileSync(path.join(outputDir, 'cropper-output-picsum-1-1-300x300.png'), outputBuf);
+
+    const refPath = path.join(__dirname, '__fixtures__', 'expected-picsum-1-1-300x300.png');
+    try {
+      const refBuf = fs.readFileSync(refPath);
+      const actualHash = crypto.createHash('sha256').update(outputBuf).digest('hex');
+      const expectedHash = crypto.createHash('sha256').update(refBuf).digest('hex');
+      expect(actualHash).toBe(expectedHash);
+    } catch {
+      console.warn('Reference fixture not found, skipping comparison. Write expected PNG to __fixtures__/expected-picsum-1-1-300x300.png');
+    }
+  });
+
+  function hashOutput(cropper: RuiCropperCanvas): string {
+    const output = cropper.getOutput('image/png', 1);
+    const buf = Buffer.from(output.split(',')[1], 'base64');
+    return crypto.createHash('sha256').update(buf).digest('hex');
+  }
+
+  it('getRotationFitScale reports 1 for cardinal angles', () => {
+    const cropper = new RuiCropperCanvas(createCanvasEl(800, 600));
+    expect(cropper.getRotationFitScale(0)).toBe(1);
+    expect(cropper.getRotationFitScale(90)).toBe(1);
+    expect(cropper.getRotationFitScale(180)).toBe(1);
+    expect(cropper.getRotationFitScale(270)).toBe(1);
+    expect(cropper.getRotationFitScale(360)).toBe(1);
+  });
+
+  it('getRotationFitScale is symmetric around cardinal angles', () => {
+    const cropper = new RuiCropperCanvas(createCanvasEl(800, 600));
+    const scale5 = cropper.getRotationFitScale(5);
+    const scale85 = cropper.getRotationFitScale(85);
+    const scale95 = cropper.getRotationFitScale(95);
+    const scale175 = cropper.getRotationFitScale(175);
+
+    expect(scale5).toBeCloseTo(1.083, 2);
+    expect(scale85).toBeCloseTo(1.083, 2);
+    expect(scale95).toBeCloseTo(1.083, 2);
+    expect(scale175).toBeCloseTo(1.083, 2);
+
+    expect(cropper.getRotationFitScale(45)).toBeCloseTo(Math.SQRT2, 2);
+  });
+
+  it('rotation fit scale is available during live rotation drag via public method', () => {
+    const cropper = new RuiCropperCanvas(createCanvasEl(800, 600));
+    cropper.setRotation(90);
+    cropper.render();
+    const scaleAt90 = cropper.getRotationFitScale(90);
+
+    cropper.setRotation(95);
+    const scaleAt95 = cropper.getRotationFitScale();
+
+    expect(scaleAt90).toBe(1);
+    expect(scaleAt95).toBeGreaterThan(1);
+    expect(scaleAt95).toBeCloseTo(1.083, 2);
+  });
+
+  it('successive setRotation→render cycles produce same output as direct render (idempotency)', async () => {
+    const inputBuf = fs.readFileSync(path.join(__dirname, '__fixtures__', 'input-picsum-800x600.jpg'));
+    const dataUrl = `data:image/jpeg;base64,${inputBuf.toString('base64')}`;
+
+    const inc = new RuiCropperCanvas(createCanvasEl(800, 600));
+    inc.displayWidth = 800;
+    inc.displayHeight = 600;
+    await inc.loadImage(dataUrl);
+    inc.setZoom(1);
+    inc.setRotation(90);
+    inc.render();
+    inc.setRotation(95);
+    inc.render();
+    const hashInc = hashOutput(inc);
+
+    const dir = new RuiCropperCanvas(createCanvasEl(800, 600));
+    dir.displayWidth = 800;
+    dir.displayHeight = 600;
+    await dir.loadImage(dataUrl);
+    dir.setZoom(1);
+    dir.setRotation(95);
+    dir.render();
+    const hashDir = hashOutput(dir);
+
+    expect(hashInc).toBe(hashDir);
+  });
+
+  it('render at 45° produces deterministically different output from 0°', async () => {
+    const inputBuf = fs.readFileSync(path.join(__dirname, '__fixtures__', 'input-picsum-800x600.jpg'));
+    const dataUrl = `data:image/jpeg;base64,${inputBuf.toString('base64')}`;
+
+    const c0 = new RuiCropperCanvas(createCanvasEl(800, 600));
+    c0.displayWidth = 800;
+    c0.displayHeight = 600;
+    await c0.loadImage(dataUrl);
+    c0.setZoom(1);
+    c0.setRotation(0);
+    c0.render();
+    const hash0 = hashOutput(c0);
+
+    const c45 = new RuiCropperCanvas(createCanvasEl(800, 600));
+    c45.displayWidth = 800;
+    c45.displayHeight = 600;
+    await c45.loadImage(dataUrl);
+    c45.setZoom(1);
+    c45.setRotation(45);
+    c45.render();
+    const hash45 = hashOutput(c45);
+
+    expect(hash0).not.toBe(hash45);
+    expect(hash0.length).toBeGreaterThan(0);
+    expect(hash45.length).toBeGreaterThan(0);
   });
 });

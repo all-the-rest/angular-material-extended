@@ -68,7 +68,12 @@ export class RuiCropper extends RuiValueAccessor<string> {
   });
   readonly canvasTransform = computed(() => {
     if (!this.liveRotationDragging()) return 'none';
-    return `rotate(${this.rotation()}deg)`;
+    const delta = this.rotation() - this._bakedRotation;
+    if (Math.abs(delta) < 0.001) return 'none';
+    const currentScale = this._canvasEngine?.getRotationFitScale?.(this.rotation()) ?? 1;
+    const scaleDelta = this._bakedFitScale > 0 ? currentScale / this._bakedFitScale : 1;
+    if (Math.abs(scaleDelta - 1) < 0.001) return `rotate(${delta}deg)`;
+    return `rotate(${delta}deg) scale(${scaleDelta.toFixed(4)})`;
   });
 
   readonly isAspectRatioFixed = computed(() => this.aspectRatio() !== 'free');
@@ -90,6 +95,13 @@ export class RuiCropper extends RuiValueAccessor<string> {
   private _defaults = inject(RUI_CROPPER_DEFAULT_OPTIONS);
   private _cropRect = signal<RuiCropRect>({ x: 0.25, y: 0.25, width: 0.5, height: 0.5 });
   private _canvasReady = signal(false);
+  private _bakedRotation = 0;
+  private _bakedFitScale = 1;
+  private _panning = false;
+  private _panStartPointerX = 0;
+  private _panStartPointerY = 0;
+  private _panStartPanX = 0;
+  private _panStartPanY = 0;
   private _cdr = inject(ChangeDetectorRef);
 
   constructor() {
@@ -109,12 +121,22 @@ export class RuiCropper extends RuiValueAccessor<string> {
     effect(() => {
       if (!this._canvasReady() || !this._canvasEngine) return;
       const rot = this.rotation();
+      const prevRot = this._canvasEngine.getRotation();
+      const prevFitScale = this._canvasEngine.getRotationFitScale(prevRot);
       this._canvasEngine.setRotation(rot);
       if (!this.liveRotationDragging()) {
-        this._canvasEngine.render();
-        const constrained = this._constrainCropToImage(this._canvasEngine.getCropRect());
+        const newFitScale = this._canvasEngine.getRotationFitScale(rot);
+        if (prevFitScale > 0 && Math.abs(prevFitScale - newFitScale) > 0.001) {
+          this.zoomLevel.update(v =>
+            Math.max(10, Math.min(1000, Math.round(v * prevFitScale / newFitScale)))
+          );
+        } else {
+          this._canvasEngine.render();
+        }
+        const constrained = this._constrainCropRect(this._canvasEngine.getCropRect());
         this._canvasEngine.setCropRect(constrained);
         this._cropRect.set(constrained);
+        if (this.imageLoaded()) this._scheduleEmit();
       }
     });
 
@@ -122,9 +144,10 @@ export class RuiCropper extends RuiValueAccessor<string> {
       if (!this._canvasReady() || !this._canvasEngine) return;
       this._canvasEngine.setZoom(this.zoomLevel() / 100);
       this._canvasEngine.render();
-      const constrained = this._constrainCropToImage(this._canvasEngine.getCropRect());
+      const constrained = this._constrainCropRect(this._canvasEngine.getCropRect());
       this._canvasEngine.setCropRect(constrained);
       this._cropRect.set(constrained);
+      if (this.imageLoaded()) this._scheduleEmit();
     });
 
     effect(() => {
@@ -132,10 +155,11 @@ export class RuiCropper extends RuiValueAccessor<string> {
       if (this._canvasReady() && this._canvasEngine) {
         this._canvasEngine.setAspectRatio(ratio);
         this._canvasEngine.render();
-        const constrained = this._constrainCropToImage(this._canvasEngine.getCropRect());
+        const constrained = this._constrainCropRect(this._canvasEngine.getCropRect());
         this._canvasEngine.setCropRect(constrained);
         this._cropRect.set(constrained);
       }
+      if (this.imageLoaded()) this._scheduleEmit();
     });
 
     effect(() => {
@@ -178,6 +202,8 @@ export class RuiCropper extends RuiValueAccessor<string> {
 
   onRotateSliderStart(): void {
     this.liveRotationDragging.set(true);
+    this._bakedRotation = this.rotation();
+    this._bakedFitScale = this._canvasEngine?.getRotationFitScale?.(this.rotation()) ?? 1;
   }
 
   onRotateSliderEnd(): void {
@@ -208,16 +234,35 @@ export class RuiCropper extends RuiValueAccessor<string> {
       this._interaction.beginResize(handle, x, y, currentRect);
     } else if (this._isInsideRect(x, y, currentRect)) {
       this._interaction.beginMove(x, y, currentRect);
+    } else if (this._isInsideImageBounds(x, y)) {
+      this._panning = true;
+      this._panStartPointerX = event.clientX;
+      this._panStartPointerY = event.clientY;
+      this._panStartPanX = this._canvasEngine.panX;
+      this._panStartPanY = this._canvasEngine.panY;
     }
 
     viewport.setPointerCapture(event.pointerId);
   }
 
   onPointerMove(event: PointerEvent): void {
-    if (this._interaction.mode === 'none' || !this._canvasEngine) return;
+    if (!this._canvasEngine) return;
     const viewport = this.viewportRef()?.nativeElement;
     if (!viewport) return;
 
+    if (this._panning) {
+      const rotationRad = (this._canvasEngine.getRotation() * Math.PI) / 180;
+      const cosR = Math.cos(rotationRad);
+      const sinR = Math.sin(rotationRad);
+      const deltaX = event.clientX - this._panStartPointerX;
+      const deltaY = event.clientY - this._panStartPointerY;
+      this._canvasEngine.panX = this._panStartPanX + deltaX * cosR + deltaY * sinR;
+      this._canvasEngine.panY = this._panStartPanY - deltaX * sinR + deltaY * cosR;
+      this._canvasEngine.render();
+      return;
+    }
+
+    if (this._interaction.mode === 'none') return;
     const rect = viewport.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width;
     const y = (event.clientY - rect.top) / rect.height;
@@ -229,13 +274,19 @@ export class RuiCropper extends RuiValueAccessor<string> {
     const minNormH = Math.max(0.005, this.minCropHeight() / rect.height);
 
     const newRect = this._interaction.updateRect(x, y, rect.width, rect.height, viewportRatio, minNormW, minNormH);
-    const constrained = this._constrainCropToImage(newRect);
+    const constrained = this._constrainCropRect(newRect);
     this._canvasEngine.setCropRect(constrained);
     this._canvasEngine.render();
     this._cropRect.set(constrained);
   }
 
   onPointerUp(): void {
+    if (this._panning) {
+      this._panning = false;
+      this._interaction.reset();
+      this._emitResult();
+      return;
+    }
     if (this._interaction.mode === 'none') return;
     this._interaction.end();
     this._emitResult();
@@ -287,7 +338,7 @@ export class RuiCropper extends RuiValueAccessor<string> {
       const r = this._canvasEngine.getCropRect();
       const newX = Math.max(0, Math.min(1 - r.width, r.x + dx));
       const newY = Math.max(0, Math.min(1 - r.height, r.y + dy));
-      const constrained = this._constrainCropToImage({
+      const constrained = this._constrainCropRect({
         x: newX,
         y: newY,
         width: r.width,
@@ -342,6 +393,11 @@ export class RuiCropper extends RuiValueAccessor<string> {
       viewportEl.removeEventListener('wheel', this._onWheel);
     });
 
+    viewportEl.addEventListener('lostpointercapture', this._onLostPointerCapture);
+    this._destroyRef.onDestroy(() => {
+      viewportEl.removeEventListener('lostpointercapture', this._onLostPointerCapture);
+    });
+
     viewportEl.addEventListener('touchstart', this._onTouchStart, { passive: false });
     viewportEl.addEventListener('touchmove', this._onTouchMove, { passive: false });
     viewportEl.addEventListener('touchend', this._onTouchEnd);
@@ -367,6 +423,8 @@ export class RuiCropper extends RuiValueAccessor<string> {
     if (!this._canvasEngine) return;
     this.imageLoaded.set(false);
     this._canvasEngine.clearImage();
+    this._canvasEngine.panX = 0;
+    this._canvasEngine.panY = 0;
     try {
       await this._canvasEngine.loadImage(src);
       const fitZoom = this._canvasEngine.getZoom();
@@ -376,7 +434,7 @@ export class RuiCropper extends RuiValueAccessor<string> {
       this._canvasEngine.setAspectRatio(ratio);
       this._canvasEngine.render();
       this._cropRect.set(this._canvasEngine.getCropRect());
-      const constrained = this._constrainCropToImage(this._canvasEngine.getCropRect());
+      const constrained = this._constrainCropRect(this._canvasEngine.getCropRect());
       this._canvasEngine.setCropRect(constrained);
       this._cropRect.set(constrained);
       this.imageLoaded.set(true);
@@ -417,6 +475,10 @@ export class RuiCropper extends RuiValueAccessor<string> {
     }
   };
 
+  private _onLostPointerCapture = (): void => {
+    this._panning = false;
+  };
+
   private _onTouchEnd = (): void => {
     this._interaction.reset();
   };
@@ -454,6 +516,18 @@ export class RuiCropper extends RuiValueAccessor<string> {
       y >= rect.y &&
       y <= rect.y + rect.height
     );
+  }
+
+  private _isInsideImageBounds(x: number, y: number): boolean {
+    if (!this._canvasEngine || !this.imageLoaded()) return false;
+    const vw = this._canvasEngine.getDisplayWidth();
+    const vh = this._canvasEngine.getDisplayHeight();
+    const bounds = this._canvasEngine.getImageBoundsInView();
+    const left = bounds.left / vw;
+    const right = bounds.right / vw;
+    const top = bounds.top / vh;
+    const bottom = bounds.bottom / vh;
+    return x >= left && x <= right && y >= top && y <= bottom;
   }
 
   private _resolveAspectRatio(preset: RuiAspectRatioPreset): number | null {
@@ -510,6 +584,57 @@ export class RuiCropper extends RuiValueAccessor<string> {
     if (y < top) y = top;
 
     return { x, y, width, height };
+  }
+
+  private _enforceAspectRatio(rect: RuiCropRect): RuiCropRect {
+    if (!this._canvasEngine || !this.imageLoaded()) return rect;
+
+    const physicalRatio = this._resolveAspectRatio(this.effectiveAspectRatio());
+    if (physicalRatio === null) return rect;
+
+    const vw = this._canvasEngine.getDisplayWidth();
+    const vh = this._canvasEngine.getDisplayHeight();
+    if (vw <= 0 || vh <= 0) return rect;
+
+    const bounds = this.constrainToImage()
+      ? this._canvasEngine.getImageBoundsInView()
+      : { left: 0, top: 0, right: vw, bottom: vh };
+
+    const left = bounds.left / vw;
+    const top = bounds.top / vh;
+    const right = bounds.right / vw;
+    const bottom = bounds.bottom / vh;
+
+    const normalizedRatio = physicalRatio * vh / vw;
+    const bw = right - left;
+    const bh = bottom - top;
+
+    let { x, y, width, height } = rect;
+
+    const maxW = Math.min(bw, bh * normalizedRatio);
+    const maxH = Math.min(bh, bw / normalizedRatio);
+    if (width > maxW) width = maxW;
+    if (height > maxH) height = maxH;
+
+    const currentRatio = width / height;
+    if (currentRatio > normalizedRatio + 0.0001) {
+      width = height * normalizedRatio;
+    } else if (currentRatio < normalizedRatio - 0.0001) {
+      height = width / normalizedRatio;
+    }
+
+    if (x + width > right) x = right - width;
+    if (y + height > bottom) y = bottom - height;
+    if (x < left) x = left;
+    if (y < top) y = top;
+
+    return { x, y, width, height };
+  }
+
+  private _constrainCropRect(rect: RuiCropRect): RuiCropRect {
+    rect = this._enforceAspectRatio(rect);
+    rect = this._constrainCropToImage(rect);
+    return rect;
   }
 
   private async _emitResult(): Promise<void> {

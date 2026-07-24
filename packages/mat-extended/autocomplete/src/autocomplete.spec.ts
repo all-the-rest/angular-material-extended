@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RuiAutocomplete } from './autocomplete';
+import { RuiValueAccessor } from '@all-the.rest/mat-extended';
 
 @Component({
   standalone: true,
@@ -240,7 +241,7 @@ describe('RuiAutocomplete', () => {
       fixture.detectChanges();
       fixture.componentInstance.control.disable();
       fixture.detectChanges();
-      const comp = fixture.debugElement.query(By.directive(RuiAutocomplete)).componentInstance as RuiAutocomplete<string>;
+      const comp = fixture.debugElement.query(By.directive(RuiAutocomplete)).componentInstance as unknown as RuiAutocomplete<string> & RuiValueAccessor<string>;
       expect(comp.disabled()).toBe(true);
     });
   });
@@ -353,7 +354,7 @@ describe('RuiAutocomplete', () => {
     it('implements writeValue', () => {
       const fixture = TestBed.createComponent(RuiAutocomplete);
       fixture.detectChanges();
-      const comp = fixture.componentInstance;
+      const comp = fixture.componentInstance as unknown as RuiAutocomplete<string> & RuiValueAccessor<string>;
       comp.writeValue('Apple');
       fixture.detectChanges();
       expect(comp.selectedOption()).toBe('Apple');
@@ -362,7 +363,7 @@ describe('RuiAutocomplete', () => {
     it('implements setDisabledState', () => {
       const fixture = TestBed.createComponent(RuiAutocomplete);
       fixture.detectChanges();
-      const comp = fixture.componentInstance;
+      const comp = fixture.componentInstance as unknown as RuiAutocomplete<string> & RuiValueAccessor<string>;
       comp.setDisabledState(true);
       fixture.detectChanges();
       expect(comp.disabled()).toBe(true);
@@ -371,7 +372,7 @@ describe('RuiAutocomplete', () => {
     it('implements registerOnChange', () => {
       const fixture = TestBed.createComponent(RuiAutocomplete);
       fixture.detectChanges();
-      const comp = fixture.componentInstance;
+      const comp = fixture.componentInstance as unknown as RuiAutocomplete<string> & RuiValueAccessor<string>;
       let called = false;
       comp.registerOnChange(() => { called = true; });
       comp.selectedOption.set('Banana');
@@ -382,7 +383,7 @@ describe('RuiAutocomplete', () => {
     it('implements registerOnTouched', () => {
       const fixture = TestBed.createComponent(RuiAutocomplete);
       fixture.detectChanges();
-      const comp = fixture.componentInstance;
+      const comp = fixture.componentInstance as unknown as RuiAutocomplete<string> & RuiValueAccessor<string>;
       let called = false;
       comp.registerOnTouched(() => { called = true; });
       comp.markAsTouched();

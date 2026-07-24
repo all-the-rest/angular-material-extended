@@ -79,7 +79,7 @@ import { MatIconModule } from '@angular/material/icon';
   <div class="mt-8 flex justify-center">
     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--mat-sys-surface-container-high)] text-xs text-[var(--mat-sys-on-surface-variant)]">
       <span class="w-2 h-2 rounded-full bg-[var(--mat-sys-tertiary)]"></span>
-      Active Development &middot; v0.1.0
+      Active Development &middot; v0.1.2
     </div>
   </div>
 </div>

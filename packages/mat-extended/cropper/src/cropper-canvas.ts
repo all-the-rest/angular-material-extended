@@ -14,6 +14,8 @@ export class RuiCropperCanvas {
 
   displayWidth = 0;
   displayHeight = 0;
+  panX = 0;
+  panY = 0;
 
   private _imgOffsetX = 0;
   private _imgOffsetY = 0;
@@ -152,8 +154,8 @@ export class RuiCropperCanvas {
     const displayH = this.imageHeight * effectiveZoom;
     const cx = w / 2;
     const cy = h / 2;
-    const imgX = cx - displayW / 2;
-    const imgY = cy - displayH / 2;
+    const imgX = cx - displayW / 2 + this.panX;
+    const imgY = cy - displayH / 2 + this.panY;
 
     this.ctx.save();
     this.ctx.translate(cx, cy);
@@ -217,8 +219,8 @@ export class RuiCropperCanvas {
     });
   }
 
-  getImageOffsetX(): number { return this._imgOffsetX; }
-  getImageOffsetY(): number { return this._imgOffsetY; }
+  getImageOffsetX(): number { return this._imgOffsetX + this.panX; }
+  getImageOffsetY(): number { return this._imgOffsetY + this.panY; }
 
   getCropPixelSize(): { width: number; height: number } {
     const vw = this.getDisplayWidth();
@@ -253,10 +255,10 @@ export class RuiCropperCanvas {
     const bboxH = displayW * s + displayH * c;
 
     return {
-      left: cx - bboxW / 2,
-      top: cy - bboxH / 2,
-      right: cx + bboxW / 2,
-      bottom: cy + bboxH / 2,
+      left: cx - bboxW / 2 + this.panX,
+      top: cy - bboxH / 2 + this.panY,
+      right: cx + bboxW / 2 + this.panX,
+      bottom: cy + bboxH / 2 + this.panY,
     };
   }
 
@@ -264,10 +266,6 @@ export class RuiCropperCanvas {
     if (rotationDeg === 0 || rotationDeg === 180 || rotationDeg === 360) return 1;
     const rad = (Math.abs(rotationDeg % 180) * Math.PI) / 180;
     if (rad < 0.001) return 1;
-    if (this.aspectRatio !== null) {
-      const alpha = Math.atan(1 / this.aspectRatio);
-      return Math.cos(rad - alpha) / Math.cos(rad);
-    }
     const s = Math.abs(Math.sin(rad)) + Math.abs(Math.cos(rad));
     return Math.max(1, s);
   }
@@ -323,8 +321,8 @@ export class RuiCropperCanvas {
     const displayH = this.imageHeight * effectiveZoom;
     const cx = vw / 2;
     const cy = vh / 2;
-    const imgX = cx - displayW / 2;
-    const imgY = cy - displayH / 2;
+    const imgX = cx - displayW / 2 + this.panX;
+    const imgY = cy - displayH / 2 + this.panY;
 
     intCtx.save();
     intCtx.translate(cx, cy);

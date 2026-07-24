@@ -367,6 +367,7 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
     </mat-card>
     <rui-showcase-code [html]="signalHtml" [ts]="signalTs" />
   </section>
+
 </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -571,4 +572,5 @@ export class MyComponent {
   onConstrainCrop(result: RuiCropperResult): void {
     this.constrainResult.set(result);
   }
+
 }

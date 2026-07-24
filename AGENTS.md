@@ -222,8 +222,7 @@ Jedes der drei Beispiele bekommt eine eigene Sektion mit `<h2 id="...">`, Live-U
 - **KEINE** Commits/Pushes ohne explizite Anweisung.
 - **KEINE** `pnpm add` von Packages, die nicht im Plan stehen, ohne Rückfrage.
 - Bei Unsicherheit: nachfragen statt raten.
-- VOR jedem Commit: `pnpm nx lint --fix` + `pnpm nx test` + `pnpm nx build demo` laufen lassen.
-- **E2E-Tests VOR Commit lokal ausführen**: `pnpm nx e2e demo-e2e` (oder isoliert: `pnpm exec playwright test --config=apps/demo-e2e/playwright.config.ts <spec-file>`). Erst committen wenn 208/208 grün. Lokaler Demo-Server muss vorher laufen (`pnpm nx serve demo`).
+- VOR jedem Commit: `pnpm nx lint --fix` + `pnpm nx test` + `pnpm nx build demo` + `pnpm nx e2e demo-e2e` laufen lassen. E2E-Tests lokal via Playwright ausführen (oder isoliert: `pnpm exec playwright test --config=apps/demo-e2e/playwright.config.ts <spec-file>`); erst committen wenn alle grün. Lokaler Demo-Server muss vorher laufen (`pnpm nx serve demo`).
 - Lint immer mit `--fix` ausführen, um auto-fixbare Probleme direkt zu beheben.
 - Bei Fehlern: IMMER den vollen Output lesen und analysieren, nicht einfach retry.
 - Tasks in `AGENTS.todo.md` sofort aktualisieren, nicht erst am Ende.
