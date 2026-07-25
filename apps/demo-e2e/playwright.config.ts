@@ -7,7 +7,7 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: isCI,
   retries: isCI ? 2 : 0,
-  workers: isCI ? 2 : 8,
+  workers: isCI ? 4 : 8,
   reporter: [['html', { outputFolder: 'playwright-report' }]],
   use: {
     baseURL: 'http://localhost:4200',
