@@ -3,6 +3,7 @@
   align-items: center;
   gap: 0.375rem;
   font-size: 0.875rem;
+  line-height: 1;
   flex-wrap: wrap;
 }
 
@@ -22,11 +23,15 @@
 .rui-breadcrumb__icon {
   font-size: 1rem;
   line-height: 1;
+  height: 1rem;
+  width: 1rem;
 }
 
 .rui-breadcrumb__separator {
   font-size: 1rem;
   line-height: 1;
+  height: 1rem;
+  width: 1rem;
   color: var(--mat-sys-outline);
 }
 

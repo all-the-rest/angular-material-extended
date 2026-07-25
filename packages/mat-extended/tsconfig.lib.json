@@ -18,7 +18,8 @@
     "menu/src/**/*.ts",
     "dialog/src/**/*.ts",
     "autocomplete/src/**/*.ts",
-    "i18n/src/**/*.ts"
+    "i18n/src/**/*.ts",
+    "on-this-page/src/**/*.ts"
   ],
   "exclude": [
     "src/**/*.spec.ts",
@@ -40,7 +41,9 @@
     "autocomplete/src/**/*.spec.ts",
     "autocomplete/src/**/*.test.ts",
     "i18n/src/**/*.spec.ts",
-    "i18n/src/**/*.test.ts"
+    "i18n/src/**/*.test.ts",
+    "on-this-page/src/**/*.spec.ts",
+    "on-this-page/src/**/*.test.ts"
   ],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

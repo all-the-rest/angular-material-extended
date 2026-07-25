@@ -79,7 +79,7 @@ import { MatIconModule } from '@angular/material/icon';
   <div class="mt-8 flex justify-center">
     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--mat-sys-surface-container-high)] text-xs text-[var(--mat-sys-on-surface-variant)]">
       <span class="w-2 h-2 rounded-full bg-[var(--mat-sys-tertiary)]"></span>
-      Active Development &middot; v0.1.2
+      Active Development &middot; v0.1.3
     </div>
   </div>
 </div>
@@ -98,6 +98,7 @@ export class Overview {
     { label: 'Breadcrumb', route: '/breadcrumb', icon: 'arrow_right_alt', description: 'Auto-Breadcrumb aus Route-Data, manueller Modus, benutzerdefinierte Trennzeichen und Icons' },
     { label: 'Multi-Select', route: '/multi-select', icon: 'playlist_add_check', description: 'Dropdown mit Mehrfachauswahl, Filterung, Select-All, Checkboxen und konfigurierbaren Optionen' },
     { label: 'Autocomplete', route: '/autocomplete', icon: 'search', description: 'Autocomplete mit eingebautem Filtering, Signal-API und Form-Integration' },
+    { label: 'Navigation', route: '/navigation', icon: 'near_me', description: 'Breadcrumb und On This Page Komponenten für Seitenstruktur und Navigation' },
   ];
 
   readonly dateTimeCards = [

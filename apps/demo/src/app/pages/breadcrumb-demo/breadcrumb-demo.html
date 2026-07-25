@@ -36,6 +36,21 @@
   </section>
 
   <section>
+    <h2 id="custom-items" class="!text-xl !font-semibold mb-1">Custom Items</h2>
+    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
+      Define breadcrumb items manually with explicit labels, URLs, and optional icons per item.
+    </p>
+
+    <mat-card appearance="outlined">
+      <mat-card-content class="pt-4">
+        <rui-breadcrumb [items]="customItems()" />
+      </mat-card-content>
+    </mat-card>
+
+    <rui-showcase-code [html]="customItemsHtml" [ts]="customItemsTs" />
+  </section>
+
+  <section>
     <h2 id="custom-separator" class="!text-xl !font-semibold mb-1">Custom Separator</h2>
     <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
       The <code class="text-xs bg-[var(--mat-sys-surface-container)] px-1 py-0.5 rounded">separator</code> input accepts

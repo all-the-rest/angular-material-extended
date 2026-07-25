@@ -26,6 +26,41 @@ export class BreadcrumbDemo {
     { label: 'Profile', url: '/settings/profile' },
   ]);
 
+  protected customItems = signal<RuiBreadcrumbItem[]>([
+    { label: 'Home', url: '/', icon: 'home' },
+    { label: 'Documents', url: '/documents', icon: 'folder' },
+    { label: 'Projects', url: '/documents/projects', icon: 'work' },
+    { label: '2024', url: '/documents/projects/2024', icon: 'calendar_today' },
+  ]);
+
+  protected customItemsHtml = `<rui-breadcrumb
+  [items]="[
+    { label: 'Home', url: '/', icon: 'home' },
+    { label: 'Documents', url: '/documents', icon: 'folder' },
+    { label: 'Projects', url: '/documents/projects', icon: 'work' },
+    { label: '2024', url: '/documents/projects/2024', icon: 'calendar_today' },
+  ]"
+/>`;
+
+  protected customItemsTs = `import { signal } from '@angular/core';
+import { RuiBreadcrumb, RuiBreadcrumbItem } from '@all-the.rest/mat-extended/breadcrumb';
+
+@Component({
+  standalone: true,
+  imports: [RuiBreadcrumb],
+  template: \`
+    <rui-breadcrumb [items]="items()" />
+  \`,
+})
+export class MyComponent {
+  items = signal<RuiBreadcrumbItem[]>([
+    { label: 'Home', url: '/', icon: 'home' },
+    { label: 'Documents', url: '/documents', icon: 'folder' },
+    { label: 'Projects', url: '/documents/projects', icon: 'work' },
+    { label: '2024', url: '/documents/projects/2024', icon: 'calendar_today' },
+  ]);
+}`;
+
   protected manualHtml = `<rui-breadcrumb
   [items]="[
     { label: 'Home', url: '/', icon: 'home' },

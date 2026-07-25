@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy, signal, inject, DestroyRef, afterNextRender } from '@angular/core';
-import { RouterModule, NavigationEnd, Router } from '@angular/router';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { filter } from 'rxjs';
 import { RuiBreadcrumb } from '@all-the.rest/mat-extended/breadcrumb';
+import { RuiOnThisPage } from '@all-the.rest/mat-extended/on-this-page';
 
 interface NavGroup {
   label: string;
@@ -16,13 +16,8 @@ interface NavItem {
   icon?: string;
 }
 
-interface TocItem {
-  id: string;
-  text: string;
-}
-
 @Component({
-  imports: [RouterModule, MatIconModule, MatTooltipModule, RuiBreadcrumb],
+  imports: [RouterModule, MatIconModule, MatTooltipModule, RuiBreadcrumb, RuiOnThisPage],
   selector: 'rui-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -46,6 +41,7 @@ export class App {
         { label: 'Multi-Select', route: '/multi-select', icon: 'playlist_add_check' },
         { label: 'Autocomplete', route: '/autocomplete', icon: 'search' },
         { label: 'Date Input', route: '/date-input', icon: 'calendar_today' },
+        { label: 'Navigation', route: '/navigation', icon: 'near_me' },
       ],
     },
     {
@@ -85,75 +81,4 @@ export class App {
       ],
     },
   ];
-
-  protected tocItems = signal<TocItem[]>([]);
-  protected activeTocId = signal('');
-
-  private router = inject(Router);
-  private destroyRef = inject(DestroyRef);
-
-  constructor() {
-    const sub = this.router.events
-      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
-      .subscribe(() => {
-        if (typeof document !== 'undefined') {
-          setTimeout(() => this.buildToc());
-        }
-      });
-    this.destroyRef.onDestroy(() => sub.unsubscribe());
-
-    afterNextRender(() => {
-      this.buildToc();
-      const main = document.querySelector('main');
-      if (main) {
-        const observer = new MutationObserver(() => this.buildToc());
-        observer.observe(main, { childList: true, subtree: true });
-        this.destroyRef.onDestroy(() => observer.disconnect());
-
-        const tocObserver = new IntersectionObserver(
-          (entries) => {
-            for (const entry of entries) {
-              if (entry.isIntersecting) {
-                this.activeTocId.set(entry.target.id);
-              }
-            }
-          },
-          { root: main, rootMargin: '-20% 0px -60% 0px', threshold: 0 },
-        );
-
-        const observeHeadings = (): void => {
-          tocObserver.disconnect();
-          main.querySelectorAll('main h2[id], h2[id]').forEach((h) => tocObserver.observe(h));
-        };
-
-        observeHeadings();
-        const reObserve = new MutationObserver(observeHeadings);
-        reObserve.observe(main, { childList: true, subtree: true });
-        this.destroyRef.onDestroy(() => {
-          tocObserver.disconnect();
-          reObserve.disconnect();
-        });
-      }
-    });
-  }
-
-  protected scrollTo(id: string): void {
-    if (typeof document === 'undefined') return;
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-      el.focus({ preventScroll: true });
-    }
-  }
-
-  private buildToc(): void {
-    if (typeof document === 'undefined') return;
-    const headings = document.querySelectorAll('main h2[id]');
-    this.tocItems.set(
-      Array.from(headings).map((h) => ({
-        id: h.id,
-        text: h.textContent ?? '',
-      })),
-    );
-  }
 }

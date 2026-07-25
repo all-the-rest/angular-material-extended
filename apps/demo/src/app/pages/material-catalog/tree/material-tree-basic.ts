@@ -29,7 +29,7 @@ interface FlatNode {
       <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
           <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-            <button mat-icon-button disabled></button>
+            <button mat-icon-button disabled aria-hidden="true"></button>
             {{ node.name }}
           </mat-tree-node>
           <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>

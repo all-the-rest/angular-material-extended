@@ -19,19 +19,19 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
 
       <ng-template #bottomSheetTemplate>
         <mat-nav-list>
-          <a mat-list-item (click)="closeBottomSheet()">
+          <a mat-list-item tabindex="0" (click)="closeBottomSheet()" (keydown.enter)="closeBottomSheet()">
             <mat-icon matListItemIcon>share</mat-icon>
             <span matListItemTitle>Share</span>
           </a>
-          <a mat-list-item (click)="closeBottomSheet()">
+          <a mat-list-item tabindex="0" (click)="closeBottomSheet()" (keydown.enter)="closeBottomSheet()">
             <mat-icon matListItemIcon>link</mat-icon>
             <span matListItemTitle>Copy link</span>
           </a>
-          <a mat-list-item (click)="closeBottomSheet()">
+          <a mat-list-item tabindex="0" (click)="closeBottomSheet()" (keydown.enter)="closeBottomSheet()">
             <mat-icon matListItemIcon>edit</mat-icon>
             <span matListItemTitle>Edit</span>
           </a>
-          <a mat-list-item (click)="closeBottomSheet()" class="text-[var(--mat-sys-error)]">
+          <a mat-list-item tabindex="0" (click)="closeBottomSheet()" (keydown.enter)="closeBottomSheet()" class="text-[var(--mat-sys-error)]">
             <mat-icon matListItemIcon color="warn">delete</mat-icon>
             <span matListItemTitle>Delete</span>
           </a>

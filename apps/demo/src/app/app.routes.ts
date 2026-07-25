@@ -280,4 +280,10 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./pages/date-input-demo/date-input-demo').then((m) => m.DateInputDemo),
   },
+  {
+    path: 'navigation',
+    data: { title: 'Navigation' },
+    loadComponent: () =>
+      import('./pages/navigation-demo/navigation-demo').then((m) => m.NavigationDemo),
+  },
 ];

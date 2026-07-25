@@ -32,7 +32,7 @@ interface FlatCheckboxNode {
       <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
           <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-            <button mat-icon-button disabled></button>
+            <button mat-icon-button disabled aria-hidden="true"></button>
             <mat-checkbox
               [checked]="checklistSelection.isSelected(node)"
               (change)="checklistSelection.toggle(node)"

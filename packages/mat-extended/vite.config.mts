@@ -14,7 +14,7 @@ export default defineConfig({
     watch: false,
     globals: true,
     environment: 'jsdom',
-    include: ['{src,cropper/src,file-upload/src,file-manager/src,data-table/src,toast/src,dialog/src,menu/src,breadcrumb/src,multi-select/src,autocomplete/src}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    include: ['{src,cropper/src,file-upload/src,file-manager/src,data-table/src,toast/src,dialog/src,menu/src,breadcrumb/src,multi-select/src,autocomplete/src,on-this-page/src}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     setupFiles: ['src/test-setup.ts'],
     reporters: ['default'],
     testTimeout: 2000,

@@ -16,6 +16,7 @@
     "menu/src/**/*.ts",
     "breadcrumb/src/**/*.ts",
     "multi-select/src/**/*.ts",
-    "autocomplete/src/**/*.ts"
+    "autocomplete/src/**/*.ts",
+    "on-this-page/src/**/*.ts"
   ]
 }

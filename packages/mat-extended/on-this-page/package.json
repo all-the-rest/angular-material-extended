@@ -1,0 +1,9 @@
+{
+  "name": "@all-the.rest/mat-extended/on-this-page",
+  "nx": { "name": "mat-ext-on-this-page" },
+  "ngPackage": {},
+  "peerDependencies": {
+    "@angular/core": "^22.0.0",
+    "@angular/common": "^22.0.0"
+  }
+}
