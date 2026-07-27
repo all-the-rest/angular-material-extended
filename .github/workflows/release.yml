@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   test-and-build:
@@ -41,9 +42,10 @@ jobs:
     needs: [test-and-build]
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       id-token: write
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 26
@@ -55,3 +57,31 @@ jobs:
         run: |
           cd packages/mat-extended
           npm publish --provenance --access public
+      - name: Extract changelog for this release
+        id: changelog
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          VERSION="${TAG#v}"
+          # Extract the section for this version from CHANGELOG.md
+          if [ -f CHANGELOG.md ]; then
+            BODY=$(awk -v ver="\\[${VERSION}\\]" '
+              $0 ~ ver { found=1; next }
+              found && /^## \[/ { exit }
+              found { print }
+            ' CHANGELOG.md | sed '/^$/d' | sed 's/^/  /' | sed 's/  - /- /' | sed 's/  ### /### /' | sed 's/  ###/###/' | sed 's/^  //')
+            if [ -n "$BODY" ]; then
+              echo "body<<EOF" >> $GITHUB_OUTPUT
+              echo "$BODY" >> $GITHUB_OUTPUT
+              echo "EOF" >> $GITHUB_OUTPUT
+            fi
+          fi
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+      - name: Create GitHub Release
+        if: steps.changelog.outputs.body != ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.changelog.outputs.tag }}" \
+            --title "Release ${{ steps.changelog.outputs.tag }}" \
+            --notes "${{ steps.changelog.outputs.body }}" \
+            --repo "${{ github.repository }}"

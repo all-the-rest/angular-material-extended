@@ -107,7 +107,17 @@ Ein Feature gilt NUR als abgeschlossen, wenn ALLE folgenden Kriterien erfüllt s
 
 > **Pipeline-Regel**: Ein Feature ist erst dann `[x]`, wenn die GitHub Action grün durchläuft.
 
-## 8. Forms-Integration
+## 9. Changelog.md (Release Notes)
+
+- **Pflicht**: Jede neue Feature-Änderung, jeder Bugfix und jeder Breaking Change MUSS vor dem Release in `CHANGELOG.md` eingetragen werden.
+- **Format**: Keep a Changelog (`https://keepachangelog.com/en/1.0.0/`) mit SemVer (Section `## [x.y.z] – YYYY-MM-DD`).
+- **Kategorien**: Einträge werden unter den Sektionen `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed` oder `Security` einsortiert.
+- **Unreleased**: Neue, noch nicht veröffentlichte Änderungen gehören unter die `## [Unreleased]`-Sektion, **nicht** direkt in eine versionierte Sektion.
+- **Beim Release**: Der `release.yml`-Workflow extrahiert den `[Unreleased]`-Inhalt automatisch für die GitHub Release-Notes. Nach dem Tagging wird der `[Unreleased]`-Block in die entsprechende Version verschoben.
+- **Einträge**: Jede Änderung als eigenen Bullet-Punkt mit konsequenter Beschreibung. Keine leeren Changelog-Einträge ("nichts geändert") – wenn sich nichts relevantes geändert hat, keine Version bumpen.
+- **Commit-Referenz**: Wo sinnvoll, PR- oder Commit-Hash in Klammern anhängen (z.B. `- Fix cropper rotation (#42)`).
+
+## 10. Forms-Integration
 
 Jede form-fähige Komponente MUSS beides unterstützen:
 
