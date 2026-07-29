@@ -59,7 +59,7 @@ import { ShowcaseCode } from '../../shared/showcase-code';
             <mat-label>Duration (ms)</mat-label>
             <input matInput type="number" [(ngModel)]="customDuration" />
           </mat-form-field>
-          <button mat-raised-button color="primary" (click)="showCustom()">Show</button>
+<button mat-raised-button color="primary" (click)="showCustom()">Show Custom</button>
         </div>
       </mat-card-content>
     </mat-card>
@@ -84,7 +84,7 @@ import { ShowcaseCode } from '../../shared/showcase-code';
       <mat-card-content class="rui-pt-4">
         <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
           @for (pos of positions; track pos) {
-            <button mat-icon-button [matTooltip]="pos" (click)="showAtPosition(pos)">
+            <button mat-icon-button [matTooltip]="pos" [aria-label]="pos" (click)="showAtPosition(pos)">
               <mat-icon>{{ positionIcons[pos] }}</mat-icon>
             </button>
           }
