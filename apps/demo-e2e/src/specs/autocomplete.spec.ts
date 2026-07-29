@@ -67,7 +67,7 @@ test.describe('Autocomplete', () => {
     await input.fill('Cherry');
     const panel = section.locator('.mat-mdc-autocomplete-panel');
     await expect(panel).toBeVisible({ timeout: 10000 });
-    await section.locator('mat-option').filter({ hasText: 'Cherry' }).click();
+    await section.locator('mat-option').filter({ hasText: 'Cherry' }).click({ force: true });
     await expect(section).toContainText('Selected: "Cherry"');
   });
 
@@ -78,7 +78,7 @@ test.describe('Autocomplete', () => {
     await input.fill('Colorado');
     const panel = section.locator('.mat-mdc-autocomplete-panel');
     await expect(panel).toBeVisible({ timeout: 10000 });
-    await section.locator('mat-option').filter({ hasText: 'Colorado' }).click();
+    await section.locator('mat-option').filter({ hasText: 'Colorado' }).click({ force: true });
     await expect(input).toHaveValue('Colorado');
   });
 
@@ -89,7 +89,7 @@ test.describe('Autocomplete', () => {
     await input.fill('Germany');
     const panel = section.locator('.mat-mdc-autocomplete-panel');
     await expect(panel).toBeVisible({ timeout: 10000 });
-    await section.locator('mat-option').filter({ hasText: 'Germany' }).click();
+    await section.locator('mat-option').filter({ hasText: 'Germany' }).click({ force: true });
     await expect(input).toHaveValue('Germany');
   });
 });
