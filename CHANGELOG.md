@@ -7,15 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.4] – 2026-07-27
+## [0.1.4] – 2026-07-29
+
+### Removed
+
+- **BREAKING**: `RuiAutocomplete` component removed (covered by native Angular Material)
+- **BREAKING**: `RuiMultiSelect` — `label` and `appearance` inputs removed; `mat-form-field` must be wrapped by consumer
 
 ### Changed
 
+- Multi-Select: composable form field pattern (consumer wraps `<mat-form-field>`)
 - Optimize CI pipeline with parallel jobs, artifact reuse, and 4 workers
 - Merge deploy-demo into CI workflow; deploy only after tests pass
 - Add `workflow_dispatch` trigger to CI workflow
+- Demo pages refactored to drop-in replacement pattern, Tailwind removed
+- `ControlValueAccessor` and `ArrayValueAccessor`: improved typings and test coverage
 - Bump postcss from 8.5.13 to 8.5.23 (reverted bump, then re-applied)
-- Bump version to `0.1.4-SNAPSHOT`
+- Bump version to `0.1.4`
+
+### Fixed
+
+- File upload dropzone: missing `()` in signal calls (`disabled` → `disabled()`)
+- File upload demo: `toggleControl()` method for enable/disable toggle
+- E2E file-upload: improved file chooser wait reliability
+- E2E tests: mat-option clicks with `force:true` to avoid pointer interception
 
 ## [0.1.3] – 2026-07-25
 
