@@ -8,17 +8,17 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatProgressSpinnerModule, MatIconModule, ShowcaseCode],
   template: `
-    <section id="progress-spinner" class="mb-8">
-      <h2 id="progress-spinner" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Progress Spinner</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-spinner in different sizes.</p>
+    <section id="progress-spinner" class="rui-mb-8">
+      <h2 id="progress-spinner" class="rui-font-bold rui-text-on-surface rui-mb-1">Progress Spinner</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-spinner in different sizes.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5 flex gap-6 items-center">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-6 rui-items-center">
         <div>
-          <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-2">Default</p>
+          <p class="rui-text-sm rui-text-on-surface-variant rui-mb-2">Default</p>
           <mat-spinner diameter="32"></mat-spinner>
         </div>
         <div>
-          <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-2">Small</p>
+          <p class="rui-text-sm rui-text-on-surface-variant rui-mb-2">Small</p>
           <mat-spinner diameter="20"></mat-spinner>
         </div>
       </div>

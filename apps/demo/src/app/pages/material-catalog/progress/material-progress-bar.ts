@@ -8,17 +8,17 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatProgressBarModule, MatIconModule, ShowcaseCode],
   template: `
-    <section id="progress-bar" class="mb-8">
-      <h2 id="progress-bar" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Progress Bar</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-progress-bar in determinate and indeterminate modes.</p>
+    <section id="progress-bar" class="rui-mb-8">
+      <h2 id="progress-bar" class="rui-font-bold rui-text-on-surface rui-mb-1">Progress Bar</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-progress-bar in determinate and indeterminate modes.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5 space-y-4">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-space-y-4">
         <div>
-          <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-2">Determinate (65%)</p>
+          <p class="rui-text-sm rui-text-on-surface-variant rui-mb-2">Determinate (65%)</p>
           <mat-progress-bar mode="determinate" [value]="65"></mat-progress-bar>
         </div>
         <div>
-          <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-2">Indeterminate</p>
+          <p class="rui-text-sm rui-text-on-surface-variant rui-mb-2">Indeterminate</p>
           <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
       </div>

@@ -7,10 +7,10 @@ import { MenuIcons } from './menu/material-menu-icons';
   standalone: true,
   imports: [MenuBasic, MenuIcons],
   template: `
-    <div class="p-4 md:p-6 space-y-2">
-      <div class="mb-6">
-        <h1 class="font-bold text-[var(--mat-sys-on-surface)]">Menu</h1>
-        <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mt-1">MatMenu provides a floating panel of selectable options triggered by a button or other element.</p>
+    <div class="rui-p-4 rui-md:p-6 rui-space-y-2">
+      <div class="rui-mb-6">
+        <h1 class="rui-font-bold rui-text-on-surface">Menu</h1>
+        <p class="rui-text-sm rui-text-on-surface-variant rui-mt-1">MatMenu provides a floating panel of selectable options triggered by a button or other element.</p>
       </div>
 
       <rui-material-menu-basic />

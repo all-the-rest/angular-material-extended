@@ -1,17 +1,17 @@
-<div class="max-w-4xl mx-auto p-4 md:p-6 space-y-8">
-  <h1 class="!text-2xl !font-bold">Breadcrumb</h1>
+<div class="rui-max-w-4xl rui-mx-auto rui-p-4 rui-md:p-6 rui-space-y-8">
+  <h1 style="font-size:1.5rem;font-weight:700;">Breadcrumb</h1>
 
   <section>
-    <h2 id="auto-mode" class="!text-xl !font-semibold mb-1">Auto Mode</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
-      When used without <code class="text-xs bg-[var(--mat-sys-surface-container)] px-1 py-0.5 rounded">items</code> input,
-      the component reads route <code class="text-xs bg-[var(--mat-sys-surface-container)] px-1 py-0.5 rounded">data.title</code>
-      (or <code class="text-xs bg-[var(--mat-sys-surface-container)] px-1 py-0.5 rounded">data.breadcrumb</code> as override)
+    <h2 id="auto-mode" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Auto Mode</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
+      When used without <code class="rui-text-xs rui-bg-surface-container rui-px-1 rui-py-0.5 rui-rounded">items</code> input,
+      the component reads route <code class="rui-text-xs rui-bg-surface-container rui-px-1 rui-py-0.5 rui-rounded">data.title</code>
+      (or <code class="rui-text-xs rui-bg-surface-container rui-px-1 rui-py-0.5 rui-rounded">data.breadcrumb</code> as override)
       and builds the breadcrumb chain automatically. The current page breadcrumb below is generated from the active route.
     </p>
 
     <mat-card appearance="outlined">
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-breadcrumb />
       </mat-card-content>
     </mat-card>
@@ -20,14 +20,14 @@
   </section>
 
   <section>
-    <h2 id="manual-mode" class="!text-xl !font-semibold mb-1">Manual Mode</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
-      Pass an explicit <code class="text-xs bg-[var(--mat-sys-surface-container)] px-1 py-0.5 rounded">items</code> input
+    <h2 id="manual-mode" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Manual Mode</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
+      Pass an explicit <code class="rui-text-xs rui-bg-surface-container rui-px-1 rui-py-0.5 rui-rounded">items</code> input
       to render a custom breadcrumb trail. Icons on individual items are supported.
     </p>
 
     <mat-card appearance="outlined">
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-breadcrumb [items]="manualItems()" />
       </mat-card-content>
     </mat-card>
@@ -36,13 +36,13 @@
   </section>
 
   <section>
-    <h2 id="custom-items" class="!text-xl !font-semibold mb-1">Custom Items</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
+    <h2 id="custom-items" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Custom Items</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
       Define breadcrumb items manually with explicit labels, URLs, and optional icons per item.
     </p>
 
     <mat-card appearance="outlined">
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-breadcrumb [items]="customItems()" />
       </mat-card-content>
     </mat-card>
@@ -51,14 +51,14 @@
   </section>
 
   <section>
-    <h2 id="custom-separator" class="!text-xl !font-semibold mb-1">Custom Separator</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
-      The <code class="text-xs bg-[var(--mat-sys-surface-container)] px-1 py-0.5 rounded">separator</code> input accepts
+    <h2 id="custom-separator" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Custom Separator</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
+      The <code class="rui-text-xs rui-bg-surface-container rui-px-1 rui-py-0.5 rui-rounded">separator</code> input accepts
       any Material icon name.
     </p>
 
     <mat-card appearance="outlined">
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-breadcrumb [items]="manualItems2()" separator="arrow_forward" />
       </mat-card-content>
     </mat-card>
@@ -67,14 +67,14 @@
   </section>
 
   <section>
-    <h2 id="single-crumb" class="!text-xl !font-semibold mb-1">Single Crumb</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
+    <h2 id="single-crumb" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Single Crumb</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
       A single breadcrumb renders without a separator and with
-      <code class="text-xs bg-[var(--mat-sys-surface-container)] px-1 py-0.5 rounded">aria-current="page"</code>.
+      <code class="rui-text-xs rui-bg-surface-container rui-px-1 rui-py-0.5 rui-rounded">aria-current="page"</code>.
     </p>
 
     <mat-card appearance="outlined">
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-breadcrumb [items]="[{ label: 'Home', url: '/' }]" />
       </mat-card-content>
     </mat-card>
@@ -83,16 +83,16 @@
   </section>
 
   <section>
-    <h2 id="configuration" class="!text-xl !font-semibold mb-1">Configuration</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
+    <h2 id="configuration" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Configuration</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
       The root element and its icon are configurable via the
-      <code class="text-xs bg-[var(--mat-sys-surface-container)] px-1 py-0.5 rounded">RUI_BREADCRUMB_DEFAULT_OPTIONS</code>
+      <code class="rui-text-xs rui-bg-surface-container rui-px-1 rui-py-0.5 rui-rounded">RUI_BREADCRUMB_DEFAULT_OPTIONS</code>
       injection token.
     </p>
 
     <mat-card appearance="outlined">
-      <mat-card-content class="pt-4">
-        <pre ruiCodeHighlight language="typescript" class="m-0 text-xs leading-relaxed overflow-x-auto"><code>{{ configHtml }}</code></pre>
+      <mat-card-content class="rui-pt-4">
+        <pre ruiCodeHighlight language="typescript" class="rui-m-0 rui-text-xs rui-leading-relaxed" style="overflow-x:auto;"><code>{{ configHtml }}</code></pre>
       </mat-card-content>
     </mat-card>
   </section>

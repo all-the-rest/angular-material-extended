@@ -10,11 +10,11 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatMenuModule, MatButtonModule, MatIconModule, MatDividerModule, ShowcaseCode],
   template: `
-    <section id="menu-icons" class="mb-8">
-      <h2 id="menu-icons" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Menu with Icons</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">Menu items with leading icons for better visual recognition.</p>
+    <section id="menu-icons" class="rui-mb-8">
+      <h2 id="menu-icons" class="rui-font-bold rui-text-on-surface rui-mb-1">Menu with Icons</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">Menu items with leading icons for better visual recognition.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5 flex gap-2 flex-wrap items-center">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-2 rui-flex-wrap rui-items-center">
         <button mat-raised-button color="accent" [matMenuTriggerFor]="iconMenu">Actions</button>
         <mat-menu #iconMenu="matMenu">
           <button mat-menu-item>
@@ -30,7 +30,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
             <span>Move</span>
           </button>
           <mat-divider></mat-divider>
-          <button mat-menu-item class="text-[var(--mat-sys-error)]">
+          <button mat-menu-item class="rui-text-error">
             <mat-icon color="warn">delete</mat-icon>
             <span>Delete</span>
           </button>

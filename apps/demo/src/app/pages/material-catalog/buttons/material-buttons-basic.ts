@@ -8,11 +8,11 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatButtonModule, MatIconModule, ShowcaseCode],
   template: `
-    <section id="button-variants" class="mb-8">
-      <h2 id="button-variants" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Basic Variants</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-button, mat-raised-button, mat-stroked-button, mat-flat-button with color variants.</p>
+    <section id="button-variants" class="rui-mb-8">
+      <h2 id="button-variants" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Variants</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-button, mat-raised-button, mat-stroked-button, mat-flat-button with color variants.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5 flex gap-2 flex-wrap items-center">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-2 rui-flex-wrap rui-items-center">
         <button mat-button>Basic</button>
         <button mat-raised-button color="primary">Primary</button>
         <button mat-stroked-button color="accent">Accent</button>

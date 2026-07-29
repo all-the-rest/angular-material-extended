@@ -11,7 +11,7 @@ Tailwind CSS. Supports both automatic route-based breadcrumb generation via
 ## Installation
 
 ```bash
-pnpm add @all-the.rest/mat-extended @all-the.rest/mat-extended/breadcrumb
+pnpm add @all-the.rest/mat-extended
 ```
 
 ## Usage

@@ -1,38 +1,25 @@
-import { Component, input, output, model, signal, computed, forwardRef, DestroyRef, inject, ChangeDetectionStrategy } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { RuiValueAccessor } from '@all-the.rest/mat-extended';
+import { Component, input, output, model, signal, computed, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { MatAutocompleteModule, MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 let nextId = 0;
 
 @Component({
   selector: 'rui-autocomplete',
   standalone: true,
-  imports: [MatAutocompleteModule, MatFormFieldModule, MatInputModule],
+  imports: [MatAutocompleteModule],
   templateUrl: './autocomplete.html',
   styleUrl: './autocomplete.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => RuiAutocomplete),
-      multi: true,
-    },
-  ],
 })
-export class RuiAutocomplete<T = string> extends RuiValueAccessor<T> {
-  private readonly destroyRef = inject(DestroyRef);
+export class RuiAutocomplete<T = string> {
   private readonly instanceId = nextId++;
+
+  @ViewChild(MatAutocomplete, { static: true }) readonly inner!: MatAutocomplete;
 
   readonly panelId = `rui-autocomplete-panel-${this.instanceId}`;
   readonly panelOpen = signal(false);
 
   readonly options = input<T[]>([]);
-  readonly label = input<string>('');
-  readonly placeholder = input<string>('');
-  readonly appearance = input<'fill' | 'outline'>('outline');
   readonly displayWith = input<(value: T) => string>((v: T) => String(v ?? ''));
   readonly filterFn = input<((options: T[], query: string) => T[]) | null>(null);
   readonly compareWith = input<((a: T, b: T) => boolean) | null>(null);
@@ -61,16 +48,9 @@ export class RuiAutocomplete<T = string> extends RuiValueAccessor<T> {
     });
   });
 
-  protected onInput(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.query.set(input.value);
-  }
-
   protected onOptionSelected(event: MatAutocompleteSelectedEvent): void {
     const value = event.option.value as T;
     this.selectedOption.set(value);
-    this.markAsChanged(value);
-    this.markAsTouched();
     this.optionSelected.emit(value);
   }
 
@@ -80,11 +60,6 @@ export class RuiAutocomplete<T = string> extends RuiValueAccessor<T> {
 
   protected onClosed(): void {
     this.panelOpen.set(false);
-  }
-
-  override writeValue(value: T | undefined): void {
-    super.writeValue(value);
-    this.selectedOption.set(value ?? null);
   }
 
   protected compareFn = (a: T, b: T): boolean => {

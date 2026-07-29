@@ -22,11 +22,11 @@ interface FlatNode {
   standalone: true,
   imports: [MatTreeModule, MatIconModule, MatButtonModule, ShowcaseCode],
   template: `
-    <section id="tree-basic" class="mb-8">
-      <h2 id="tree-basic" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Basic Tree</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-tree with flat data source and expand/collapse toggle.</p>
+    <section id="tree-basic" class="rui-mb-8">
+      <h2 id="tree-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Tree</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-tree with flat data source and expand/collapse toggle.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
           <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
             <button mat-icon-button disabled aria-hidden="true"></button>

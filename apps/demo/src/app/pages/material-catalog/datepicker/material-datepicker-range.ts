@@ -11,12 +11,12 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [FormsModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, ShowcaseCode],
   template: `
-    <section id="datepicker-range" class="mb-8">
-      <h2 id="datepicker-range" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Date Range Picker</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">Select a start and end date with mat-date-range-picker.</p>
+    <section id="datepicker-range" class="rui-mb-8">
+      <h2 id="datepicker-range" class="rui-font-bold rui-text-on-surface rui-mb-1">Date Range Picker</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">Select a start and end date with mat-date-range-picker.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
-        <mat-form-field appearance="outline" class="w-full max-w-xs">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
+        <mat-form-field appearance="outline" class="rui-w-full rui-max-w-xs">
           <mat-label>Date range</mat-label>
           <mat-date-range-input [rangePicker]="rangePicker">
             <input matStartDate [(ngModel)]="startDate" placeholder="Start date" />

@@ -9,16 +9,16 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, MatIconModule, ShowcaseCode],
   template: `
-    <section id="form-fields-basic" class="mb-8">
-      <h2 id="form-fields-basic" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Basic Form Fields</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-form-field with outline and fill appearances, prefix/suffix icons.</p>
+    <section id="form-fields-basic" class="rui-mb-8">
+      <h2 id="form-fields-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Form Fields</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-form-field with outline and fill appearances, prefix/suffix icons.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5 flex flex-col gap-3">
-        <mat-form-field appearance="outline" class="w-full">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-flex-col rui-gap-3">
+        <mat-form-field appearance="outline" class="rui-w-full">
           <mat-label>Text Input</mat-label>
           <input matInput placeholder="Enter text" />
         </mat-form-field>
-        <mat-form-field appearance="fill" class="w-full">
+        <mat-form-field appearance="fill" class="rui-w-full">
           <mat-label>Filled Input</mat-label>
           <input matInput placeholder="Filled style" />
           <mat-icon matIconSuffix>search</mat-icon>

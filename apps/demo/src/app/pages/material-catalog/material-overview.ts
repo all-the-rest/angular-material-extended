@@ -14,25 +14,26 @@ interface MaterialSection {
   standalone: true,
   imports: [RouterModule, MatIconModule],
   template: `
-<div class="p-4 md:p-6 space-y-6">
-  <div class="text-center mb-6">
-    <h1 class="font-bold text-[var(--mat-sys-on-surface)]">Angular Material Components</h1>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mt-1 max-w-xl mx-auto">
+<div class="rui-p-4 rui-md:p-6 rui-space-y-6">
+  <div class="rui-text-center rui-mb-6">
+    <h1 class="rui-font-bold rui-text-on-surface">Angular Material Components</h1>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mt-1 rui-max-w-xl rui-mx-auto">
       Explore each Angular Material component in detail. Click a section to see live examples.
     </p>
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div class="rui-grid rui-grid-cols-1 rui-sm:grid-cols-2 rui-lg:grid-cols-3 rui-gap-4">
     @for (section of sections; track section.route) {
       <a
         [routerLink]="section.route"
-        class="block p-5 rounded-xl border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] hover:bg-[var(--mat-sys-surface-container-low)] hover:border-[var(--mat-sys-primary)] transition-all no-underline group"
+        class="rui-block rui-p-5 rui-rounded-xl rui-border rui-border-outline-variant rui-bg-surface rui-no-underline"
+        style="transition:all 0.15s;"
       >
-        <div class="flex items-center gap-3 mb-2">
-          <mat-icon class="group-hover:text-[var(--mat-sys-primary)] transition-colors">{{ section.icon }}</mat-icon>
-          <h2 [id]="section.route + '-section'" class="text-base font-semibold text-[var(--mat-sys-on-surface)] group-hover:text-[var(--mat-sys-primary)] transition-colors">{{ section.title }}</h2>
+        <div class="rui-flex rui-items-center rui-gap-3 rui-mb-2">
+          <mat-icon style="transition:color 0.15s;">{{ section.icon }}</mat-icon>
+          <h2 [id]="section.route + '-section'" class="rui-text-base rui-font-semibold rui-text-on-surface" style="transition:color 0.15s;">{{ section.title }}</h2>
         </div>
-        <p class="text-xs text-[var(--mat-sys-on-surface-variant)] leading-relaxed">{{ section.description }}</p>
+        <p class="rui-text-xs rui-text-on-surface-variant rui-leading-relaxed">{{ section.description }}</p>
       </a>
     }
   </div>

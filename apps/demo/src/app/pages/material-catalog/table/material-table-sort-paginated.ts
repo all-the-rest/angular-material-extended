@@ -16,30 +16,30 @@ interface PeriodicElement {
   standalone: true,
   imports: [MatTableModule, MatSortModule, MatPaginatorModule, ShowcaseCode],
   template: `
-    <section id="table-sort-paginated" class="mb-8">
-      <h2 id="table-sort-paginated" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Sortable & Paginated Table</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-table with matSort and mat-paginator for interactive sorting and page navigation.</p>
+    <section id="table-sort-paginated" class="rui-mb-8">
+      <h2 id="table-sort-paginated" class="rui-font-bold rui-text-on-surface rui-mb-1">Sortable & Paginated Table</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-table with matSort and mat-paginator for interactive sorting and page navigation.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
-        <table mat-table [dataSource]="dataSource" matSort class="w-full">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
+        <table mat-table [dataSource]="dataSource" matSort class="rui-w-full">
 
           <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="font-medium">No.</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="rui-font-medium">No.</th>
             <td mat-cell *matCellDef="let e">{{ e.position }}</td>
           </ng-container>
 
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="font-medium">Name</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="rui-font-medium">Name</th>
             <td mat-cell *matCellDef="let e">{{ e.name }}</td>
           </ng-container>
 
           <ng-container matColumnDef="weight">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="font-medium">Weight</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="rui-font-medium">Weight</th>
             <td mat-cell *matCellDef="let e">{{ e.weight }}</td>
           </ng-container>
 
           <ng-container matColumnDef="symbol">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="font-medium">Symbol</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="rui-font-medium">Symbol</th>
             <td mat-cell *matCellDef="let e">{{ e.symbol }}</td>
           </ng-container>
 
@@ -50,7 +50,7 @@ interface PeriodicElement {
           [pageSizeOptions]="[5, 10]"
           [showFirstLastButtons]="true"
           aria-label="Table paginator"
-          class="mt-2"
+          class="rui-mt-2"
         >
         </mat-paginator>
       </div>
@@ -78,7 +78,7 @@ export class MaterialTableSortPaginated {
     { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
   ];
 
-  protected codeHtml = `<table mat-table [dataSource]="dataSource" matSort class="w-full">
+  protected codeHtml = `<table mat-table [dataSource]="dataSource" matSort class="rui-w-full">
   <ng-container matColumnDef="position">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
     <td mat-cell *matCellDef="let e">{{ e.position }}</td>

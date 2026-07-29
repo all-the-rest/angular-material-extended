@@ -22,21 +22,21 @@ import { ShowcaseCode } from '../../shared/showcase-code';
     provideRuiDateAdapter(createDateFormats('dd.MM.YYYY')),
   ],
   template: `
-<div class="max-w-4xl mx-auto p-4 md:p-6 space-y-8">
-  <h1 class="font-bold">Date Input Demo (MatDatepicker)</h1>
+<div class="rui-max-w-4xl rui-mx-auto rui-p-4 rui-md:p-6 rui-space-y-8">
+  <h1 class="rui-font-bold">Date Input Demo (MatDatepicker)</h1>
 
-  <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
+  <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
     Typ "20260722" → <code>ruiDateInputMask</code> fügt automatisch Trennzeichen ein.
     "2026-07-22" direkt funktioniert genauso. Der MatDatepicker dient als Fallback zur Kalenderauswahl.
   </p>
 
   <section>
-    <h2 id="basic" class="!text-xl !font-semibold mb-1">Basic Usage</h2>
-  <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
+    <h2 id="basic" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Basic Usage</h2>
+  <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
     <code>ruiDateInputMask</code> direkt auf dem <code>matInput</code> — keine eigene Komponente nötig.
   </p>
   <mat-card>
-    <mat-card-content class="pt-4">
+    <mat-card-content class="rui-pt-4">
       <mat-form-field>
         <mat-label>Date (YYYY-MM-dd)</mat-label>
         <input
@@ -50,7 +50,7 @@ import { ShowcaseCode } from '../../shared/showcase-code';
         <mat-datepicker #dp />
       </mat-form-field>
       @if (basicModel.value) {
-        <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mt-2">Value: {{ basicModel.value }}</p>
+        <p class="rui-text-sm rui-text-on-surface-variant rui-mt-2">Value: {{ basicModel.value }}</p>
       }
     </mat-card-content>
   </mat-card>
@@ -58,73 +58,77 @@ import { ShowcaseCode } from '../../shared/showcase-code';
   </section>
 
   <section>
-    <h2 id="format-override" class="!text-xl !font-semibold mb-1">Format Override (per-field)</h2>
-  <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
+    <h2 id="format-override" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Format Override (per-field)</h2>
+  <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
     Jedes Feld hat sein eigenes <code>ruiDateInputMask</code>-Format — Maskierung <em>und</em> Parsing passen sich automatisch an.
   </p>
   <mat-card>
-    <mat-card-content class="flex flex-col gap-4 pt-4">
-      <mat-form-field>
-        <mat-label>dd.MM.YYYY</mat-label>
-        <input matInput ruiDateInputMask="dd.MM.YYYY" [matDatepicker]="dp1" [(ngModel)]="date1" #m1="ngModel" />
-        <mat-datepicker-toggle matSuffix [for]="dp1" />
-        <mat-datepicker #dp1 />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>MM/dd/YYYY</mat-label>
-        <input matInput ruiDateInputMask="MM/dd/YYYY" [matDatepicker]="dp2" [(ngModel)]="date2" #m2="ngModel" />
-        <mat-datepicker-toggle matSuffix [for]="dp2" />
-        <mat-datepicker #dp2 />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>YYYY/MM/dd</mat-label>
-        <input matInput ruiDateInputMask="YYYY/MM/dd" [matDatepicker]="dp3" [(ngModel)]="date3" #m3="ngModel" />
-        <mat-datepicker-toggle matSuffix [for]="dp3" />
-        <mat-datepicker #dp3 />
-      </mat-form-field>
+    <mat-card-content class="rui-pt-4">
+      <div style="display:flex;flex-direction:column;gap:0.25rem;">
+        <mat-form-field>
+          <mat-label>dd.MM.YYYY</mat-label>
+          <input matInput ruiDateInputMask="dd.MM.YYYY" [matDatepicker]="dp1" [(ngModel)]="date1" #m1="ngModel" />
+          <mat-datepicker-toggle matSuffix [for]="dp1" />
+          <mat-datepicker #dp1 />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>MM/dd/YYYY</mat-label>
+          <input matInput ruiDateInputMask="MM/dd/YYYY" [matDatepicker]="dp2" [(ngModel)]="date2" #m2="ngModel" />
+          <mat-datepicker-toggle matSuffix [for]="dp2" />
+          <mat-datepicker #dp2 />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>YYYY/MM/dd</mat-label>
+          <input matInput ruiDateInputMask="YYYY/MM/dd" [matDatepicker]="dp3" [(ngModel)]="date3" #m3="ngModel" />
+          <mat-datepicker-toggle matSuffix [for]="dp3" />
+          <mat-datepicker #dp3 />
+        </mat-form-field>
+      </div>
     </mat-card-content>
   </mat-card>
   <rui-showcase-code [html]="formatOverrideHtml" [ts]="formatOverrideTs" />
   </section>
 
   <section>
-    <h2 id="global-config" class="!text-xl !font-semibold mb-1">Global Configuration</h2>
-  <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
+    <h2 id="global-config" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Global Configuration</h2>
+  <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
     Diese Seite nutzt <code>provideRuiDateAdapter(createDateFormats('dd.MM.YYYY'))</code>.
     Das erste Feld hat kein <code>ruiDateInputMask</code> &rarr; globales Format.
     Das zweite Feld &uuml;berschreibt pro Feld.
   </p>
   <mat-card>
-    <mat-card-content class="flex flex-col gap-4 pt-4">
-      <mat-form-field>
-        <mat-label>Global: dd.MM.YYYY (ohne Mask)</mat-label>
-        <input matInput [matDatepicker]="dp6" [(ngModel)]="globalDate" #g6="ngModel" />
-        <mat-datepicker-toggle matSuffix [for]="dp6" />
-        <mat-datepicker #dp6 />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Override mit Mask: MM/dd/YYYY</mat-label>
-        <input matInput ruiDateInputMask="MM/dd/YYYY" [matDatepicker]="dp7" [(ngModel)]="overriddenDate" #g7="ngModel" />
-        <mat-datepicker-toggle matSuffix [for]="dp7" />
-        <mat-datepicker #dp7 />
-      </mat-form-field>
+    <mat-card-content class="rui-pt-4">
+      <div style="display:flex;flex-direction:column;gap:0.25rem;">
+        <mat-form-field>
+          <mat-label>Global: dd.MM.YYYY (ohne Mask)</mat-label>
+          <input matInput [matDatepicker]="dp6" [(ngModel)]="globalDate" #g6="ngModel" />
+          <mat-datepicker-toggle matSuffix [for]="dp6" />
+          <mat-datepicker #dp6 />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Override mit Mask: MM/dd/YYYY</mat-label>
+          <input matInput ruiDateInputMask="MM/dd/YYYY" [matDatepicker]="dp7" [(ngModel)]="overriddenDate" #g7="ngModel" />
+          <mat-datepicker-toggle matSuffix [for]="dp7" />
+          <mat-datepicker #dp7 />
+        </mat-form-field>
+      </div>
     </mat-card-content>
   </mat-card>
   <rui-showcase-code [html]="globalConfigHtml" [ts]="globalConfigTs" />
   </section>
 
   <section>
-    <h2 id="reactive-forms" class="!text-xl !font-semibold mb-1">Reactive Forms</h2>
+    <h2 id="reactive-forms" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Reactive Forms</h2>
   <mat-card>
-    <mat-card-content class="flex flex-col gap-3 pt-4">
+    <mat-card-content class="rui-pt-4">
       <mat-form-field>
         <mat-label>Date</mat-label>
         <input matInput ruiDateInputMask="YYYY-MM-dd" [matDatepicker]="dp4" [formControl]="dateControl" />
         <mat-datepicker-toggle matSuffix [for]="dp4" />
         <mat-datepicker #dp4 />
       </mat-form-field>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)]">Control value: {{ dateControl.value | json }}</p>
-      <div class="flex gap-2">
+      <p class="rui-text-sm rui-text-on-surface-variant" style="margin-top:0.5rem;">Control value: {{ dateControl.value | json }}</p>
+      <div class="rui-flex rui-gap-2" style="margin-top:0.5rem;">
         <button mat-flat-button (click)="toggleDisabled()">
           {{ dateControl.disabled ? 'Enable' : 'Disable' }}
         </button>
@@ -138,10 +142,10 @@ import { ShowcaseCode } from '../../shared/showcase-code';
   </section>
 
   <section>
-    <h2 id="signal-form" class="!text-xl !font-semibold mb-1">Signal Form</h2>
-  <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Mit model()-Signal via ngModel.</p>
+    <h2 id="signal-form" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Signal Form</h2>
+  <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Mit model()-Signal via ngModel.</p>
   <mat-card>
-    <mat-card-content class="pt-4">
+    <mat-card-content class="rui-pt-4">
       <mat-form-field>
         <mat-label>Date</mat-label>
         <input matInput ruiDateInputMask="YYYY-MM-dd" [matDatepicker]="dp5" [ngModel]="signalDate()" (ngModelChange)="signalDate.set($event)" />
@@ -149,7 +153,7 @@ import { ShowcaseCode } from '../../shared/showcase-code';
         <mat-datepicker #dp5 />
       </mat-form-field>
       @if (signalDate()) {
-        <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mt-2">Value: {{ signalDate() }}</p>
+        <p class="rui-text-sm rui-text-on-surface-variant rui-mt-2">Value: {{ signalDate() }}</p>
       }
     </mat-card-content>
   </mat-card>

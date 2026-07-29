@@ -19,22 +19,22 @@ import { ShowcaseCode } from '../../shared/showcase-code';
     FormsModule, ReactiveFormsModule, ShowcaseCode,
   ],
   template: `
-<div class="max-w-4xl mx-auto p-4 md:p-6 space-y-8">
-  <h1 class="font-bold">File Upload Demo</h1>
-  <p class="text-sm text-[var(--mat-sys-on-surface-variant)]">
+<div class="rui-max-w-4xl rui-mx-auto rui-p-4 rui-md:p-6 rui-space-y-8">
+  <h1 class="rui-font-bold">File Upload Demo</h1>
+  <p class="rui-text-sm rui-text-on-surface-variant">
     Drag &amp; Drop Upload mit Validierung, Progress-Tracking und Form-Integration.
   </p>
 
   <section>
-    <h2 id="basic" class="!text-xl !font-semibold mb-1">Basic Usage</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Configure multiple files, max size, and auto-upload behavior.</p>
+    <h2 id="basic" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Basic Usage</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Configure multiple files, max size, and auto-upload behavior.</p>
     <mat-card>
-      <mat-card-content class="pt-4 flex flex-col gap-4">
-        <div class="flex gap-4 items-center flex-wrap">
+      <mat-card-content class="rui-pt-4 rui-flex rui-flex-col rui-gap-4">
+        <div class="rui-flex rui-gap-4 rui-items-center rui-flex-wrap">
           <mat-slide-toggle [checked]="multipleFiles()" (change)="multipleFiles.set($event.checked)">
             Multiple files
           </mat-slide-toggle>
-          <mat-form-field class="w-48">
+          <mat-form-field class="rui-w-48">
             <mat-label>Max file size (bytes)</mat-label>
             <input matInput type="number" [value]="maxFileSize()" (input)="onMaxSizeChange($event)" />
           </mat-form-field>
@@ -52,7 +52,7 @@ import { ShowcaseCode } from '../../shared/showcase-code';
         @if (uploadedFiles().length > 0) {
           <div>
             <strong>Uploaded Files</strong>
-            <ul class="list-disc pl-5">
+            <ul class="rui-list-disc rui-pl-5">
               @for (f of uploadedFiles(); track f.id) {
                 <li>{{ f.file.name }} &mdash; {{ f.status }}</li>
               }
@@ -65,10 +65,10 @@ import { ShowcaseCode } from '../../shared/showcase-code';
   </section>
 
   <section>
-    <h2 id="accept" class="!text-xl !font-semibold mb-1">File Type Filtering</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Restrict accepted file types using the <code>accept</code> attribute.</p>
+    <h2 id="accept" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">File Type Filtering</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Restrict accepted file types using the <code>accept</code> attribute.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-file-upload
           accept="image/*"
           [maxFiles]="5"
@@ -82,10 +82,10 @@ import { ShowcaseCode } from '../../shared/showcase-code';
   </section>
 
   <section>
-    <h2 id="sortable-editable" class="!text-xl !font-semibold mb-1">Sortable &amp; Editable</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Enable drag-to-reorder and inline rename on double-click.</p>
+    <h2 id="sortable-editable" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Sortable &amp; Editable</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Enable drag-to-reorder and inline rename on double-click.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-file-upload
           [sortable]="true"
           [editable]="true"
@@ -98,10 +98,10 @@ import { ShowcaseCode } from '../../shared/showcase-code';
   </section>
 
   <section>
-    <h2 id="template-driven" class="!text-xl !font-semibold mb-1">Template-driven Form</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Using ngModel with the file upload. The model value is the array of RuiFileItem.</p>
+    <h2 id="template-driven" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Template-driven Form</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Using ngModel with the file upload. The model value is the array of RuiFileItem.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-file-upload
           ngModel
           name="fileUploadModel"
@@ -109,7 +109,7 @@ import { ShowcaseCode } from '../../shared/showcase-code';
           [uploadHandler]="uploadHandler"
         />
         @if (fileUploadModelRef.value?.length) {
-          <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mt-2">{{ fileUploadModelRef.value.length }} file(s) selected</p>
+          <p class="rui-text-sm rui-text-on-surface-variant rui-mt-2">{{ fileUploadModelRef.value.length }} file(s) selected</p>
         }
       </mat-card-content>
     </mat-card>
@@ -117,17 +117,17 @@ import { ShowcaseCode } from '../../shared/showcase-code';
   </section>
 
   <section>
-    <h2 id="reactive-forms" class="!text-xl !font-semibold mb-1">Reactive Forms Integration</h2>
+    <h2 id="reactive-forms" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Reactive Forms Integration</h2>
     <mat-card>
-      <mat-card-content class="pt-4 flex flex-col gap-3">
+      <mat-card-content class="rui-pt-4 rui-flex rui-flex-col rui-gap-3">
         <rui-file-upload
           [formControl]="fileControl"
           [uploadHandler]="uploadHandler"
         />
-        <p class="text-sm text-[var(--mat-sys-on-surface-variant)]">
+        <p class="rui-text-sm rui-text-on-surface-variant">
           Files in control: {{ fileControl.value?.length ?? 0 }}
         </p>
-        <button mat-flat-button (click)="fileControl.disable()" class="self-start">
+        <button mat-flat-button (click)="fileControl.disable()" class="rui-self-start">
           {{ fileControl.disabled ? 'Enable' : 'Disable' }} form control
         </button>
       </mat-card-content>
@@ -136,16 +136,16 @@ import { ShowcaseCode } from '../../shared/showcase-code';
   </section>
 
   <section>
-    <h2 id="signal-form" class="!text-xl !font-semibold mb-1">Signal Form</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Using model() signal directly — no FormsModule or ReactiveFormsModule needed.</p>
+    <h2 id="signal-form" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Signal Form</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Using model() signal directly — no FormsModule or ReactiveFormsModule needed.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-file-upload
           [(files)]="signalFiles"
           [uploadHandler]="uploadHandler"
         />
         @if (signalFiles().length > 0) {
-          <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mt-2">{{ signalFiles().length }} file(s) selected</p>
+          <p class="rui-text-sm rui-text-on-surface-variant rui-mt-2">{{ signalFiles().length }} file(s) selected</p>
         }
       </mat-card-content>
     </mat-card>

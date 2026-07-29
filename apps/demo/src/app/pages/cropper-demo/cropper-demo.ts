@@ -24,19 +24,19 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
     MatSelectModule, MatSliderModule, MatSlideToggleModule, MatButtonModule, ShowcaseCode,
   ],
   template: `
-<div class="max-w-4xl mx-auto p-4 md:p-6 space-y-8">
-  <h1 class="font-bold text-[var(--mat-sys-on-surface)]">Image Cropper</h1>
-  <p class="text-sm text-[var(--mat-sys-on-surface-variant)]">
+<div class="rui-max-w-4xl rui-mx-auto rui-p-4 rui-md:p-6 rui-space-y-8">
+  <h1 class="rui-font-bold rui-text-on-surface">Image Cropper</h1>
+  <p class="rui-text-sm rui-text-on-surface-variant">
     Crop, zoom, and rotate images. Supports Reactive Forms and Signal API.
   </p>
 
   <!-- Basic Cropper -->
   <section>
-    <h2 id="basic-cropper" class="!text-xl !font-semibold mb-1">Basic Cropper (16:9)</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Default 16:9 aspect ratio. Drag to crop, zoom with +/-, rotate with the slider.</p>
+    <h2 id="basic-cropper" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Basic Cropper (16:9)</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Default 16:9 aspect ratio. Drag to crop, zoom with +/-, rotate with the slider.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
-        <div class="max-w-[800px]">
+      <mat-card-content class="rui-pt-4">
+        <div style="max-width:800px;">
           <rui-cropper
             [src]="basicSrc"
             [rotationMin]="-10"
@@ -48,13 +48,13 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
             <rui-cropper-grid-overlay />
           </rui-cropper>
         </div>
-          <div class="mt-4">
-            <p class="text-sm font-medium mb-1 text-[var(--mat-sys-on-surface)]">Cropped Result</p>
-            <img [src]="basicOutput()" class="max-w-sm rounded border border-[var(--mat-sys-outline-variant)]" alt="Cropped preview" />
-            <p class="text-xs text-[var(--mat-sys-on-surface-variant)] mt-1">{{ basicDimensions().width }} × {{ basicDimensions().height }} px</p>
+          <div class="rui-mt-4">
+            <p class="rui-text-sm rui-font-medium rui-mb-1 rui-text-on-surface">Cropped Result</p>
+            <img [src]="basicOutput()" class="rui-max-w-sm rui-rounded rui-border rui-border-outline-variant" alt="Cropped preview" />
+            <p class="rui-text-xs rui-text-on-surface-variant rui-mt-1">{{ basicDimensions().width }} × {{ basicDimensions().height }} px</p>
           </div>
         @if (basicError()) {
-          <p class="text-[var(--mat-sys-error)] text-sm mt-2">{{ basicError() }}</p>
+          <p class="rui-text-error rui-text-sm rui-mt-2">{{ basicError() }}</p>
         }
       </mat-card-content>
     </mat-card>
@@ -63,11 +63,11 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
 
   <!-- Square Fixed Aspect -->
   <section>
-    <h2 id="square-fixed" class="!text-xl !font-semibold mb-1">Square 1:1 (Fixed Aspect)</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Fixed 1:1 aspect ratio in a 320px square container. No aspect dropdown shown.</p>
+    <h2 id="square-fixed" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Square 1:1 (Fixed Aspect)</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Fixed 1:1 aspect ratio in a 320px square container. No aspect dropdown shown.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
-        <div class="w-80 h-80">
+      <mat-card-content class="rui-pt-4">
+        <div class="rui-w-80 rui-h-80">
           <rui-cropper
             [src]="basicSrc"
             [aspectRatio]="'1:1'"
@@ -78,10 +78,10 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
           />
         </div>
         @if (squareResult()) {
-          <p class="text-xs text-[var(--mat-sys-on-surface-variant)] mt-2">{{ squareResult()!.width }} × {{ squareResult()!.height }} px</p>
+          <p class="rui-text-xs rui-text-on-surface-variant rui-mt-2">{{ squareResult()!.width }} × {{ squareResult()!.height }} px</p>
         }
         @if (squareOutput()) {
-          <img [src]="squareOutput()" class="max-w-xs mt-2 rounded border border-[var(--mat-sys-outline-variant)]" alt="Square crop output" />
+          <img [src]="squareOutput()" class="rui-max-w-xs rui-mt-2 rui-rounded rui-border rui-border-outline-variant" alt="Square crop output" />
         }
       </mat-card-content>
     </mat-card>
@@ -90,12 +90,12 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
 
   <!-- Free Aspect -->
   <section>
-    <h2 id="free-aspect" class="!text-xl !font-semibold mb-1">Free Aspect Ratio</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Container has 4:3 aspect ratio. Aspect ratio selector is visible.</p>
+    <h2 id="free-aspect" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Free Aspect Ratio</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Container has 4:3 aspect ratio. Aspect ratio selector is visible.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
-        <div class="max-w-[640px]">
-          <div class="aspect-[4/3] max-w-2xl">
+      <mat-card-content class="rui-pt-4">
+        <div style="max-width:640px;">
+          <div class="rui-max-w-2xl" style="aspect-ratio:4/3;">
             <rui-cropper
               [src]="basicSrc"
               [aspectRatio]="'free'"
@@ -109,10 +109,10 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
           </div>
         </div>
         @if (freeResult()) {
-          <p class="text-xs text-[var(--mat-sys-on-surface-variant)] mt-2">{{ freeResult()!.width }} × {{ freeResult()!.height }} px</p>
+          <p class="rui-text-xs rui-text-on-surface-variant rui-mt-2">{{ freeResult()!.width }} × {{ freeResult()!.height }} px</p>
         }
         @if (freeOutput()) {
-          <img [src]="freeOutput()" class="max-w-xs mt-2 rounded border border-[var(--mat-sys-outline-variant)]" alt="Free crop output" />
+          <img [src]="freeOutput()" class="rui-max-w-xs rui-mt-2 rui-rounded rui-border rui-border-outline-variant" alt="Free crop output" />
         }
       </mat-card-content>
     </mat-card>
@@ -121,10 +121,10 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
 
   <!-- Fixed Width -->
   <section>
-    <h2 id="fixed-width" class="!text-xl !font-semibold mb-1">Fixed Width with Sidebar</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Set a fixed width like <code>[width]="600"</code> so the cropper size stays constant regardless of sibling layout changes.</p>
+    <h2 id="fixed-width" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Fixed Width with Sidebar</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Set a fixed width like <code>[width]="600"</code> so the cropper size stays constant regardless of sibling layout changes.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-cropper
           [src]="basicSrc"
           [width]="600"
@@ -134,7 +134,7 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
           (cropChange)="onFixedCrop($event)"
         />
         @if (fixedResult()) {
-          <p class="text-xs text-[var(--mat-sys-on-surface-variant)] mt-2">{{ fixedResult()!.width }} × {{ fixedResult()!.height }} px</p>
+          <p class="rui-text-xs rui-text-on-surface-variant rui-mt-2">{{ fixedResult()!.width }} × {{ fixedResult()!.height }} px</p>
         }
       </mat-card-content>
     </mat-card>
@@ -143,22 +143,22 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
 
   <!-- Error State -->
   <section>
-    <h2 id="error-state" class="!text-xl !font-semibold mb-1">Error Handling</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">When the image fails to load, a <code>loadError</code> event is emitted.</p>
+    <h2 id="error-state" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Error Handling</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">When the image fails to load, a <code>loadError</code> event is emitted.</p>
     <mat-card>
-      <mat-card-content class="pt-4 space-y-3">
+      <mat-card-content class="rui-pt-4 rui-space-y-3">
         <rui-cropper
           [src]="errorSrc()"
           (loadError)="errorMsg.set($event)"
           [rotationMin]="-10"
           [rotationMax]="10"
         />
-        <div class="flex gap-2">
+        <div class="rui-flex rui-gap-2">
           <button mat-stroked-button (click)="errorSrc.set(INVALID_IMAGE)">Invalid Image</button>
           <button mat-stroked-button color="primary" (click)="errorSrc.set(VALID_IMAGE)">Restore Valid</button>
         </div>
         @if (errorMsg()) {
-          <p class="text-[var(--mat-sys-error)] text-sm">{{ errorMsg() }}</p>
+          <p class="rui-text-error rui-text-sm">{{ errorMsg() }}</p>
         }
       </mat-card-content>
     </mat-card>
@@ -167,10 +167,10 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
 
   <!-- Dynamic Configuration -->
   <section>
-    <h2 id="dynamic-config" class="!text-xl !font-semibold mb-1">Dynamic Configuration</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Change aspect ratio, format, quality, and output size on the fly.</p>
+    <h2 id="dynamic-config" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Dynamic Configuration</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Change aspect ratio, format, quality, and output size on the fly.</p>
     <mat-card>
-      <mat-card-content class="pt-4 space-y-3">
+      <mat-card-content class="rui-pt-4 rui-space-y-3">
         <rui-cropper
           [src]="basicSrc"
           [aspectRatio]="dynAspect()"
@@ -186,7 +186,7 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
           <rui-cropper-grid-overlay />
         </rui-cropper>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="rui-grid rui-grid-cols-2 rui-md:grid-cols-4 rui-gap-3">
           <mat-form-field>
             <mat-label>Aspect</mat-label>
             <mat-select [value]="dynAspect()" (valueChange)="dynAspect.set($event)">
@@ -230,9 +230,9 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
 
         @if (dynOutput()) {
           <div>
-            <p class="text-sm font-medium mb-1 text-[var(--mat-sys-on-surface)]">Output</p>
-            <img [src]="dynOutput()" class="max-w-xs rounded border border-[var(--mat-sys-outline-variant)]" alt="Dynamic cropper output" />
-            <p class="text-xs text-[var(--mat-sys-on-surface-variant)] mt-1">{{ dynDimensions().width }} × {{ dynDimensions().height }} px</p>
+            <p class="rui-text-sm rui-font-medium rui-mb-1 rui-text-on-surface">Output</p>
+            <img [src]="dynOutput()" class="rui-max-w-xs rui-rounded rui-border rui-border-outline-variant" alt="Dynamic cropper output" />
+            <p class="rui-text-xs rui-text-on-surface-variant rui-mt-1">{{ dynDimensions().width }} × {{ dynDimensions().height }} px</p>
           </div>
         }
       </mat-card-content>
@@ -242,24 +242,24 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
 
   <!-- Toolbar Positions -->
   <section>
-    <h2 id="toolbar-positions" class="!text-xl !font-semibold mb-1">Toolbar Positions</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">The toolbar can be placed at top, bottom (default), left, or right.</p>
+    <h2 id="toolbar-positions" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Toolbar Positions</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">The toolbar can be placed at top, bottom (default), left, or right.</p>
     <mat-card>
-      <mat-card-content class="pt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="space-y-1">
-          <p class="text-xs font-medium">Bottom (default)</p>
+      <mat-card-content class="rui-pt-4 rui-grid rui-grid-cols-1 rui-md:grid-cols-2 rui-gap-4">
+        <div class="rui-space-y-1">
+          <p class="rui-text-xs rui-font-medium">Bottom (default)</p>
           <rui-cropper [src]="basicSrc" toolbarPosition="bottom" [rotationMin]="-10" [rotationMax]="10" />
         </div>
-        <div class="space-y-1">
-          <p class="text-xs font-medium">Top</p>
+        <div class="rui-space-y-1">
+          <p class="rui-text-xs rui-font-medium">Top</p>
           <rui-cropper [src]="basicSrc" toolbarPosition="top" [rotationMin]="-10" [rotationMax]="10" />
         </div>
-        <div class="space-y-1">
-          <p class="text-xs font-medium">Left</p>
+        <div class="rui-space-y-1">
+          <p class="rui-text-xs rui-font-medium">Left</p>
           <rui-cropper [src]="basicSrc" toolbarPosition="left" [rotationMin]="-10" [rotationMax]="10" />
         </div>
-        <div class="space-y-1">
-          <p class="text-xs font-medium">Right</p>
+        <div class="rui-space-y-1">
+          <p class="rui-text-xs rui-font-medium">Right</p>
           <rui-cropper [src]="basicSrc" toolbarPosition="right" [rotationMin]="-10" [rotationMax]="10" />
         </div>
       </mat-card-content>
@@ -269,16 +269,16 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
 
   <!-- Constrain to Image -->
   <section>
-    <h2 id="constrain-to-image" class="!text-xl !font-semibold mb-1">Constrain to Image</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
+    <h2 id="constrain-to-image" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Constrain to Image</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
       When <code>constrainToImage</code> is <code>true</code> (default), the crop selection cannot leave the original image area — even when zooming out or rotating.
     </p>
     <mat-card>
-      <mat-card-content class="pt-4 space-y-3">
+      <mat-card-content class="rui-pt-4 rui-space-y-3">
         <mat-slide-toggle [checked]="constrainEnabled()" (change)="constrainEnabled.set($event.checked)">
           constrainToImage: <strong>{{ constrainEnabled() }}</strong>
         </mat-slide-toggle>
-        <div class="max-w-[800px]">
+        <div style="max-width:800px;">
           <rui-cropper
             [src]="basicSrc"
             [constrainToImage]="constrainEnabled()"
@@ -289,9 +289,9 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
           />
         </div>
         @if (constrainResult()) {
-          <p class="text-xs text-[var(--mat-sys-on-surface-variant)]">{{ constrainResult()!.width }} x {{ constrainResult()!.height }} px</p>
+          <p class="rui-text-xs rui-text-on-surface-variant">{{ constrainResult()!.width }} x {{ constrainResult()!.height }} px</p>
         }
-        <p class="text-xs text-[var(--mat-sys-on-surface-variant)]">
+        <p class="rui-text-xs rui-text-on-surface-variant">
           Try zooming out (<kbd>-</kbd>) or rotating (<kbd>r</kbd>).
           @if (constrainEnabled()) { The crop stays inside the image. }
           @else { The crop can extend into the dark letterbox area. }
@@ -303,11 +303,11 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
 
   <!-- Template-driven Form -->
   <section>
-    <h2 id="template-driven" class="!text-xl !font-semibold mb-1">Template-driven Form</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Using ngModel with the cropper. The model value is the cropped image data URL.</p>
+    <h2 id="template-driven" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Template-driven Form</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Using ngModel with the cropper. The model value is the cropped image data URL.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
-        <div class="max-w-[800px]">
+      <mat-card-content class="rui-pt-4">
+        <div style="max-width:800px;">
           <rui-cropper
             [src]="basicSrc"
             ngModel
@@ -318,7 +318,7 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
             (cropChange)="onTemplateCrop($event)"
           />
         </div>
-        <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mt-2">Model value: {{ cropperModelRef.value?.length ? (cropperModelRef.value?.length + ' chars') : 'none' }}</p>
+        <p class="rui-text-sm rui-text-on-surface-variant rui-mt-2">Model value: {{ cropperModelRef.value?.length ? (cropperModelRef.value?.length + ' chars') : 'none' }}</p>
       </mat-card-content>
     </mat-card>
     <rui-showcase-code [html]="templateHtml" [ts]="templateTs" />
@@ -326,11 +326,11 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
 
   <!-- Reactive Form -->
   <section>
-    <h2 id="reactive-form" class="!text-xl !font-semibold mb-1">Reactive Form</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Using formControl with the cropper. The control value is the cropped image data URL.</p>
+    <h2 id="reactive-form" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Reactive Form</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Using formControl with the cropper. The control value is the cropped image data URL.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
-        <div class="max-w-[800px]">
+      <mat-card-content class="rui-pt-4">
+        <div style="max-width:800px;">
           <rui-cropper
             [src]="basicSrc"
             [formControl]="cropControl"
@@ -339,9 +339,9 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
             (cropChange)="onReactiveCrop($event)"
           />
         </div>
-        <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mt-2">Control value: {{ cropControl.value?.length ? (cropControl.value.length + ' chars') : 'none' }}</p>
-        <p class="text-sm">Control enabled: {{ cropControl.enabled }}</p>
-        <button mat-stroked-button (click)="cropControl.disable()" class="mt-2">Toggle disabled</button>
+        <p class="rui-text-sm rui-text-on-surface-variant rui-mt-2">Control value: {{ cropControl.value?.length ? (cropControl.value.length + ' chars') : 'none' }}</p>
+        <p class="rui-text-sm">Control enabled: {{ cropControl.enabled }}</p>
+        <button mat-stroked-button (click)="cropControl.disable()" class="rui-mt-2">Toggle disabled</button>
       </mat-card-content>
     </mat-card>
     <rui-showcase-code [html]="reactiveHtml" [ts]="reactiveTs" />
@@ -349,11 +349,11 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
 
   <!-- Signal Form -->
   <section>
-    <h2 id="signal-form" class="!text-xl !font-semibold mb-1">Signal Form</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Using model() signal directly — no FormsModule or ReactiveFormsModule needed.</p>
+    <h2 id="signal-form" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Signal Form</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Using model() signal directly — no FormsModule or ReactiveFormsModule needed.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
-        <div class="max-w-[800px]">
+      <mat-card-content class="rui-pt-4">
+        <div style="max-width:800px;">
           <rui-cropper
             [src]="basicSrc"
             [(croppedImage)]="signalCropped"
@@ -362,7 +362,7 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
             (cropChange)="onSignalCrop($event)"
           />
         </div>
-        <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mt-2">Signal value: {{ signalCropped().length ? (signalCropped().length + ' chars') : 'none' }}</p>
+        <p class="rui-text-sm rui-text-on-surface-variant rui-mt-2">Signal value: {{ signalCropped().length ? (signalCropped().length + ' chars') : 'none' }}</p>
       </mat-card-content>
     </mat-card>
     <rui-showcase-code [html]="signalHtml" [ts]="signalTs" />
@@ -416,14 +416,14 @@ export class MyComponent {
   }
 }`;
 
-  readonly squareHtml = `<div class="w-80 h-80">
+  readonly squareHtml = `<div style="width:20rem;height:20rem;">
   <rui-cropper
     [src]="'...'"
     [aspectRatio]="'1:1'"
   />
 </div>`;
 
-  readonly freeHtml = `<div class="aspect-[4/3] max-w-2xl">
+  readonly freeHtml = `<div style="aspect-ratio:4/3;max-width:42rem;">
   <rui-cropper
     [src]="'...'"
     [aspectRatio]="'free'"

@@ -1,11 +1,11 @@
 import { Component, input, output, signal, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 import type { RuiMenuItem } from './menu.types';
 
 @Component({
   selector: 'rui-menu-panel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [MatIconModule],
   templateUrl: './menu-panel.html',
   styleUrl: './menu-panel.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

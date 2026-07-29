@@ -26,6 +26,42 @@ interface NavItem {
 export class App {
   protected sidebarOpen = signal(false);
 
+  protected onNavHover(event: Event, active: boolean): void {
+    if (active) return;
+    const el = (event.target as HTMLElement).closest('a');
+    if (el) {
+      el.style.background = active ? '' : 'var(--mat-sys-surface-container-high)';
+    }
+  }
+
+  protected onNavLeave(event: Event, active: boolean): void {
+    if (active) return;
+    const el = (event.target as HTMLElement).closest('a');
+    if (el) {
+      el.style.background = 'transparent';
+    }
+  }
+
+  protected onLinkHover(event: Event): void {
+    const el = (event.target as HTMLElement).closest('a');
+    if (el) el.style.color = 'var(--mat-sys-primary)';
+  }
+
+  protected onLinkLeave(event: Event): void {
+    const el = (event.target as HTMLElement).closest('a');
+    if (el) el.style.color = 'var(--mat-sys-on-surface-variant)';
+  }
+
+  protected onLogoHover(event: Event): void {
+    const el = (event.target as HTMLElement).closest('a');
+    if (el) el.style.backgroundColor = 'var(--mat-sys-surface-container-high)';
+  }
+
+  protected onLogoLeave(event: Event): void {
+    const el = (event.target as HTMLElement).closest('a');
+    if (el) el.style.backgroundColor = 'transparent';
+  }
+
   protected navGroups: NavGroup[] = [
     {
       label: 'Components',

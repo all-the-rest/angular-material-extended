@@ -11,20 +11,20 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatStepperModule, MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule, ShowcaseCode],
   template: `
-    <section id="stepper-linear" class="mb-8">
-      <h2 id="stepper-linear" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Linear Stepper</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">Horizontal linear stepper with validation on each step.</p>
+    <section id="stepper-linear" class="rui-mb-8">
+      <h2 id="stepper-linear" class="rui-font-bold rui-text-on-surface rui-mb-1">Linear Stepper</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">Horizontal linear stepper with validation on each step.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
         <mat-horizontal-stepper [linear]="true" #stepper>
           <mat-step label="Personal Info">
             <ng-template matStepContent>
-              <div class="flex flex-col gap-4 py-3">
+              <div class="rui-flex rui-flex-col rui-gap-4 rui-py-3">
                 <mat-form-field>
                   <mat-label>Name</mat-label>
                   <input matInput [(ngModel)]="name" name="name" required>
                 </mat-form-field>
-                <div class="flex gap-2">
+                <div class="rui-flex rui-gap-2">
                   <button mat-raised-button color="primary" matStepperNext>Next</button>
                 </div>
               </div>
@@ -33,7 +33,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
 
           <mat-step label="Contact">
             <ng-template matStepContent>
-              <div class="flex flex-col gap-4 py-3">
+              <div class="rui-flex rui-flex-col rui-gap-4 rui-py-3">
                 <mat-form-field>
                   <mat-label>Email</mat-label>
                   <input matInput [(ngModel)]="email" name="email" type="email" required>
@@ -42,7 +42,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
                   <mat-label>Phone</mat-label>
                   <input matInput [(ngModel)]="phone" name="phone" type="tel">
                 </mat-form-field>
-                <div class="flex gap-2">
+                <div class="rui-flex rui-gap-2">
                   <button mat-button matStepperPrevious>Back</button>
                   <button mat-raised-button color="primary" matStepperNext>Next</button>
                 </div>
@@ -52,14 +52,14 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
 
           <mat-step label="Done">
             <ng-template matStepContent>
-              <div class="flex flex-col gap-3 py-3">
-                <p class="text-sm text-[var(--mat-sys-on-surface-variant)]">Review your information:</p>
-                <div class="text-sm text-[var(--mat-sys-on-surface)]">
+              <div class="rui-flex rui-flex-col rui-gap-3 rui-py-3">
+                <p class="rui-text-sm rui-text-on-surface-variant">Review your information:</p>
+                <div class="rui-text-sm rui-text-on-surface">
                   <p><strong>Name:</strong> {{ name || '—' }}</p>
                   <p><strong>Email:</strong> {{ email || '—' }}</p>
                   <p><strong>Phone:</strong> {{ phone || '—' }}</p>
                 </div>
-                <div class="flex gap-2">
+                <div class="rui-flex rui-gap-2">
                   <button mat-button matStepperPrevious>Back</button>
                   <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
                 </div>

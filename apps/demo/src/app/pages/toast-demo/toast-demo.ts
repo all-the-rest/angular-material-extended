@@ -4,6 +4,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { RuiToastService, RuiToastPosition } from '@all-the.rest/mat-extended/toast';
 import { ShowcaseCode } from '../../shared/showcase-code';
@@ -17,19 +19,21 @@ import { ShowcaseCode } from '../../shared/showcase-code';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
+    MatTooltipModule,
     MatSelectModule,
     ShowcaseCode,
   ],
   template: `
-<div class="max-w-4xl mx-auto p-4 md:p-6 space-y-8">
-  <h1 class="font-bold">Toast / Notification</h1>
+<div class="rui-max-w-4xl rui-mx-auto rui-p-4 rui-md:p-6 rui-space-y-8">
+  <h1 class="rui-font-bold">Toast / Notification</h1>
 
   <section>
-    <h2 id="toast-types" class="!text-xl !font-semibold mb-1">Toast Types</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Four built-in severity levels with distinct styling and icons.</p>
+    <h2 id="toast-types" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Toast Types</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Four built-in severity levels with distinct styling and icons.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
-        <div class="flex gap-4 flex-wrap">
+      <mat-card-content class="rui-pt-4">
+        <div class="rui-flex rui-gap-4 rui-flex-wrap">
           <button mat-raised-button color="primary" (click)="showSuccess()">Success</button>
           <button mat-raised-button color="warn" (click)="showError()">Error</button>
           <button mat-raised-button (click)="showInfo()">Info</button>
@@ -42,20 +46,20 @@ import { ShowcaseCode } from '../../shared/showcase-code';
   </section>
 
   <section>
-    <h2 id="toast-custom-duration" class="!text-xl !font-semibold mb-1">Custom Duration</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Override the default auto-dismiss duration per toast.</p>
+    <h2 id="toast-custom-duration" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Custom Duration</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Override the default auto-dismiss duration per toast.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
-        <div class="flex gap-4 items-end">
-          <mat-form-field>
+      <mat-card-content class="rui-pt-4">
+        <div style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap;">
+          <mat-form-field appearance="outline" style="flex:1;min-width:200px;">
             <mat-label>Message</mat-label>
             <input matInput [(ngModel)]="customMessage" />
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field appearance="outline" style="width:140px;">
             <mat-label>Duration (ms)</mat-label>
             <input matInput type="number" [(ngModel)]="customDuration" />
           </mat-form-field>
-          <button mat-raised-button (click)="showCustom()">Show Custom</button>
+          <button mat-raised-button color="primary" (click)="showCustom()">Show</button>
         </div>
       </mat-card-content>
     </mat-card>
@@ -63,24 +67,26 @@ import { ShowcaseCode } from '../../shared/showcase-code';
   </section>
 
   <section>
-    <h2 id="toast-default-config" class="!text-xl !font-semibold mb-1">Default Configuration</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
+    <h2 id="toast-default-config" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Default Configuration</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
       Override global toast defaults via the <code>RUI_TOAST_DEFAULT_OPTIONS</code> injection token in your app config.
     </p>
     <mat-card>
-      <mat-card-content class="pt-4" />
+      <mat-card-content class="rui-pt-4" />
     </mat-card>
     <rui-showcase-code [html]="defaultConfigHtml" [ts]="defaultConfigTs" />
   </section>
 
   <section>
-    <h2 id="toast-position" class="!text-xl !font-semibold mb-1">Position</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Place toasts at any corner or edge of the viewport.</p>
+    <h2 id="toast-position" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Position</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Place toasts at any corner or edge of the viewport.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
-        <div class="flex gap-4 flex-wrap">
+      <mat-card-content class="rui-pt-4">
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
           @for (pos of positions; track pos) {
-            <button mat-stroked-button (click)="showAtPosition(pos)">{{ pos }}</button>
+            <button mat-icon-button [matTooltip]="pos" (click)="showAtPosition(pos)">
+              <mat-icon>{{ positionIcons[pos] }}</mat-icon>
+            </button>
           }
         </div>
       </mat-card-content>
@@ -105,6 +111,15 @@ export class ToastDemo {
     'bottom-end',
   ];
 
+  positionIcons: Record<RuiToastPosition, string> = {
+    'top-start': 'north_west',
+    'top-center': 'north',
+    'top-end': 'north_east',
+    'bottom-start': 'south_west',
+    'bottom-center': 'south',
+    'bottom-end': 'south_east',
+  };
+
   protected toastTypesHtml = `<button mat-raised-button color="primary" (click)="showSuccess()">Success</button>
 <button mat-raised-button color="warn" (click)="showError()">Error</button>
 <button mat-raised-button (click)="showInfo()">Info</button>
@@ -123,15 +138,17 @@ export class ToastDemo {
     `toast.warning('Session expiring soon.');`,
   ].join('\n');
 
-  protected customDurationHtml = `<mat-form-field>
-  <mat-label>Message</mat-label>
-  <input matInput [(ngModel)]="message" />
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Duration (ms)</mat-label>
-  <input matInput type="number" [(ngModel)]="duration" />
-</mat-form-field>
-<button mat-raised-button (click)="showCustom()">Show Custom</button>`;
+  protected customDurationHtml = `<div style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap;">
+  <mat-form-field appearance="outline" style="flex:1;min-width:200px;">
+    <mat-label>Message</mat-label>
+    <input matInput [(ngModel)]="message" />
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="width:140px;">
+    <mat-label>Duration (ms)</mat-label>
+    <input matInput type="number" [(ngModel)]="duration" />
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="showCustom()">Show</button>
+</div>`;
 
   protected customDurationTs = [
     `toast.show({`,

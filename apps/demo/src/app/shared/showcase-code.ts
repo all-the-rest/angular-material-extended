@@ -8,14 +8,15 @@ import { RuiCodeHighlight } from './code-highlight.directive';
   standalone: true,
   imports: [MatTabsModule, RuiCodeHighlight],
   template: `
-    <div class="mt-4 rounded-xl border border-[var(--mat-sys-outline-variant)] overflow-hidden">
-      <div class="flex items-center justify-between px-3 py-2 text-xs font-semibold text-[var(--mat-sys-on-surface-variant)] border-b border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface-container-low)]">
+    <div class="rui-mt-4 rui-rounded-xl rui-border rui-border-outline-variant" style="overflow:hidden;">
+      <div class="rui-flex rui-items-center rui-justify-between rui-px-3 rui-py-2 rui-text-xs rui-font-semibold rui-text-on-surface-variant rui-border-b rui-border-outline-variant rui-bg-surface-container-low">
         <span>{{ label() || 'Code' }}</span>
         <button
           (click)="copyCode()"
-          class="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium hover:bg-[var(--mat-sys-surface-container-high)] transition-colors"
-          [class.text-[var(--mat-sys-primary)]]="!copied()"
-          [class.text-[var(--mat-sys-tertiary)]]="copied()"
+          class="rui-inline-flex rui-items-center rui-gap-1 rui-px-2 rui-py-1 rui-rounded-md rui-text-xs rui-font-medium rui-transition-colors"
+          style="background:transparent;border:none;cursor:pointer;"
+          [class.rui-text-primary]="!copied()"
+          [class.rui-text-tertiary]="copied()"
         >
           @if (copied()) {
             <span>Copied!</span>
@@ -26,16 +27,16 @@ import { RuiCodeHighlight } from './code-highlight.directive';
       </div>
       <mat-tab-group disableRipple>
         <mat-tab label="Template">
-          <div class="p-3 bg-[var(--mat-sys-surface-container-low)] max-h-96 overflow-y-auto">
+          <div class="rui-p-3 rui-bg-surface-container-low" style="max-height:24rem;overflow-y:auto;">
             @if (html()) {
-              <pre ruiCodeHighlight language="html" class="m-0 text-xs leading-relaxed overflow-x-auto"><code>{{ html() }}</code></pre>
+              <pre ruiCodeHighlight language="html" class="rui-m-0 rui-text-xs rui-leading-relaxed" style="overflow-x:auto;"><code>{{ html() }}</code></pre>
             }
           </div>
         </mat-tab>
         <mat-tab label="TypeScript">
-          <div class="p-3 bg-[var(--mat-sys-surface-container-low)] max-h-96 overflow-y-auto">
+          <div class="rui-p-3 rui-bg-surface-container-low" style="max-height:24rem;overflow-y:auto;">
             @if (ts()) {
-              <pre ruiCodeHighlight language="typescript" class="m-0 text-xs leading-relaxed overflow-x-auto"><code>{{ ts() }}</code></pre>
+              <pre ruiCodeHighlight language="typescript" class="rui-m-0 rui-text-xs rui-leading-relaxed" style="overflow-x:auto;"><code>{{ ts() }}</code></pre>
             }
           </div>
         </mat-tab>

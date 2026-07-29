@@ -10,17 +10,17 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatTabsModule, ShowcaseCode],
   template: `
-    <section id="toolbar-multi-row" class="mb-8">
-      <h2 id="toolbar-multi-row" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Multi-Row Toolbar</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">Two stacked mat-toolbar rows: one for branding and actions, one for navigation tabs.</p>
+    <section id="toolbar-multi-row" class="rui-mb-8">
+      <h2 id="toolbar-multi-row" class="rui-font-bold rui-text-on-surface rui-mb-1">Multi-Row Toolbar</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">Two stacked mat-toolbar rows: one for branding and actions, one for navigation tabs.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
-        <mat-toolbar color="primary" class="rounded-t">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
+        <mat-toolbar color="primary" class="rui-rounded-t">
           <button mat-icon-button aria-label="Menu">
             <mat-icon>menu</mat-icon>
           </button>
-          <span class="ml-2">My App</span>
-          <span class="flex-1"></span>
+          <span class="rui-ml-2">My App</span>
+          <span class="rui-flex-1"></span>
           <button mat-icon-button aria-label="Notifications">
             <mat-icon>notifications</mat-icon>
           </button>
@@ -28,8 +28,8 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
             <mat-icon>account_circle</mat-icon>
           </button>
         </mat-toolbar>
-        <mat-toolbar class="rounded-b border-t border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface-container)]">
-          <mat-tab-group class="w-full">
+        <mat-toolbar style="border-top:1px solid var(--mat-sys-outline-variant);background:var(--mat-sys-surface-container);">
+          <mat-tab-group class="rui-w-full">
             <mat-tab label="Overview"></mat-tab>
             <mat-tab label="Details"></mat-tab>
             <mat-tab label="Settings"></mat-tab>
@@ -43,7 +43,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
     <mat-icon>menu</mat-icon>
   </button>
   <span>My App</span>
-  <span class="flex-1"></span>
+  <span class="rui-flex-1"></span>
   <button mat-icon-button>
     <mat-icon>notifications</mat-icon>
   </button>
@@ -52,7 +52,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   </button>
 </mat-toolbar>
 <mat-toolbar>
-  <mat-tab-group class="w-full">
+  <mat-tab-group class="rui-w-full">
     <mat-tab label="Overview"></mat-tab>
     <mat-tab label="Details"></mat-tab>
     <mat-tab label="Settings"></mat-tab>

@@ -7,21 +7,21 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatGridListModule, ShowcaseCode],
   template: `
-    <section id="grid-list-basic" class="mb-8">
-      <h2 id="grid-list-basic" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Basic Grid List</h2>
-      <div class="mb-4 rounded-lg border border-amber-600/30 bg-amber-600/10 p-3 text-sm text-amber-700 dark:text-amber-400">
+    <section id="grid-list-basic" class="rui-mb-8">
+      <h2 id="grid-list-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Grid List</h2>
+      <div class="rui-mb-4" style="padding:0.75rem;border-radius:0.5rem;border:1px solid rgba(217,119,6,0.3);background:rgba(217,119,6,0.1);font-size:0.875rem;">
         <strong>Note:</strong> mat-grid-list is deprecated. CSS Grid is recommended instead.
       </div>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-grid-list with 3 columns and 100px row height.</p>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-grid-list with 3 columns and 100px row height.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
         <mat-grid-list cols="3" rowHeight="100px">
-          <mat-grid-tile class="bg-[var(--mat-sys-primary-container)] text-[var(--mat-sys-on-primary-container)] font-medium">Tile 1</mat-grid-tile>
-          <mat-grid-tile class="bg-[var(--mat-sys-secondary-container)] text-[var(--mat-sys-on-secondary-container)] font-medium">Tile 2</mat-grid-tile>
-          <mat-grid-tile class="bg-[var(--mat-sys-tertiary-container)] text-[var(--mat-sys-on-tertiary-container)] font-medium">Tile 3</mat-grid-tile>
-          <mat-grid-tile class="bg-[var(--mat-sys-primary-container)] text-[var(--mat-sys-on-primary-container)] font-medium">Tile 4</mat-grid-tile>
-          <mat-grid-tile class="bg-[var(--mat-sys-secondary-container)] text-[var(--mat-sys-on-secondary-container)] font-medium">Tile 5</mat-grid-tile>
-          <mat-grid-tile class="bg-[var(--mat-sys-tertiary-container)] text-[var(--mat-sys-on-tertiary-container)] font-medium">Tile 6</mat-grid-tile>
+          <mat-grid-tile class="rui-bg-primary-container rui-text-on-primary-container rui-font-medium">Tile 1</mat-grid-tile>
+          <mat-grid-tile class="rui-bg-secondary-container rui-text-on-secondary-container rui-font-medium">Tile 2</mat-grid-tile>
+          <mat-grid-tile class="rui-bg-tertiary-container rui-text-on-tertiary-container rui-font-medium">Tile 3</mat-grid-tile>
+          <mat-grid-tile class="rui-bg-primary-container rui-text-on-primary-container rui-font-medium">Tile 4</mat-grid-tile>
+          <mat-grid-tile class="rui-bg-secondary-container rui-text-on-secondary-container rui-font-medium">Tile 5</mat-grid-tile>
+          <mat-grid-tile class="rui-bg-tertiary-container rui-text-on-tertiary-container rui-font-medium">Tile 6</mat-grid-tile>
         </mat-grid-list>
       </div>
 

@@ -7,22 +7,22 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatSidenavModule, ShowcaseCode],
   template: `
-    <section id="sidenav-basic" class="mb-8">
-      <h2 id="sidenav-basic" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Basic Sidenav</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-drawer-container with a side drawer and content area.</p>
+    <section id="sidenav-basic" class="rui-mb-8">
+      <h2 id="sidenav-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Sidenav</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-drawer-container with a side drawer and content area.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
-        <mat-drawer-container class="h-64 rounded border border-[var(--mat-sys-outline-variant)]">
-          <mat-drawer mode="side" opened class="w-48 bg-[var(--mat-sys-surface-container-low)] p-3">
-            <nav class="flex flex-col gap-1">
-              <a class="block rounded px-3 py-2 text-sm text-[var(--mat-sys-on-surface)] hover:bg-[var(--mat-sys-surface-container-hover)] cursor-pointer">Dashboard</a>
-              <a class="block rounded px-3 py-2 text-sm text-[var(--mat-sys-on-surface)] hover:bg-[var(--mat-sys-surface-container-hover)] cursor-pointer">Settings</a>
-              <a class="block rounded px-3 py-2 text-sm text-[var(--mat-sys-on-surface)] hover:bg-[var(--mat-sys-surface-container-hover)] cursor-pointer">Profile</a>
-              <a class="block rounded px-3 py-2 text-sm text-[var(--mat-sys-on-surface)] hover:bg-[var(--mat-sys-surface-container-hover)] cursor-pointer">Help</a>
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
+        <mat-drawer-container class="rui-h-64 rui-rounded rui-border rui-border-outline-variant">
+          <mat-drawer mode="side" opened class="rui-w-48 rui-bg-surface-container-low rui-p-3">
+            <nav class="rui-flex rui-flex-col rui-gap-1">
+              <a style="display:block;padding:0.5rem 0.75rem;border-radius:0.25rem;font-size:0.875rem;color:var(--mat-sys-on-surface);cursor:pointer;">Dashboard</a>
+              <a style="display:block;padding:0.5rem 0.75rem;border-radius:0.25rem;font-size:0.875rem;color:var(--mat-sys-on-surface);cursor:pointer;">Settings</a>
+              <a style="display:block;padding:0.5rem 0.75rem;border-radius:0.25rem;font-size:0.875rem;color:var(--mat-sys-on-surface);cursor:pointer;">Profile</a>
+              <a style="display:block;padding:0.5rem 0.75rem;border-radius:0.25rem;font-size:0.875rem;color:var(--mat-sys-on-surface);cursor:pointer;">Help</a>
             </nav>
           </mat-drawer>
-          <mat-drawer-content class="flex items-center justify-center p-6">
-            <p class="text-sm text-[var(--mat-sys-on-surface-variant)]">Main content area. The drawer stays open on the left.</p>
+          <mat-drawer-content class="rui-flex rui-items-center rui-justify-center rui-p-6">
+            <p class="rui-text-sm rui-text-on-surface-variant">Main content area. The drawer stays open on the left.</p>
           </mat-drawer-content>
         </mat-drawer-container>
       </div>

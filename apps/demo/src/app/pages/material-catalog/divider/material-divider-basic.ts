@@ -7,23 +7,23 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatDividerModule, ShowcaseCode],
   template: `
-    <section id="divider-basic" class="mb-8">
-      <h2 id="divider-basic" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Basic Divider</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-divider with inset option to create visual separation.</p>
+    <section id="divider-basic" class="rui-mb-8">
+      <h2 id="divider-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Divider</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-divider with inset option to create visual separation.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
-        <p class="text-sm text-[var(--mat-sys-on-surface)]">Section one — some content above the divider.</p>
-        <mat-divider class="my-3"></mat-divider>
-        <p class="text-sm text-[var(--mat-sys-on-surface)]">Section two — content between standard and inset dividers.</p>
-        <mat-divider class="my-3" [inset]="true"></mat-divider>
-        <p class="text-sm text-[var(--mat-sys-on-surface)]">Section three — after the inset divider.</p>
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
+        <p class="rui-text-sm rui-text-on-surface">Section one — some content above the divider.</p>
+        <mat-divider class="rui-my-3"></mat-divider>
+        <p class="rui-text-sm rui-text-on-surface">Section two — content between standard and inset dividers.</p>
+        <mat-divider class="rui-my-3" [inset]="true"></mat-divider>
+        <p class="rui-text-sm rui-text-on-surface">Section three — after the inset divider.</p>
       </div>
 
       <rui-showcase-code
         html='<p>Section one — some content above the divider.</p>
-<mat-divider class="my-3"></mat-divider>
+<mat-divider class="rui-my-3"></mat-divider>
 <p>Section two — content between standard and inset dividers.</p>
-<mat-divider class="my-3" [inset]="true"></mat-divider>
+<mat-divider class="rui-my-3" [inset]="true"></mat-divider>
 <p>Section three — after the inset divider.</p>'
         ts="import { MatDividerModule } from '@angular/material/divider';
 

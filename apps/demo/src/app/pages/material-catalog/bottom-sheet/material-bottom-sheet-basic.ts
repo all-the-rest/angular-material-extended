@@ -9,11 +9,11 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatBottomSheetModule, MatButtonModule, MatListModule, ShowcaseCode],
   template: `
-    <section id="bottom-sheet-basic" class="mb-8">
-      <h2 id="bottom-sheet-basic" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Basic Bottom Sheet</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">Open a bottom sheet with a list of actions using MatBottomSheet service and a template.</p>
+    <section id="bottom-sheet-basic" class="rui-mb-8">
+      <h2 id="bottom-sheet-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Bottom Sheet</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">Open a bottom sheet with a list of actions using MatBottomSheet service and a template.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5 flex gap-2 flex-wrap items-center">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-2 rui-flex-wrap rui-items-center">
         <button mat-raised-button color="primary" (click)="openBottomSheet()">Open Bottom Sheet</button>
       </div>
 
@@ -31,7 +31,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
             <mat-icon matListItemIcon>edit</mat-icon>
             <span matListItemTitle>Edit</span>
           </a>
-          <a mat-list-item tabindex="0" (click)="closeBottomSheet()" (keydown.enter)="closeBottomSheet()" class="text-[var(--mat-sys-error)]">
+          <a mat-list-item tabindex="0" (click)="closeBottomSheet()" (keydown.enter)="closeBottomSheet()" class="rui-text-error">
             <mat-icon matListItemIcon color="warn">delete</mat-icon>
             <span matListItemTitle>Delete</span>
           </a>

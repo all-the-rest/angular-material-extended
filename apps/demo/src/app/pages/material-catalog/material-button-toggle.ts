@@ -7,10 +7,10 @@ import { MaterialButtonToggleMulti } from './button-toggle/material-button-toggl
   standalone: true,
   imports: [MaterialButtonToggleSingle, MaterialButtonToggleMulti],
   template: `
-    <div class="p-4 md:p-6 space-y-2">
-      <div class="mb-6">
-        <h1 class="font-bold text-[var(--mat-sys-on-surface)]">Button Toggle</h1>
-        <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mt-1">mat-button-toggle-group for single and multi selection.</p>
+    <div class="rui-p-4 rui-md:p-6 rui-space-y-2">
+      <div class="rui-mb-6">
+        <h1 class="rui-font-bold rui-text-on-surface">Button Toggle</h1>
+        <p class="rui-text-sm rui-text-on-surface-variant rui-mt-1">mat-button-toggle-group for single and multi selection.</p>
       </div>
 
       <rui-material-button-toggle-single />

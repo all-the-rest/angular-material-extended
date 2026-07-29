@@ -8,11 +8,11 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatButtonModule, MatIconModule, ShowcaseCode],
   template: `
-    <section id="button-fab" class="mb-8">
-      <h2 id="button-fab" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Floating Action Buttons</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-fab, mat-mini-fab, and extended FAB with icons.</p>
+    <section id="button-fab" class="rui-mb-8">
+      <h2 id="button-fab" class="rui-font-bold rui-text-on-surface rui-mb-1">Floating Action Buttons</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-fab, mat-mini-fab, and extended FAB with icons.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5 flex gap-3 flex-wrap items-center">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-3 rui-flex-wrap rui-items-center">
         <button mat-fab color="primary" aria-label="Add">
           <mat-icon>add</mat-icon>
         </button>

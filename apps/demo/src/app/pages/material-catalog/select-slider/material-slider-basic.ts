@@ -9,16 +9,16 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [FormsModule, MatSliderModule, MatIconModule, ShowcaseCode],
   template: `
-    <section id="slider-basic" class="mb-8">
-      <h2 id="slider-basic" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Basic Slider</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-slider with min/max/step and thumb value display.</p>
+    <section id="slider-basic" class="rui-mb-8">
+      <h2 id="slider-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Slider</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-slider with min/max/step and thumb value display.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
-        <div class="max-w-xs">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
+        <div class="rui-max-w-xs">
           <mat-slider min="0" max="100" step="1" [style.width]="'100%'">
             <input matSliderThumb [(value)]="sliderValue" />
           </mat-slider>
-          <p class="text-xs text-[var(--mat-sys-on-surface-variant)] mt-2">Value: {{ sliderValue }}</p>
+          <p class="rui-text-xs rui-text-on-surface-variant rui-mt-2">Value: {{ sliderValue }}</p>
         </div>
       </div>
 

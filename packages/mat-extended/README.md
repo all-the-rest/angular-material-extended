@@ -21,7 +21,7 @@ npm install @all-the.rest/mat-extended @angular/material @angular/cdk
 
 ## Components
 
-| Component | Package | Import |
+| Component | Entry Point | Import |
 |---|---|---|
 | Image Cropper | `@all-the.rest/mat-extended/cropper` | `import { RuiCropper } from '@all-the.rest/mat-extended/cropper'` |
 | File Upload | `@all-the.rest/mat-extended/file-upload` | `import { RuiFileUpload } from '@all-the.rest/mat-extended/file-upload'` |

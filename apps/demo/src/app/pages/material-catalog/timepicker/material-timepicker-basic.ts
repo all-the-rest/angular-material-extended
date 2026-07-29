@@ -9,12 +9,12 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, ShowcaseCode],
   template: `
-    <section id="timepicker-basic" class="mb-8">
-      <h2 id="timepicker-basic" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Basic Timepicker</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">Native HTML time input styled with Angular Material form-field.</p>
+    <section id="timepicker-basic" class="rui-mb-8">
+      <h2 id="timepicker-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Timepicker</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">Native HTML time input styled with Angular Material form-field.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
-        <mat-form-field appearance="outline" class="w-full max-w-xs">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
+        <mat-form-field appearance="outline" class="rui-w-full rui-max-w-xs">
           <mat-label>Time</mat-label>
           <input matInput type="time" [(ngModel)]="time" />
         </mat-form-field>

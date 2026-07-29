@@ -8,21 +8,21 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatDialogModule, MatButtonModule, ShowcaseCode],
   template: `
-    <section id="dialog-template" class="mb-8">
-      <h2 id="dialog-template" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Dialog with Template</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">Open a dialog using an ng-template reference instead of a separate component.</p>
+    <section id="dialog-template" class="rui-mb-8">
+      <h2 id="dialog-template" class="rui-font-bold rui-text-on-surface rui-mb-1">Dialog with Template</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">Open a dialog using an ng-template reference instead of a separate component.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5 flex gap-2 flex-wrap items-center">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-2 rui-flex-wrap rui-items-center">
         <button mat-raised-button color="primary" (click)="openDialog()">Open Template Dialog</button>
       </div>
 
       <ng-template #dialogTemplate>
-        <h2 mat-dialog-title class="text-lg font-semibold text-[var(--mat-sys-on-surface)]">Template Dialog</h2>
-        <mat-dialog-content class="text-sm text-[var(--mat-sys-on-surface-variant)]">
+        <h2 mat-dialog-title class="rui-text-lg rui-font-semibold rui-text-on-surface">Template Dialog</h2>
+        <mat-dialog-content class="rui-text-sm rui-text-on-surface-variant">
           <p>This dialog content is defined as an ng-template.</p>
-          <p class="mt-2">Templates are useful for simple dialogs that don't need a separate component.</p>
+          <p class="rui-mt-2">Templates are useful for simple dialogs that don't need a separate component.</p>
         </mat-dialog-content>
-        <mat-dialog-actions align="end" class="gap-2">
+        <mat-dialog-actions align="end" class="rui-gap-2">
           <button mat-button mat-dialog-close>Close</button>
         </mat-dialog-actions>
       </ng-template>

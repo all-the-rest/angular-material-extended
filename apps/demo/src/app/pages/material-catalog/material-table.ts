@@ -7,10 +7,10 @@ import { MaterialTableSortPaginated } from './table/material-table-sort-paginate
   standalone: true,
   imports: [MaterialTableBasic, MaterialTableSortPaginated],
   template: `
-    <div class="p-4 md:p-6 space-y-2">
-      <div class="mb-6">
-        <h1 class="font-bold text-[var(--mat-sys-on-surface)]">Table</h1>
-        <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mt-1">mat-table is a flexible data table component with sorting and pagination.</p>
+    <div class="rui-p-4 rui-md:p-6 rui-space-y-2">
+      <div class="rui-mb-6">
+        <h1 class="rui-font-bold rui-text-on-surface">Table</h1>
+        <p class="rui-text-sm rui-text-on-surface-variant rui-mt-1">mat-table is a flexible data table component with sorting and pagination.</p>
       </div>
 
       <rui-material-table-basic />

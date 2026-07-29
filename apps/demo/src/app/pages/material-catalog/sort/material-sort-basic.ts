@@ -16,12 +16,12 @@ interface Dessert {
   standalone: true,
   imports: [MatSortModule, MatTableModule, ShowcaseCode],
   template: `
-    <section id="sort-basic" class="mb-8">
-      <h2 id="sort-basic" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Basic Sort Header</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">Sortable table columns using mat-sort-header with matSort directive.</p>
+    <section id="sort-basic" class="rui-mb-8">
+      <h2 id="sort-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Sort Header</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">Sortable table columns using mat-sort-header with matSort directive.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
-        <table mat-table [dataSource]="dataSource" matSort class="w-full">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
+        <table mat-table [dataSource]="dataSource" matSort class="rui-w-full">
 
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>

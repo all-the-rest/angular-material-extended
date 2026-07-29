@@ -7,18 +7,18 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatExpansionModule, ShowcaseCode],
   template: `
-    <section id="expansion-accordion" class="mb-8">
-      <h2 id="expansion-accordion" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Accordion</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-accordion with single-panel expansion (default behavior).</p>
+    <section id="expansion-accordion" class="rui-mb-8">
+      <h2 id="expansion-accordion" class="rui-font-bold rui-text-on-surface rui-mb-1">Accordion</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-accordion with single-panel expansion (default behavior).</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
         <mat-accordion>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>Personal Details</mat-panel-title>
               <mat-panel-description>Name, email, phone</mat-panel-description>
             </mat-expansion-panel-header>
-            <p class="text-sm text-[var(--mat-sys-on-surface-variant)]">Form fields for personal information go here.</p>
+            <p class="rui-text-sm rui-text-on-surface-variant">Form fields for personal information go here.</p>
           </mat-expansion-panel>
 
           <mat-expansion-panel>
@@ -26,7 +26,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
               <mat-panel-title>Address</mat-panel-title>
               <mat-panel-description>Street, city, zip code</mat-panel-description>
             </mat-expansion-panel-header>
-            <p class="text-sm text-[var(--mat-sys-on-surface-variant)]">Address input fields appear here.</p>
+            <p class="rui-text-sm rui-text-on-surface-variant">Address input fields appear here.</p>
           </mat-expansion-panel>
 
           <mat-expansion-panel>
@@ -34,7 +34,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
               <mat-panel-title>Payment</mat-panel-title>
               <mat-panel-description>Credit card or PayPal</mat-panel-description>
             </mat-expansion-panel-header>
-            <p class="text-sm text-[var(--mat-sys-on-surface-variant)]">Payment method selection and details.</p>
+            <p class="rui-text-sm rui-text-on-surface-variant">Payment method selection and details.</p>
           </mat-expansion-panel>
         </mat-accordion>
       </div>

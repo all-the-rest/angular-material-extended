@@ -8,13 +8,13 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatSlideToggleModule, MatIconModule, ShowcaseCode],
   template: `
-    <section id="selection-controls-toggle" class="mb-8">
-      <h2 id="selection-controls-toggle" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Slide Toggle</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-slide-toggle with off, on, and disabled states.</p>
+    <section id="selection-controls-toggle" class="rui-mb-8">
+      <h2 id="selection-controls-toggle" class="rui-font-bold rui-text-on-surface rui-mb-1">Slide Toggle</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-slide-toggle with off, on, and disabled states.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5 flex gap-4 flex-wrap items-center">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-4 rui-flex-wrap rui-items-center">
         <fieldset>
-          <legend class="sr-only">Toggles</legend>
+          <legend class="rui-sr-only">Toggles</legend>
           <mat-slide-toggle>Off</mat-slide-toggle>
           <mat-slide-toggle checked>On</mat-slide-toggle>
           <mat-slide-toggle disabled>Disabled</mat-slide-toggle>

@@ -16,6 +16,28 @@
   }
 }
 
+.hamburger-btn {
+  min-width: 44px;
+  min-height: 44px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  color: var(--mat-sys-on-surface-variant);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s;
+
+  &:hover {
+    background: var(--mat-sys-surface-variant);
+  }
+
+  @media (max-width: 767px) {
+    display: flex;
+  }
+}
+
 main {
   scroll-behavior: smooth;
 }

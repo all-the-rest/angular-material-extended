@@ -21,27 +21,27 @@ import { ShowcaseCode } from '../../shared/showcase-code';
     ShowcaseCode,
   ],
   template: `
-<div class="max-w-4xl mx-auto p-4 md:p-6 space-y-8">
-  <h1 class="font-bold mb-6">Dialog / Modal</h1>
-  <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
+<div class="rui-max-w-4xl rui-mx-auto rui-p-4 rui-md:p-6 rui-space-y-8">
+  <h1 class="rui-font-bold rui-mb-6">Dialog / Modal</h1>
+  <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
     Modal dialogs with overlay, FocusTrap, configurable sizes, and custom content templates.
   </p>
 
   <section>
-    <h2 id="dialog-sizes" class="!text-xl !font-semibold mb-1">Dialog Sizes</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Choose from sm, md, lg, xl, or fullscreen sizes.</p>
+    <h2 id="dialog-sizes" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Dialog Sizes</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Choose from sm, md, lg, xl, or fullscreen sizes.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <ng-template #sizeDialog let-dialogRef="dialogRef">
-          <p class="text-[var(--mat-sys-on-surface-variant)]">
+          <p class="rui-text-on-surface-variant">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
-          <div class="flex justify-end gap-2 mt-4">
+          <div class="rui-flex rui-justify-end rui-gap-2 rui-mt-4">
             <button mat-button (click)="dialogRef.close('closed')">Close</button>
           </div>
         </ng-template>
-        <div class="flex gap-4 flex-wrap">
+        <div class="rui-flex rui-gap-4 rui-flex-wrap">
           @for (size of sizes; track size) {
             <button mat-raised-button (click)="openWithTemplate(sizeDialog, size)">
               {{ size }}
@@ -54,28 +54,28 @@ import { ShowcaseCode } from '../../shared/showcase-code';
   </section>
 
   <section>
-    <h2 id="dialog-custom" class="!text-xl !font-semibold mb-1">Custom Content</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Pass custom content and footer templates for full control over layout.</p>
+    <h2 id="dialog-custom" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Custom Content</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Pass custom content and footer templates for full control over layout.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <ng-template #customContent let-dialogRef="dialogRef">
-          <p class="text-[var(--mat-sys-on-surface-variant)]">{{ dialogMessage }}</p>
+          <p class="rui-text-on-surface-variant">{{ dialogMessage }}</p>
         </ng-template>
         <ng-template #customFooter let-dialogRef="dialogRef">
-          <div class="flex justify-end items-center gap-2 px-6 py-4 border-t border-[var(--mat-sys-outline-variant)]">
+          <div class="rui-flex rui-justify-end rui-items-center rui-gap-2 rui-px-6 rui-py-4 rui-border-t rui-border-outline-variant">
             <button mat-button (click)="dialogRef.close('custom closed')">Ok</button>
           </div>
         </ng-template>
-        <div class="flex gap-4 items-end flex-nowrap">
-          <mat-form-field class="flex-1 min-w-0">
+        <div class="rui-flex rui-gap-4 rui-items-end rui-flex-nowrap">
+          <mat-form-field class="rui-flex-1 rui-min-w-0">
             <mat-label>Title</mat-label>
             <input matInput [(ngModel)]="dialogTitle" />
           </mat-form-field>
-          <mat-form-field class="flex-1 min-w-0">
+          <mat-form-field class="rui-flex-1 rui-min-w-0">
             <mat-label>Message</mat-label>
             <input matInput [(ngModel)]="dialogMessage" />
           </mat-form-field>
-          <button class="shrink-0 mb-5" mat-raised-button (click)="openWithSlots(customContent, customFooter, dialogTitle)">
+          <button class="rui-shrink-0 rui-mb-5" mat-raised-button (click)="openWithSlots(customContent, customFooter, dialogTitle)">
             Open Custom
           </button>
         </div>
@@ -85,17 +85,17 @@ import { ShowcaseCode } from '../../shared/showcase-code';
   </section>
 
   <section>
-    <h2 id="dialog-options" class="!text-xl !font-semibold mb-1">Options</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Disable close, go fullscreen, or add confirmation flows.</p>
+    <h2 id="dialog-options" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Options</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Disable close, go fullscreen, or add confirmation flows.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
-        <div class="flex gap-4 flex-wrap">
+      <mat-card-content class="rui-pt-4">
+        <div class="rui-flex rui-gap-4 rui-flex-wrap">
           <ng-template #blockingDialog let-dialogRef="dialogRef">
-            <p class="text-[var(--mat-sys-on-surface-variant)]">
+            <p class="rui-text-on-surface-variant">
               This dialog cannot be closed by pressing Escape or clicking the backdrop.
               Use the button below to close it.
             </p>
-            <div class="flex justify-end gap-2 mt-4">
+            <div class="rui-flex rui-justify-end rui-gap-2 rui-mt-4">
               <button mat-raised-button color="primary" (click)="dialogRef.close('confirmed')">
                 Confirm & Close
               </button>
@@ -106,23 +106,23 @@ import { ShowcaseCode } from '../../shared/showcase-code';
           </button>
 
           <ng-template #confirmContent let-dialogRef="dialogRef">
-            <p class="text-[var(--mat-sys-on-surface)]">Are you sure you want to delete this item? This action cannot be undone.</p>
+            <p class="rui-text-on-surface">Are you sure you want to delete this item? This action cannot be undone.</p>
           </ng-template>
           <ng-template #confirmFooter let-dialogRef="dialogRef">
-            <div class="flex justify-end items-center gap-2 px-6 py-4 border-t border-[var(--mat-sys-outline-variant)]">
+            <div class="rui-flex rui-justify-end rui-items-center rui-gap-2 rui-px-6 rui-py-4 rui-border-t rui-border-outline-variant">
               <button mat-stroked-button (click)="dialogRef.dismiss()">Abort</button>
               <button mat-raised-button color="warn" (click)="dialogRef.close('confirmed')">Delete</button>
             </div>
           </ng-template>
 
           <ng-template #fullscreenDialog let-dialogRef="dialogRef">
-            <p class="text-[var(--mat-sys-on-surface-variant)]">
+            <p class="rui-text-on-surface-variant">
               Fullscreen dialog content. Scroll freely.
             </p>
-            <p class="text-[var(--mat-sys-on-surface-variant)] mt-4">
+            <p class="rui-text-on-surface-variant rui-mt-4">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </p>
-            <div class="flex justify-end gap-2 mt-4">
+            <div class="rui-flex rui-justify-end rui-gap-2 rui-mt-4">
               <button mat-button (click)="dialogRef.close('fullscreen closed')">Close</button>
             </div>
           </ng-template>
@@ -176,7 +176,7 @@ export class DialogDemo {
   <p>{{ dialogMessage }}</p>
 </ng-template>
 <ng-template #dialogFooter let-dialogRef="dialogRef">
-  <div class="flex justify-end items-center gap-2 px-6 py-4 border-t border-[var(--mat-sys-outline-variant)]">
+  <div style="display:flex;justify-content:flex-end;align-items:center;gap:0.5rem;padding:1rem 1.5rem;border-top:1px solid var(--mat-sys-outline-variant);">
     <button mat-button (click)="dialogRef.close()">Ok</button>
   </div>
 </ng-template>
@@ -231,7 +231,7 @@ export class DialogDemo {
   <p>Are you sure?</p>
 </ng-template>
 <ng-template #confirmFooter let-dialogRef="dialogRef">
-  <div class="flex justify-end items-center gap-2 px-6 py-4 border-t border-[var(--mat-sys-outline-variant)]">
+  <div style="display:flex;justify-content:flex-end;align-items:center;gap:0.5rem;padding:1rem 1.5rem;border-top:1px solid var(--mat-sys-outline-variant);">
     <button mat-stroked-button (click)="dialogRef.dismiss()">Abort</button>
     <button mat-raised-button color="warn" (click)="dialogRef.close('confirmed')">Delete</button>
   </div>

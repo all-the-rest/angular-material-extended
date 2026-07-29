@@ -6,10 +6,10 @@ import { MaterialCardsBasic } from './cards-section/material-cards-basic';
   standalone: true,
   imports: [MaterialCardsBasic],
   template: `
-    <div class="p-4 md:p-6 space-y-2">
-      <div class="mb-6">
-        <h1 class="font-bold text-[var(--mat-sys-on-surface)]">Cards</h1>
-        <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mt-1">mat-card with header, image, content, actions, and footer sections</p>
+    <div class="rui-p-4 rui-md:p-6 rui-space-y-2">
+      <div class="rui-mb-6">
+        <h1 class="rui-font-bold rui-text-on-surface">Cards</h1>
+        <p class="rui-text-sm rui-text-on-surface-variant rui-mt-1">mat-card with header, image, content, actions, and footer sections</p>
       </div>
 
       <rui-material-cards-basic />

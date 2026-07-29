@@ -8,11 +8,11 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatButtonModule, MatTooltipModule, ShowcaseCode],
   template: `
-    <section id="tooltip-show-delay" class="mb-8">
-      <h2 id="tooltip-show-delay" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Tooltip Show & Hide Delay</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">matTooltipShowDelay and matTooltipHideDelay control when tooltips appear and disappear.</p>
+    <section id="tooltip-show-delay" class="rui-mb-8">
+      <h2 id="tooltip-show-delay" class="rui-font-bold rui-text-on-surface rui-mb-1">Tooltip Show & Hide Delay</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">matTooltipShowDelay and matTooltipHideDelay control when tooltips appear and disappear.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5 flex gap-4 items-center flex-wrap">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-4 rui-items-center rui-flex-wrap">
         <button mat-raised-button
           matTooltip="1s show / 500ms hide"
           [matTooltipShowDelay]="1000"

@@ -8,11 +8,11 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatListModule, MatIconModule, ShowcaseCode],
   template: `
-    <section id="list-basic" class="mb-8">
-      <h2 id="list-basic" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Basic List</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-list with mat-list-item, icons, titles and description lines.</p>
+    <section id="list-basic" class="rui-mb-8">
+      <h2 id="list-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic List</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-list with mat-list-item, icons, titles and description lines.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
         <mat-list>
           <mat-list-item>
             <mat-icon matListItemIcon>inbox</mat-icon>

@@ -7,11 +7,11 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatIconModule, ShowcaseCode],
   template: `
-    <section id="icon-basic" class="mb-8">
-      <h2 id="icon-basic" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Material Icons</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-icon with color variants.</p>
+    <section id="icon-basic" class="rui-mb-8">
+      <h2 id="icon-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Material Icons</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-icon with color variants.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5 flex gap-3 flex-wrap text-[var(--mat-sys-on-surface-variant)]">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-3 rui-flex-wrap rui-text-on-surface-variant">
         <mat-icon>home</mat-icon>
         <mat-icon color="primary">favorite</mat-icon>
         <mat-icon color="accent">star</mat-icon>

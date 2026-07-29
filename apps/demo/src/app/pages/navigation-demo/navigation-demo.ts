@@ -11,18 +11,18 @@ import { RuiCodeHighlight } from '../../shared/code-highlight.directive';
   standalone: true,
   imports: [RouterModule, MatCardModule, MatButtonModule, RuiBreadcrumb, ShowcaseCode, RuiCodeHighlight],
   template: `
-<div class="max-w-4xl mx-auto p-4 md:p-6 space-y-8">
-  <h1 class="!text-2xl !font-bold">Navigation</h1>
+<div class="rui-max-w-4xl rui-mx-auto rui-p-4 rui-md:p-6 rui-space-y-8">
+  <h1 style="font-size:1.5rem;font-weight:700;">Navigation</h1>
 
   <section>
-    <h2 id="breadcrumb-overview" class="!text-xl !font-semibold mb-1">Breadcrumb</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
-      The <code class="text-xs bg-[var(--mat-sys-surface-container)] px-1 py-0.5 rounded">RuiBreadcrumb</code> component
+    <h2 id="breadcrumb-overview" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Breadcrumb</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
+      The <code class="rui-text-xs rui-bg-surface-container rui-px-1 rui-py-0.5 rui-rounded">RuiBreadcrumb</code> component
       provides automatic breadcrumb generation from route data or manual item input.
-      See the <a routerLink="/breadcrumb" class="text-[var(--mat-sys-primary)] underline">full Breadcrumb demo</a> for all features.
+      See the <a routerLink="/breadcrumb" class="rui-text-primary rui-underline">full Breadcrumb demo</a> for all features.
     </p>
     <mat-card appearance="outlined">
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-breadcrumb />
       </mat-card-content>
     </mat-card>
@@ -30,19 +30,19 @@ import { RuiCodeHighlight } from '../../shared/code-highlight.directive';
   </section>
 
   <section>
-    <h2 id="on-this-page" class="!text-xl !font-semibold mb-1">On This Page</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
-      The <code class="text-xs bg-[var(--mat-sys-surface-container)] px-1 py-0.5 rounded">RuiOnThisPage</code> component
+    <h2 id="on-this-page" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">On This Page</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
+      The <code class="rui-text-xs rui-bg-surface-container rui-px-1 rui-py-0.5 rui-rounded">RuiOnThisPage</code> component
       tracks headings on the current page and highlights the active one using IntersectionObserver.
-      It auto-discovers <code class="text-xs bg-[var(--mat-sys-surface-container)] px-1 py-0.5 rounded">&lt;h2&gt;</code>
-      elements with <code class="text-xs bg-[var(--mat-sys-surface-container)] px-1 py-0.5 rounded">id</code> attributes
+      It auto-discovers <code class="rui-text-xs rui-bg-surface-container rui-px-1 rui-py-0.5 rui-rounded">&lt;h2&gt;</code>
+      elements with <code class="rui-text-xs rui-bg-surface-container rui-px-1 rui-py-0.5 rui-rounded">id</code> attributes
       inside the configured container.
     </p>
     <mat-card appearance="outlined">
-      <mat-card-content class="pt-4">
-        <div class="flex items-start gap-4">
-          <div class="flex-1">
-            <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-2">
+      <mat-card-content class="rui-pt-4">
+        <div class="rui-flex rui-items-start rui-gap-4">
+          <div class="rui-flex-1">
+            <p class="rui-text-sm rui-text-on-surface-variant rui-mb-2">
               The sidebar on the right of this page (visible on xl+ screens) demonstrates the component.
               Scroll to see the active heading change.
             </p>
@@ -54,13 +54,13 @@ import { RuiCodeHighlight } from '../../shared/code-highlight.directive';
   </section>
 
   <section>
-    <h2 id="on-this-page-config" class="!text-xl !font-semibold mb-1">Configuration</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">
+    <h2 id="on-this-page-config" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Configuration</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">
       The component accepts inputs for custom heading selectors, scroll containers, root margins, and title.
     </p>
     <mat-card appearance="outlined">
-      <mat-card-content class="pt-4">
-        <pre ruiCodeHighlight language="typescript" class="m-0 text-xs leading-relaxed overflow-x-auto"><code>{{ configCode }}</code></pre>
+      <mat-card-content class="rui-pt-4">
+        <pre ruiCodeHighlight language="typescript" class="rui-m-0 rui-text-xs rui-leading-relaxed" style="overflow-x:auto;"><code>{{ configCode }}</code></pre>
       </mat-card-content>
     </mat-card>
   </section>

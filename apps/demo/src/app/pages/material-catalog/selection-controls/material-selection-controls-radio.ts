@@ -8,14 +8,14 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatRadioModule, MatIconModule, ShowcaseCode],
   template: `
-    <section id="selection-controls-radio" class="mb-8">
-      <h2 id="selection-controls-radio" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Radio Buttons</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-radio-group with mat-radio-button items and a disabled state.</p>
+    <section id="selection-controls-radio" class="rui-mb-8">
+      <h2 id="selection-controls-radio" class="rui-font-bold rui-text-on-surface rui-mb-1">Radio Buttons</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-radio-group with mat-radio-button items and a disabled state.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5 flex gap-4 flex-wrap items-center">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-4 rui-flex-wrap rui-items-center">
         <fieldset>
-          <legend class="sr-only">Radio buttons</legend>
-          <mat-radio-group class="flex gap-4">
+          <legend class="rui-sr-only">Radio buttons</legend>
+          <mat-radio-group class="rui-flex rui-gap-4">
             <mat-radio-button value="1">Option 1</mat-radio-button>
             <mat-radio-button value="2">Option 2</mat-radio-button>
             <mat-radio-button value="3" disabled>Disabled</mat-radio-button>

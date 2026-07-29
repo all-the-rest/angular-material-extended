@@ -1,32 +1,13 @@
-<mat-form-field class="rui-autocomplete" [appearance]="appearance()">
-  @if (label()) {
-    <mat-label>{{ label() }}</mat-label>
+<mat-autocomplete
+  [id]="panelId"
+  [displayWith]="displayFn"
+  (optionSelected)="onOptionSelected($event)"
+  (opened)="onOpened()"
+  (closed)="onClosed()"
+>
+  @for (option of filteredOptions(); track trackByOption($index, option)) {
+    <mat-option [value]="option">
+      {{ displayWith()(option) }}
+    </mat-option>
   }
-  <input
-    matInput
-    [placeholder]="placeholder()"
-    [value]="selectedOption() ? displayWith()(selectedOption()!) : ''"
-    (input)="onInput($event)"
-    [disabled]="disabled()"
-    [attr.aria-expanded]="panelOpen()"
-    [attr.aria-autocomplete]="'list'"
-    [attr.aria-controls]="panelId"
-    role="combobox"
-    autocomplete="off"
-    [matAutocomplete]="autocompletePanel"
-  />
-  <mat-autocomplete
-    #autocompletePanel="matAutocomplete"
-    [id]="panelId"
-    [displayWith]="displayFn"
-    (optionSelected)="onOptionSelected($event)"
-    (opened)="onOpened()"
-    (closed)="onClosed()"
-  >
-    @for (option of filteredOptions(); track trackByOption($index, option)) {
-      <mat-option [value]="option">
-        {{ displayWith()(option) }}
-      </mat-option>
-    }
-  </mat-autocomplete>
-</mat-form-field>
+</mat-autocomplete>

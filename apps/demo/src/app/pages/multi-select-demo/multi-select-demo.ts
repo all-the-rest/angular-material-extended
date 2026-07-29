@@ -17,23 +17,23 @@ import { RuiMultiSelect } from '@all-the.rest/mat-extended/multi-select';
     RuiMultiSelect,
   ],
   template: `
-<div class="max-w-4xl mx-auto p-4 md:p-6 space-y-8">
-  <h1 class="font-bold text-[var(--mat-sys-on-surface)]">Multi-Select</h1>
-  <p class="text-sm text-[var(--mat-sys-on-surface-variant)]">
+<div class="rui-max-w-4xl rui-mx-auto rui-p-4 rui-md:p-6 rui-space-y-8">
+  <h1 class="rui-font-bold rui-text-on-surface">Multi-Select</h1>
+  <p class="rui-text-sm rui-text-on-surface-variant">
     Dropdown with multi-selection, filtering, select-all, and drag-to-reorder.
   </p>
 
   <section>
-    <h2 id="signal-forms" class="!text-xl !font-semibold mb-1">Signal Forms</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Using <code>[(values)]</code> with a <code>signal</code>.</p>
+    <h2 id="signal-forms" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Signal Forms</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Using <code>[(values)]</code> with a <code>signal</code>.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-multi-select
           label="Select fruits"
           [options]="fruits"
           [(values)]="selectedFruits"
         />
-        <p class="text-sm text-[var(--mat-sys-on-surface-variant)]">
+        <p class="rui-text-sm rui-text-on-surface-variant">
           Selected: {{ selectedFruits() | json }}
         </p>
       </mat-card-content>
@@ -42,17 +42,17 @@ import { RuiMultiSelect } from '@all-the.rest/mat-extended/multi-select';
   </section>
 
   <section>
-    <h2 id="reactive-forms" class="!text-xl !font-semibold mb-1">Reactive Forms (sortable)</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Using <code>[formControl]</code> with <code>sortable</code> enabled for drag reorder.</p>
+    <h2 id="reactive-forms" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Reactive Forms (sortable)</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Using <code>[formControl]</code> with <code>sortable</code> enabled for drag reorder.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-multi-select
           label="Select fruits"
           [options]="fruits"
           [formControl]="reactiveControl"
           [sortable]="true"
         />
-        <p class="text-sm text-[var(--mat-sys-on-surface-variant)]">
+        <p class="rui-text-sm rui-text-on-surface-variant">
           Selected: {{ reactiveControl.value | json }}
         </p>
       </mat-card-content>
@@ -61,16 +61,16 @@ import { RuiMultiSelect } from '@all-the.rest/mat-extended/multi-select';
   </section>
 
   <section>
-    <h2 id="template-driven-forms" class="!text-xl !font-semibold mb-1">Template-driven Forms</h2>
-    <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-3">Using <code>[(ngModel)]</code> with the multi-select.</p>
+    <h2 id="template-driven-forms" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Template-driven Forms</h2>
+    <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Using <code>[(ngModel)]</code> with the multi-select.</p>
     <mat-card>
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-multi-select
           label="Select fruits"
           [options]="fruits"
           [(ngModel)]="ngModelFruits"
         />
-        <p class="text-sm text-[var(--mat-sys-on-surface-variant)]">
+        <p class="rui-text-sm rui-text-on-surface-variant">
           Selected: {{ ngModelFruits | json }}
         </p>
       </mat-card-content>

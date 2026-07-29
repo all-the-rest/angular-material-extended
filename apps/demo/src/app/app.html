@@ -1,7 +1,8 @@
-<div class="flex h-screen bg-[var(--mat-sys-surface)] text-[var(--mat-sys-on-surface)]">
+<div class="rui-flex rui-h-screen rui-bg-surface rui-text-on-surface">
   @if (sidebarOpen()) {
     <div
-      class="fixed inset-0 z-20 bg-black/50 md:hidden"
+      class="rui-fixed rui-inset-0 rui-z-20"
+      style="background: rgba(0,0,0,0.5);"
       (click)="sidebarOpen.set(false)"
       (keydown.escape)="sidebarOpen.set(false)"
       tabindex="-1"
@@ -10,96 +11,102 @@
   }
 
   <aside
-    class="sidebar fixed md:static inset-y-0 left-0 z-30 w-64
-           bg-[var(--mat-sys-surface-container)]
-           border-r border-[var(--mat-sys-outline-variant)]
-           flex flex-col"
+    class="sidebar rui-fixed rui-md:static rui-inset-y-0 rui-left-0 rui-z-30 rui-w-64
+           rui-bg-surface-container
+           rui-border-r rui-border-outline-variant
+           rui-flex rui-flex-col"
     [class.sidebar--open]="sidebarOpen()"
   >
-    <a routerLink="/" class="flex items-center gap-3 px-5 h-16 border-b border-[var(--mat-sys-outline-variant)] no-underline hover:bg-[var(--mat-sys-surface-container-high)] transition-colors cursor-pointer">
-      <span class="text-lg font-bold tracking-tight text-[var(--mat-sys-on-surface)]">Angular Material</span>
-      <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-[var(--mat-sys-primary)] text-[var(--mat-sys-on-primary)]">Extended</span>
+    <a routerLink="/" class="rui-flex rui-items-center rui-gap-3 rui-px-5" style="height:4rem;border-bottom:1px solid var(--mat-sys-outline-variant);text-decoration:none;transition:background-color 0.15s;" (mouseenter)="onLogoHover($event)" (mouseleave)="onLogoLeave($event)">
+      <span class="rui-text-lg rui-font-bold rui-tracking-tight rui-text-on-surface">Angular Material</span>
+      <span class="rui-text-xs rui-font-medium rui-px-2 rui-py-0.5 rui-rounded-full rui-bg-primary" style="color:var(--mat-sys-on-primary);">Extended</span>
     </a>
 
-    <nav class="flex-1 overflow-y-auto p-3">
+    <nav class="rui-flex-1 rui-overflow-y-auto" style="padding:0.5rem 0;">
       @for (group of navGroups; track group.label; let last = $last) {
         @if (!last) {
-          <div class="border-b border-[var(--mat-sys-outline-variant)] my-2"></div>
+          <div style="margin:0.5rem 1rem;border-bottom:1px solid var(--mat-sys-outline-variant);"></div>
         }
-        <div class="px-3 pt-3 pb-1 text-xs font-semibold text-[var(--mat-sys-on-surface-variant)] uppercase tracking-wide">{{ group.label }}</div>
-        <div class="space-y-0.5">
+        <div style="padding:0.75rem 1.25rem 0.375rem;font-size:0.6875rem;font-weight:600;color:var(--mat-sys-on-surface-variant);text-transform:uppercase;letter-spacing:0.06em;">{{ group.label }}</div>
+        <div style="padding:0 0.625rem;">
           @for (item of group.items; track item.route) {
             <a
               [routerLink]="item.route"
               routerLinkActive #rla="routerLinkActive"
               [routerLinkActiveOptions]="{ exact: false }"
-              [class]="rla.isActive
-                ? 'flex items-center gap-3 px-4 py-2.5 rounded-lg no-underline text-sm font-medium bg-[var(--mat-sys-secondary-container)] text-[var(--mat-sys-on-secondary-container)] border-l-3 border-[var(--mat-sys-primary)] -ml-px'
-                : 'flex items-center gap-3 px-4 py-2.5 rounded-lg no-underline text-sm text-[var(--mat-sys-on-surface-variant)] hover:bg-[var(--mat-sys-surface-container-high)] hover:text-[var(--mat-sys-on-surface)] transition-colors'"
+              style="display:flex;align-items:center;gap:0.75rem;padding:0.625rem 0.875rem;margin:0.125rem 0;border-radius:0.5rem;text-decoration:none;font-size:0.875rem;font-weight:400;transition:background-color 0.15s;line-height:1.5;"
+              [style.background]="rla.isActive ? 'var(--mat-sys-secondary-container)' : 'transparent'"
+              [style.color]="rla.isActive ? 'var(--mat-sys-on-secondary-container)' : 'var(--mat-sys-on-surface-variant)'"
+              [style.border-left]="rla.isActive ? '3px solid var(--mat-sys-primary)' : '3px solid transparent'"
+              [style.margin-left]="rla.isActive ? '-3px' : '0'"
               (click)="sidebarOpen.set(false)"
+              (mouseenter)="onNavHover($event, rla.isActive)"
+              (mouseleave)="onNavLeave($event, rla.isActive)"
             >
               @if (item.icon) {
-                <mat-icon class="text-lg shrink-0">{{ item.icon }}</mat-icon>
+                <mat-icon style="font-size:20px;width:20px;height:20px;flex-shrink:0;">{{ item.icon }}</mat-icon>
               } @else {
-                <span class="w-1.5 h-1.5 rounded-full shrink-0" [class.bg-[var(--mat-sys-primary)]]="rla.isActive"></span>
+                <span style="width:6px;height:6px;border-radius:50%;flex-shrink:0;" [style.background]="rla.isActive ? 'var(--mat-sys-primary)' : 'transparent'"></span>
               }
-              <span class="flex-1 min-w-0 truncate">{{ item.label }}</span>
+              <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ item.label }}</span>
             </a>
           }
         </div>
       }
     </nav>
 
-    <div class="p-4 border-t border-[var(--mat-sys-outline-variant)]">
-      <p class="text-xs text-[var(--mat-sys-on-surface-variant)]">
+    <div class="rui-p-4" style="border-top:1px solid var(--mat-sys-outline-variant);">
+      <p class="rui-text-xs rui-text-on-surface-variant">
         v0.1.4-SNAPSHOT &middot; MIT
       </p>
     </div>
   </aside>
 
-  <div class="flex flex-col flex-1 min-w-0">
-    <header class="h-16 border-b border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] flex items-center px-4 md:px-6 gap-4">
+  <div class="rui-flex rui-flex-col rui-flex-1 rui-min-w-0">
+    <header class="rui-h-16 rui-bg-surface rui-flex rui-items-center rui-px-4 rui-gap-4" style="border-bottom:1px solid var(--mat-sys-outline-variant);">
       <button
-        class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-[var(--mat-sys-on-surface-variant)] hover:bg-[var(--mat-sys-surface-container-high)] transition-colors"
+        class="rui-md:hidden hamburger-btn"
         (click)="sidebarOpen.set(!sidebarOpen())"
         aria-label="Toggle navigation"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" class="rui-w-5 rui-h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
 
       <rui-breadcrumb />
 
-      <div class="ml-auto flex items-center gap-4">
+      <div class="rui-ml-auto rui-flex rui-items-center rui-gap-4">
         <a
           href="https://github.com/reisi007/angular-material-extended"
           target="_blank"
           matTooltip="GitHub Repo"
-          class="p-2 rounded-lg text-[var(--mat-sys-on-surface-variant)] hover:bg-[var(--mat-sys-surface-container-high)] hover:text-[var(--mat-sys-primary)] transition-colors no-underline"
+          class="rui-p-2 rui-rounded-lg rui-text-on-surface-variant rui-no-underline" style="transition:color 0.15s,background-color 0.15s;"
+          (mouseenter)="onLinkHover($event)"
+          (mouseleave)="onLinkLeave($event)"
           aria-label="GitHub Repository"
         >
-          <mat-icon class="text-[20px]" aria-hidden="true">folder_code</mat-icon>
+          <mat-icon style="font-size:20px;" aria-hidden="true">folder_code</mat-icon>
         </a>
       </div>
     </header>
 
-    <div class="flex flex-1 min-h-0">
-      <main class="flex-1 overflow-auto bg-[var(--mat-sys-surface-container-low)]">
+    <div class="rui-flex rui-flex-1 rui-min-h-0">
+      <main class="rui-flex-1 rui-overflow-auto rui-bg-surface-container-low">
         <router-outlet></router-outlet>
       </main>
 
-      <div class="hidden xl:block w-48 shrink-0 border-l border-[var(--mat-sys-outline-variant)] overflow-y-auto">
+      <div class="rui-hidden rui-xl:block" style="width:12rem;flex-shrink:0;border-left:1px solid var(--mat-sys-outline-variant);overflow-y:auto;">
         <rui-on-this-page />
       </div>
     </div>
 
-    <footer class="py-3 px-6 border-t border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)]">
-      <div class="flex items-center justify-between text-xs text-[var(--mat-sys-on-surface-variant)]">
+    <footer class="rui-py-3 rui-px-6 rui-bg-surface" style="border-top:1px solid var(--mat-sys-outline-variant);">
+      <div class="rui-flex rui-items-center rui-justify-between rui-text-xs rui-text-on-surface-variant">
         <p>Angular Material Extended &mdash; nicht offiziell mit Google oder Angular-Team affiliiert.</p>
-        <div class="flex items-center gap-4">
-          <a href="https://github.com/reisi007/angular-material-extended" target="_blank" class="hover:text-[var(--mat-sys-primary)] transition-colors no-underline">GitHub</a>
-          <a href="https://npmjs.com/package/@all-the.rest/mat-extended" target="_blank" class="hover:text-[var(--mat-sys-primary)] transition-colors no-underline">npm</a>
+        <div class="rui-flex rui-items-center rui-gap-4">
+          <a href="https://github.com/reisi007/angular-material-extended" target="_blank" class="rui-no-underline" style="transition:color 0.15s;">GitHub</a>
+          <a href="https://npmjs.com/package/@all-the.rest/mat-extended" target="_blank" class="rui-no-underline" style="transition:color 0.15s;">npm</a>
         </div>
       </div>
     </footer>

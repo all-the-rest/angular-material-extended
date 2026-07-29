@@ -15,21 +15,21 @@ import { ShowcaseCode } from '../../shared/showcase-code';
     RouterLink, ShowcaseCode,
   ],
   template: `
-<div class="max-w-4xl mx-auto p-4 md:p-6 space-y-8">
-  <h1 class="font-bold">File Management</h1>
+<div class="rui-max-w-4xl rui-mx-auto rui-p-4 rui-md:p-6 rui-space-y-8">
+  <h1 class="rui-font-bold">File Management</h1>
 
-  <p class="text-sm text-[var(--mat-sys-on-surface-variant)]">
+  <p class="rui-text-sm rui-text-on-surface-variant">
     Der File Manager verwaltet existierende Dateien: Umbenennen, Sortieren (Drag & Drop + Buttons), Löschen.
-    Für Upload-Funktionalität (Dropzone, Validierung, Progress) siehe <a routerLink="/file-upload" class="text-[var(--mat-sys-primary)] underline">File Upload</a>.
+    Für Upload-Funktionalität (Dropzone, Validierung, Progress) siehe <a routerLink="/file-upload" class="rui-text-primary rui-underline">File Upload</a>.
   </p>
 
   <!-- Section 1: Basic -->
   <section>
-    <h2 id="basic" class="!text-xl !font-semibold mb-1">Basic File Manager</h2>
+    <h2 id="basic" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Basic File Manager</h2>
 
     <mat-card>
       <mat-card-header><mat-card-title>Toggle Features</mat-card-title></mat-card-header>
-      <mat-card-content class="pt-4 flex flex-wrap gap-4 items-center">
+      <mat-card-content class="rui-pt-4 rui-flex rui-flex-wrap rui-gap-4 rui-items-center">
         <mat-slide-toggle [checked]="basicSortable()" (change)="basicSortable.set($event.checked)">
           Sortable
         </mat-slide-toggle>
@@ -43,7 +43,7 @@ import { ShowcaseCode } from '../../shared/showcase-code';
     </mat-card>
 
     <mat-card>
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-file-manager
           [(files)]="basicFiles"
           [sortable]="basicSortable()"
@@ -58,11 +58,11 @@ import { ShowcaseCode } from '../../shared/showcase-code';
 
   <!-- Section 2: Rename -->
   <section>
-    <h2 id="rename" class="!text-xl !font-semibold mb-1">Rename (mit/ohne Extension)</h2>
+    <h2 id="rename" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Rename (mit/ohne Extension)</h2>
 
     <mat-card>
       <mat-card-header><mat-card-title>Extension Handling</mat-card-title></mat-card-header>
-      <mat-card-content class="pt-4 flex flex-wrap gap-4 items-center">
+      <mat-card-content class="rui-pt-4 rui-flex rui-flex-wrap rui-gap-4 rui-items-center">
         <mat-slide-toggle [checked]="allowExtEdit()" (change)="allowExtEdit.set($event.checked)">
           Edit extension ({{ allowExtEdit() ? 'on' : 'off — extension preserved' }})
         </mat-slide-toggle>
@@ -70,7 +70,7 @@ import { ShowcaseCode } from '../../shared/showcase-code';
     </mat-card>
 
     <mat-card>
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-file-manager
           [(files)]="renameFiles"
           [editable]="true"
@@ -85,19 +85,19 @@ import { ShowcaseCode } from '../../shared/showcase-code';
 
   <!-- Section 3: Sort -->
   <section>
-    <h2 id="sort" class="!text-xl !font-semibold mb-1">Sortierung (Drag & Drop + Buttons)</h2>
+    <h2 id="sort" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Sortierung (Drag & Drop + Buttons)</h2>
 
     <mat-card>
       <mat-card-header><mat-card-title>Drag Handle &amp; Move Buttons</mat-card-title></mat-card-header>
-      <mat-card-content class="pt-4">
-        <p class="text-sm text-[var(--mat-sys-on-surface-variant)]">
+      <mat-card-content class="rui-pt-4">
+        <p class="rui-text-sm rui-text-on-surface-variant">
           Dateien per Drag Handle (Gitter-Icon) oder den Pfeil-Buttons neu anordnen.
         </p>
       </mat-card-content>
     </mat-card>
 
     <mat-card>
-      <mat-card-content class="pt-4">
+      <mat-card-content class="rui-pt-4">
         <rui-file-manager
           [(files)]="sortFiles"
           [sortable]="true"
@@ -111,11 +111,11 @@ import { ShowcaseCode } from '../../shared/showcase-code';
 
   <!-- Section 4: Composition -->
   <section>
-    <h2 id="composition" class="!text-xl !font-semibold mb-1">Composition mit File Upload</h2>
+    <h2 id="composition" style="font-size:1.25rem;font-weight:600;margin-bottom:0.25rem;">Composition mit File Upload</h2>
 
     <mat-card>
       <mat-card-header><mat-card-title>Upload + Management</mat-card-title></mat-card-header>
-      <mat-card-content class="pt-4 flex flex-col gap-4">
+      <mat-card-content class="rui-pt-4 rui-flex rui-flex-col rui-gap-4">
         <rui-file-upload
           [(files)]="sharedFiles"
           [uploadHandler]="mockHandler"

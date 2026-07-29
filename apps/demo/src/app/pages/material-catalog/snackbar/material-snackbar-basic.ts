@@ -8,11 +8,11 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatSnackBarModule, MatButtonModule, ShowcaseCode],
   template: `
-    <section id="snackbar-basic" class="mb-8">
-      <h2 id="snackbar-basic" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Basic Snackbar</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">A simple snackbar with a text message that auto-dismisses after a few seconds.</p>
+    <section id="snackbar-basic" class="rui-mb-8">
+      <h2 id="snackbar-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Snackbar</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">A simple snackbar with a text message that auto-dismisses after a few seconds.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5 flex gap-2 flex-wrap items-center">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-2 rui-flex-wrap rui-items-center">
         <button mat-raised-button color="primary" (click)="openSnackbar()">Show Snackbar</button>
       </div>
 

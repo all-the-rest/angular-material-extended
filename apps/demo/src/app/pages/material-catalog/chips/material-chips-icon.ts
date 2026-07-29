@@ -8,13 +8,13 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
   standalone: true,
   imports: [MatChipsModule, MatIconModule, ShowcaseCode],
   template: `
-    <section id="chips-icon" class="mb-8">
-      <h2 id="chips-icon" class="font-bold text-[var(--mat-sys-on-surface)] mb-1">Chips with Icons</h2>
-      <p class="text-sm text-[var(--mat-sys-on-surface-variant)] mb-4">mat-chip with mat-icon avatar via matChipAvatar.</p>
+    <section id="chips-icon" class="rui-mb-8">
+      <h2 id="chips-icon" class="rui-font-bold rui-text-on-surface rui-mb-1">Chips with Icons</h2>
+      <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-chip with mat-icon avatar via matChipAvatar.</p>
 
-      <div class="rounded-lg border border-[var(--mat-sys-outline-variant)] bg-[var(--mat-sys-surface)] p-5">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
         <fieldset>
-          <legend class="sr-only">Technologies with icons</legend>
+          <legend class="rui-sr-only">Technologies with icons</legend>
           <mat-chip-set>
             <mat-chip>
               <mat-icon matChipAvatar>home</mat-icon>
