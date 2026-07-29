@@ -32,7 +32,7 @@ test.describe('Autocomplete', () => {
   test('should open dropdown when typing in signal forms autocomplete', async ({ page }) => {
     const section = page.locator('section:has(#signal-forms)');
     const input = section.locator('input');
-    await input.click();
+    await input.focus();
     await input.fill('Cherry');
     const panel = section.locator('.mat-mdc-autocomplete-panel');
     await expect(panel).toBeVisible({ timeout: 10000 });
@@ -42,7 +42,7 @@ test.describe('Autocomplete', () => {
   test('should select an option from dropdown', async ({ page }) => {
     const section = page.locator('section:has(#signal-forms)');
     const input = section.locator('input');
-    await input.click();
+    await input.focus();
     await input.fill('Banana');
     const panel = section.locator('.mat-mdc-autocomplete-panel');
     await expect(panel).toBeVisible({ timeout: 10000 });
@@ -53,7 +53,7 @@ test.describe('Autocomplete', () => {
   test('should filter options case-insensitively', async ({ page }) => {
     const section = page.locator('section:has(#signal-forms)');
     const input = section.locator('input');
-    await input.click();
+    await input.focus();
     await input.fill('CHERRY');
     const panel = section.locator('.mat-mdc-autocomplete-panel');
     await expect(panel).toBeVisible({ timeout: 10000 });
@@ -63,7 +63,7 @@ test.describe('Autocomplete', () => {
   test('should update selected display after selection in signal forms', async ({ page }) => {
     const section = page.locator('section:has(#signal-forms)');
     const input = section.locator('input');
-    await input.click();
+    await input.focus();
     await input.fill('Cherry');
     const panel = section.locator('.mat-mdc-autocomplete-panel');
     await expect(panel).toBeVisible({ timeout: 10000 });
@@ -74,7 +74,7 @@ test.describe('Autocomplete', () => {
   test('should work with reactive forms autocomplete', async ({ page }) => {
     const section = page.locator('section:has(#reactive-forms)');
     const input = section.locator('input');
-    await input.click();
+    await input.focus();
     await input.fill('Colorado');
     const panel = section.locator('.mat-mdc-autocomplete-panel');
     await expect(panel).toBeVisible({ timeout: 10000 });
@@ -85,7 +85,7 @@ test.describe('Autocomplete', () => {
   test('should work with template-driven forms autocomplete', async ({ page }) => {
     const section = page.locator('section:has(#template-driven-forms)');
     const input = section.locator('input');
-    await input.click();
+    await input.focus();
     await input.fill('Germany');
     const panel = section.locator('.mat-mdc-autocomplete-panel');
     await expect(panel).toBeVisible({ timeout: 10000 });
