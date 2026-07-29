@@ -42,9 +42,6 @@
       "@all-the.rest/mat-extended/multi-select": [
         "./packages/mat-extended/multi-select/src/index.ts"
       ],
-      "@all-the.rest/mat-extended/autocomplete": [
-        "./packages/mat-extended/autocomplete/src/index.ts"
-      ],
       "@all-the.rest/mat-extended/on-this-page": [
         "./packages/mat-extended/on-this-page/src/index.ts"
       ]

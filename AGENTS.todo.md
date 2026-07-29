@@ -5,19 +5,26 @@
 
 ---
 
-## Task: Autocomplete + Multi-Select — `<mat-form-field>` entfernen (Breaking Change)
+## Task: RuiAutocomplete entfernt
 
-**Kontext**: `<rui-autocomplete>` und `<rui-multi-select>` enthalten `<mat-form-field>` in ihrem Template. Sie sind damit KEINE Drop-in-Replacements für die originalen Material-Komponenten. Ziel: User schreibt `<mat-form-field>` selbst, die RUI-Komponente rendert nur das innere Element.
+- [x] `packages/mat-extended/autocomplete/` — gesamtes Verzeichnis gelöscht
+- [x] `apps/demo/src/app/pages/autocomplete-demo/` — Demo-Seite gelöscht
+- [x] `apps/demo-e2e/src/specs/autocomplete.spec.ts` — E2E-Tests gelöscht
+- [x] `tsconfig.base.json` — Path-Mapping `@all-the.rest/mat-extended/autocomplete` entfernt
+- [x] `packages/mat-extended/package.json` — Keyword + Description bereinigt
+- [x] `apps/demo/src/app/app.routes.ts` — `/autocomplete` Route entfernt
+- [x] `apps/demo/src/app/overview.ts` — Autocomplete-Eintrag entfernt
+- [x] `apps/demo-e2e/src/fixtures/test-data.ts` — autocomplete URL entfernt
 
-### Phase 1: Autocomplete — Drop-in Replacement
+**Begründung**: Kein Anwendungsfall, der nicht bereits durch原生 Angular Material Autocomplete abgedeckt wird.
 
-- [x] `packages/mat-extended/autocomplete/src/autocomplete.html` — `<mat-form-field>`, `<mat-label>`, `<input matInput>` entfernt; nur `<mat-autocomplete>` bleibt
-- [x] `packages/mat-extended/autocomplete/src/autocomplete.ts` — Inputs `label`, `placeholder`, `appearance`, `disabled` entfernt; `MatFormFieldModule`/`MatInputModule` entfernt; `RuiValueAccessor`-Vererbung entfernt
-- [x] `packages/mat-extended/autocomplete/src/autocomplete.component.scss` — Auf `:host { display: block }` gekürzt
-- [x] `packages/mat-extended/autocomplete/src/autocomplete.spec.ts` — Tests für neue Struktur angepasst
-- [x] `packages/mat-extended/autocomplete/README.md` — Neue Usage, API-Tabelle aktualisiert
+---
 
-### Phase 2: Multi-Select — Drop-in Replacement
+## Task: Multi-Select — `<mat-form-field>` entfernen (Breaking Change)
+
+**Kontext**: `<rui-multi-select>` enthält `<mat-form-field>` in seinem Template. Ziel: User schreibt `<mat-form-field>` selbst, die RUI-Komponente rendert nur das innere Element.
+
+### Phase 1: Multi-Select — Drop-in Replacement
 
 - [x] `packages/mat-extended/multi-select/src/multi-select.html` — `<mat-form-field>` und `<mat-label>` entfernt; nur `<mat-select>` bleibt
 - [x] `packages/mat-extended/multi-select/src/multi-select.ts` — Inputs `label`, `appearance` entfernt; `MatFormFieldModule` entfernt
@@ -25,17 +32,16 @@
 - [x] `packages/mat-extended/multi-select/src/multi-select.spec.ts` — Tests angepasst
 - [x] `packages/mat-extended/multi-select/README.md` — Neue Usage, API-Tabelle aktualisiert
 
-### Phase 3: Demo-Seiten aktualisieren
+### Phase 2: Demo-Seite aktualisieren
 
-- [x] `apps/demo/src/app/pages/autocomplete-demo/autocomplete-demo.ts` — Alle 3 Examples mit neuem Pattern
 - [x] `apps/demo/src/app/pages/multi-select-demo/multi-select-demo.ts` — Alle 3 Examples mit neuem Pattern
 
-### Phase 4: READMEs korrigieren
+### Phase 3: READMEs korrigieren
 
 - [x] `packages/mat-extended/breadcrumb/README.md` — Installations-Befehl korrigiert
 - [x] `packages/mat-extended/README.md` — Spalte "Package" → "Entry Point"
 
-### Phase 5: Validierung
+### Phase 4: Validierung
 
 - [x] ESLint auf allen geänderten Dateien geprüft — keine Fehler
 - [ ] `pnpm nx lint --fix` — blockiert durch pre-existing `postcss-safe-parser`-Problem
@@ -45,5 +51,5 @@
 ---
 
 **Breaking Changes**:
-- `RuiAutocomplete`: Inputs `label`, `placeholder`, `appearance`, `disabled` entfernt; kein CVA mehr (User verwaltet Form-Control auf eigenem `<input>`)
+- `RuiAutocomplete` komplett entfernt
 - `RuiMultiSelect`: Inputs `label`, `appearance` entfernt

@@ -269,12 +269,6 @@ export const appRoutes: Route[] = [
       import('./pages/multi-select-demo/multi-select-demo').then((m) => m.MultiSelectDemo),
   },
   {
-    path: 'autocomplete',
-    data: { title: 'Autocomplete' },
-    loadComponent: () =>
-      import('./pages/autocomplete-demo/autocomplete-demo').then((m) => m.AutocompleteDemo),
-  },
-  {
     path: 'date-input',
     data: { title: 'Date Input' },
     loadComponent: () =>

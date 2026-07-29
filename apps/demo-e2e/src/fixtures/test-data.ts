@@ -9,6 +9,5 @@ export const DEMO_URLS = {
   fileManager: '/file-manager',
   multiSelect: '/multi-select',
   dateInput: '/date-input',
-  autocomplete: '/autocomplete',
   navigation: '/navigation',
 } as const;

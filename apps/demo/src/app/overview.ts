@@ -33,7 +33,7 @@ import { MatIconModule } from '@angular/material/icon';
         <a [routerLink]="card.route" class="rui-block rui-p-5 rui-rounded-xl rui-border rui-border-outline-variant rui-bg-surface rui-no-underline" style="transition:all 0.15s;">
           <div class="rui-flex rui-items-center rui-gap-3 rui-mb-2">
             <span class="rui-flex rui-items-center rui-justify-center" style="width:2.25rem;height:2.25rem;border-radius:0.5rem;background:var(--mat-sys-primary-container);flex-shrink:0;">
-              <mat-icon class="rui-text-lg" style="color:var(--mat-sys-on-primary-container);">{{ card.icon }}</mat-icon>
+              <mat-icon style="color:var(--mat-sys-on-primary-container);">{{ card.icon }}</mat-icon>
             </span>
             <h3 class="rui-text-base rui-font-semibold rui-text-on-surface" style="transition:color 0.15s;">{{ card.label }}</h3>
           </div>
@@ -51,7 +51,7 @@ import { MatIconModule } from '@angular/material/icon';
         <a [routerLink]="card.route" class="rui-block rui-p-5 rui-rounded-xl rui-border rui-border-outline-variant rui-bg-surface rui-no-underline" style="transition:all 0.15s;">
           <div class="rui-flex rui-items-center rui-gap-3 rui-mb-2">
             <span class="rui-flex rui-items-center rui-justify-center" style="width:2.25rem;height:2.25rem;border-radius:0.5rem;background:var(--mat-sys-primary-container);flex-shrink:0;">
-              <mat-icon class="rui-text-lg" style="color:var(--mat-sys-on-primary-container);">{{ card.icon }}</mat-icon>
+              <mat-icon style="color:var(--mat-sys-on-primary-container);">{{ card.icon }}</mat-icon>
             </span>
             <h3 class="rui-text-base rui-font-semibold rui-text-on-surface" style="transition:color 0.15s;">{{ card.label }}</h3>
           </div>
@@ -97,7 +97,6 @@ export class Overview {
     { label: 'Menu', route: '/menu', icon: 'menu', description: 'Kontextmen\u00fc mit Icons, Separator, Disabled-Items, Keyboard-Navigation und Submen\u00fcs' },
     { label: 'Breadcrumb', route: '/breadcrumb', icon: 'arrow_right_alt', description: 'Auto-Breadcrumb aus Route-Data, manueller Modus, benutzerdefinierte Trennzeichen und Icons' },
     { label: 'Multi-Select', route: '/multi-select', icon: 'playlist_add_check', description: 'Dropdown mit Mehrfachauswahl, Filterung, Select-All, Checkboxen und konfigurierbaren Optionen' },
-    { label: 'Autocomplete', route: '/autocomplete', icon: 'search', description: 'Autocomplete mit eingebautem Filtering, Signal-API und Form-Integration' },
     { label: 'Navigation', route: '/navigation', icon: 'near_me', description: 'Breadcrumb und On This Page Komponenten für Seitenstruktur und Navigation' },
   ];
 

@@ -75,7 +75,6 @@ export class App {
         { label: 'Menu', route: '/menu', icon: 'menu' },
         { label: 'Breadcrumb', route: '/breadcrumb', icon: 'arrow_right_alt' },
         { label: 'Multi-Select', route: '/multi-select', icon: 'playlist_add_check' },
-        { label: 'Autocomplete', route: '/autocomplete', icon: 'search' },
         { label: 'Date Input', route: '/date-input', icon: 'calendar_today' },
         { label: 'Navigation', route: '/navigation', icon: 'near_me' },
       ],
