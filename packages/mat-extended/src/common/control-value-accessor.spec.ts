@@ -1,5 +1,11 @@
+import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { RuiValueAccessor } from './control-value-accessor';
 
+@Component({
+  standalone: true,
+  template: '',
+})
 class TestAccessor extends RuiValueAccessor<string> {
   triggerChange(value: string): void {
     this.markAsChanged(value);
@@ -14,15 +20,19 @@ describe('RuiValueAccessor', () => {
   let accessor: TestAccessor;
 
   beforeEach(() => {
-    accessor = new TestAccessor();
+    TestBed.configureTestingModule({
+      imports: [TestAccessor],
+    });
+    const fixture = TestBed.createComponent(TestAccessor);
+    accessor = fixture.componentInstance;
   });
 
-  it('should default value to undefined', () => {
-    expect(accessor.value).toBeUndefined();
+  it('should default value to null', () => {
+    expect(accessor.value).toBeNull();
   });
 
   it('should default disabled to false', () => {
-    expect(accessor.disabled()).toBe(false);
+    expect(accessor.disabled).toBe(false);
   });
 
   it('should update value via writeValue', () => {
@@ -31,7 +41,7 @@ describe('RuiValueAccessor', () => {
   });
 
   it('should call onChange when markAsChanged is triggered', () => {
-    let changed: string | undefined;
+    let changed: string | null = null;
     accessor.registerOnChange((v) => (changed = v));
     accessor.triggerChange('hello');
     expect(changed).toBe('hello');
@@ -47,11 +57,11 @@ describe('RuiValueAccessor', () => {
 
   it('should update disabled state via setDisabledState', () => {
     accessor.setDisabledState(true);
-    expect(accessor.disabled()).toBe(true);
+    expect(accessor.disabled).toBe(true);
   });
 
   it('should update signal value and onChange together', () => {
-    let changed: string | undefined;
+    let changed: string | null = null;
     accessor.registerOnChange((v) => (changed = v));
     accessor.triggerChange('world');
     expect(accessor.value).toBe('world');

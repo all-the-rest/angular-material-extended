@@ -167,7 +167,7 @@ export class DialogDemo {
   protected sizesTs = [
     `const ref = dialogService.open({`,
     `  header: 'My Dialog',`,
-    `  template: myTemplate,`,
+    `  template: myDialog,`,
     `  size: 'md', // sm | md | lg | xl`,
     `});`,
   ].join('\n');
@@ -180,15 +180,15 @@ export class DialogDemo {
     <button mat-button (click)="dialogRef.close()">Ok</button>
   </div>
 </ng-template>
-<button mat-raised-button (click)="open(dialogContent, dialogFooter, title)">
+<button mat-raised-button (click)="open(dialogContent, dialogFooter, dialogTitle)">
   Open Custom
 </button>`;
 
   protected customTs = [
     `const ref = dialogService.open({`,
     `  header: 'Custom Title',`,
-    `  contentTemplate: contentTpl,`,
-    `  footerTemplate: footerTpl,`,
+    `  contentTemplate: dialogContent,`,
+    `  footerTemplate: dialogFooter,`,
     `  size: 'md',`,
     `});`,
     `ref.afterClosed.then(result => {`,
@@ -208,21 +208,21 @@ export class DialogDemo {
   protected blockingTs = [
     `const ref = dialogService.open({`,
     `  header: 'Important',`,
-    `  template: blockingTemplate,`,
+    `  template: blockingDialog,`,
     `  disableClose: true,`,
     `  size: 'sm',`,
     `});`,
   ].join('\n');
 
   protected fullscreenHtml = `<!-- Same template pattern as above -->
-<button mat-stroked-button (click)="openFullscreen(myDialog)">
+<button mat-stroked-button (click)="openWithTemplate(fullscreenDialog, 'fullscreen', 'Fullscreen')">
   Fullscreen
 </button>`;
 
   protected fullscreenTs = [
     `const ref = dialogService.open({`,
     `  header: 'Fullscreen',`,
-    `  template: fullscreenTemplate,`,
+    `  template: fullscreenDialog,`,
     `  size: 'fullscreen',`,
     `});`,
   ].join('\n');
@@ -237,15 +237,15 @@ export class DialogDemo {
   </div>
 </ng-template>
 
-<button mat-raised-button color="warn" (click)="openConfirm(confirmContent, confirmFooter)">
+<button mat-raised-button color="warn" (click)="openDeleteConfirm(confirmContent, confirmFooter)">
   Delete Confirmation
 </button>`;
 
   protected confirmTs = [
     `const ref = dialogService.open({`,
     `  header: 'Confirm Delete',`,
-    `  contentTemplate: contentTpl,`,
-    `  footerTemplate: footerTpl,`,
+    `  contentTemplate: confirmContent,`,
+    `  footerTemplate: confirmFooter,`,
     `  size: 'sm',`,
     `});`,
     `ref.afterClosed.then(result => {`,

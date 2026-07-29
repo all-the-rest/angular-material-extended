@@ -13,8 +13,10 @@ import {
   viewChild,
   ElementRef,
   forwardRef,
+  effect,
 } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { RuiValueAccessor } from '@all-the.rest/mat-extended';
 import { RuiFileItem, RuiUploadStatus, RuiUploadHandler, RuiValidationError } from './file-upload.types';
@@ -47,6 +49,10 @@ import { formatSize } from './file-upload-utils';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => RuiFileUpload),
       multi: true,
+    },
+    {
+      provide: MatFormFieldControl,
+      useExisting: forwardRef(() => RuiFileUpload),
     },
   ],
 })
@@ -97,6 +103,11 @@ export class RuiFileUpload extends RuiValueAccessor<RuiFileItem[]> {
   constructor() {
     super();
 
+    effect(() => {
+      const f = this.files();
+      this.markAsChanged(f);
+    });
+
     afterNextRender(() => {
       const initial = this.initialFiles();
       if (initial.length > 0) {
@@ -127,7 +138,7 @@ export class RuiFileUpload extends RuiValueAccessor<RuiFileItem[]> {
   onDragEnter(event: DragEvent): void {
     event.preventDefault();
     event.stopPropagation();
-    if (!this.disabled()) {
+    if (!this.disabled) {
       this.isDragOver.set(true);
     }
   }
@@ -135,7 +146,7 @@ export class RuiFileUpload extends RuiValueAccessor<RuiFileItem[]> {
   onDragOver(event: DragEvent): void {
     event.preventDefault();
     event.stopPropagation();
-    if (!this.disabled()) {
+    if (!this.disabled) {
       this.isDragOver.set(true);
     }
   }
@@ -150,7 +161,7 @@ export class RuiFileUpload extends RuiValueAccessor<RuiFileItem[]> {
     event.preventDefault();
     event.stopPropagation();
     this.isDragOver.set(false);
-    if (this.disabled()) return;
+    if (this.disabled) return;
     if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
       this.processFiles(Array.from(event.dataTransfer.files));
     }
@@ -431,7 +442,8 @@ export class RuiFileUpload extends RuiValueAccessor<RuiFileItem[]> {
     this.updateFiles(current);
   }
 
-  override writeValue(value: RuiFileItem[] | undefined): void {
+  override writeValue(value: RuiFileItem[] | null): void {
+    super.writeValue(value);
     this.files.set(value ?? []);
   }
 

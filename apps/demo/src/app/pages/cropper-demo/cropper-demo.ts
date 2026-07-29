@@ -431,25 +431,27 @@ export class MyComponent {
 </div>`;
 
   readonly errorHtml = `<rui-cropper
-  [src]="imageUrl"
-  (loadError)="handleError($event)"
+  [src]="errorSrc()"
+  (loadError)="errorMsg.set($event)"
 />`;
 
   readonly dynHtml = `<rui-cropper
   [src]="'...'"
-  [aspectRatio]="aspect()"
-  [outputFormat]="'image/png'"
-  [outputQuality]="0.92"
+  [aspectRatio]="dynAspect()"
+  [outputFormat]="dynFormat()"
+  [outputQuality]="dynQuality()"
+  [outputWidth]="dynWidth()"
+  [outputHeight]="dynHeight()"
   [(croppedImage)]="cropped"
 />`;
 
-  readonly positionHtml = `<rui-cropper toolbarPosition="top" />
+  readonly positionHtml = `<rui-cropper [src]="'https://picsum.photos/800/600'" toolbarPosition="top" />
 
-<rui-cropper toolbarPosition="bottom" />
+<rui-cropper [src]="'https://picsum.photos/800/600'" toolbarPosition="bottom" />
 
-<rui-cropper toolbarPosition="left" />
+<rui-cropper [src]="'https://picsum.photos/800/600'" toolbarPosition="left" />
 
-<rui-cropper toolbarPosition="right" />`;
+<rui-cropper [src]="'https://picsum.photos/800/600'" toolbarPosition="right" />`;
 
   readonly cropControl = new FormControl<string>('');
   readonly signalCropped = signal('');
@@ -550,13 +552,13 @@ export class MyComponent {
   readonly constrainEnabled = signal(true);
   readonly constrainResult = signal<RuiCropperResult | null>(null);
 
-  readonly constrainHtml = `<mat-slide-toggle [checked]="constrain()" (change)="constrain.set($event.checked)">
-  constrainToImage: {{ constrain() }}
+  readonly constrainHtml = `<mat-slide-toggle [checked]="constrainEnabled()" (change)="constrainEnabled.set($event.checked)">
+  constrainToImage: {{ constrainEnabled() }}
 </mat-slide-toggle>
 
 <rui-cropper
   [src]="'...'"
-  [constrainToImage]="constrain()"
+  [constrainToImage]="constrainEnabled()"
   [aspectRatio]="'free'"
   [rotationMin]="-180"
   [rotationMax]="180"
@@ -566,7 +568,7 @@ export class MyComponent {
 import { RuiCropper } from '@all-the.rest/mat-extended/cropper';
 
 export class MyComponent {
-  constrain = signal(true);
+  constrainEnabled = signal(true);
 }`;
 
   onConstrainCrop(result: RuiCropperResult): void {

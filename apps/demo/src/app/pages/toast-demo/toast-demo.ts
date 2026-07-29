@@ -123,7 +123,8 @@ export class ToastDemo {
   protected toastTypesHtml = `<button mat-raised-button color="primary" (click)="showSuccess()">Success</button>
 <button mat-raised-button color="warn" (click)="showError()">Error</button>
 <button mat-raised-button (click)="showInfo()">Info</button>
-<button mat-raised-button (click)="showWarning()">Warning</button>`;
+<button mat-raised-button (click)="showWarning()">Warning</button>
+<button mat-raised-button (click)="dismissAll()">Dismiss All</button>`;
 
   protected toastTypesTs = [
     `import { RuiToastService } from '@all-the.rest/mat-extended/toast';`,
@@ -141,13 +142,13 @@ export class ToastDemo {
   protected customDurationHtml = `<div style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap;">
   <mat-form-field appearance="outline" style="flex:1;min-width:200px;">
     <mat-label>Message</mat-label>
-    <input matInput [(ngModel)]="message" />
+    <input matInput [(ngModel)]="customMessage" />
   </mat-form-field>
   <mat-form-field appearance="outline" style="width:140px;">
     <mat-label>Duration (ms)</mat-label>
-    <input matInput type="number" [(ngModel)]="duration" />
+    <input matInput type="number" [(ngModel)]="customDuration" />
   </mat-form-field>
-  <button mat-raised-button color="primary" (click)="showCustom()">Show</button>
+  <button mat-raised-button color="primary" (click)="showCustom()">Show Custom</button>
 </div>`;
 
   protected customDurationTs = [
@@ -159,7 +160,9 @@ export class ToastDemo {
   ].join('\n');
 
   protected positionsHtml = `@for (pos of positions; track pos) {
-  <button mat-stroked-button (click)="showAtPosition(pos)">{{ pos }}</button>
+  <button mat-icon-button [matTooltip]="pos" [aria-label]="pos" (click)="showAtPosition(pos)">
+    <mat-icon>{{ positionIcons[pos] }}</mat-icon>
+  </button>
 }`;
 
   protected positionsTs = [

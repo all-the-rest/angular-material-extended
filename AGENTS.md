@@ -46,6 +46,7 @@
 
 - **STANDALONE COMPONENTS ONLY** – keine NgModules.
 - **Signals first**: `input()`, `output()`, `model()`, `computed()`, `signal()`, `effect()`. **KEINE** `@Input()`/`@Output()`, **KEINE** `EventEmitter`.
+- **Signal Inputs IMMER mit `()` aufrufen** in Templates (z.B. `disabled()`, `value()`). Fehlende `()` verursachen Angular-Diagnostic NG8109 und MÜSSEN vor Commit behoben werden.
 - **Control Flow**: `@if`, `@for`, `@switch` – KEINE structural directives.
 - **Zoneless**: KEINE `setTimeout`/`zone.run`-Hacks.
 - **strict TS**: `strict: true`, `noUncheckedIndexedAccess`, keine `any` ohne Begründung.
@@ -82,7 +83,7 @@
 | CI-Pipeline          | `pnpm nx test` + `pnpm nx lint` + Playwright E2E laufen grün in GitHub Actions |
 | Barrierefreiheit     | Keyboard-Navigation, ARIA-Labels, Focus-Management                             |
 | Demo-Seite           | Feature wird in der Demo-App demonstriert                                      |
-| Keine eslint-disable | Alle Lint-Regeln werden eingehalten                                           |
+| Keine eslint-disable | Alle Lint-Regeln werden eingehalten                                            |
 
 > Ein Feature ist erst dann `[x]`, wenn die GitHub Action grün durchläuft.
 
@@ -105,6 +106,28 @@ Jede form-fähige Komponente MUSS beides unterstützen:
 export class RuiCropper extends RuiValueAccessor<string> implements ControlValueAccessor {
   readonly croppedImage = model<string>(); // parallele Signal-API
 }
+```
+
+### 9.1 Composable Form Fields – KEIN internes `mat-form-field`
+
+- **Komponenten sind composable, NICHT self-contained.** `mat-form-field` MUSS vom Consumer gekapselt werden.
+- **KEINE** `<mat-form-field>` in Library-Komponenten-Templates. Der Consumer entscheidet über Appearance, Label, Hint, Error.
+- Komponenten rendern nur das native Input/Select/Textarea und binden auf `matInput`/`matSelect` etc.
+- **Showcase-Code** in der Demo MUSS immer `<mat-form-field>` zeigen:
+
+```html
+<!-- RICHTIG -->
+<mat-form-field appearance="outline">
+  <mat-label>Fruits</mat-label>
+  <mat-select multiple>
+    @for (opt of options(); track opt) {
+      <mat-option [value]="opt">{{ opt }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+<!-- FALSCH – mat-form-field inside der Komponente -->
+<rui-multi-select [options]="fruits" [(values)]="selected" />
 ```
 
 ## 10. Theming
@@ -157,6 +180,7 @@ export class RuiCropper extends RuiValueAccessor<string> implements ControlValue
 - JEDE Komponente MUSS eine Demo-Seite in `apps/demo/src/app/pages/` haben.
 - Demo-Seiten-Struktur: `# heading` → `<ui example>` → `<rui-showcase-code [html]="..." [ts]="...">`.
 - Form-Integration: Jede form-fähige Komponente MUSS alle 3 Paradigmen zeigen (Template-driven, Reactive, Signal).
+- **Form-Components in Demo**: Immer in `<mat-form-field>` wrappen (composable Pattern, siehe 9.1).
 
 ## 18. CI/CD
 
@@ -170,6 +194,7 @@ export class RuiCropper extends RuiValueAccessor<string> implements ControlValue
 - **KEINE** `pnpm add` ohne Rückfrage. Bei Unsicherheit: nachfragen.
 - VOR jedem Commit: `pnpm nx lint --fix` + `pnpm nx test` + `pnpm nx build demo` + `pnpm nx e2e demo-e2e`. Erst committen wenn alle grün.
 - Lint IMMER mit `--fix`. Bei Fehlern: vollen Output lesen, nicht retry.
+- **Build-Warnings (NG8109, Angular Compiler) NIE ignorieren** — vor jedem Commit `pnpm nx run-many -t build test --skip-nx-cache` auf Warnungen prüfen und beheben.
 - Tasks in `AGENTS.todo.md` sofort aktualisieren. Tab-Größe: 2 Spaces.
 - **AI-Tool-Ordner** (`.opencode/`, `.agents/`, etc.) werden NIEMALS committed.
 
@@ -196,7 +221,7 @@ export class RuiCropper extends RuiValueAccessor<string> implements ControlValue
 - When running tasks (for example build, lint, test, e2e, etc.), always prefer running the task through `nx` (i.e. `nx run`, `nx run-many`, `nx affected`) instead of using the underlying tooling directly
 - Prefix nx commands with the workspace's package manager (e.g., `pnpm nx build`, `npm exec nx test`) - avoids using globally installed CLI
 - You have access to the Nx MCP server and its tools, use them to help the user
-- For Nx plugin best practices, check `node_modules/@nx/<plugin>/PLUGIN.md`. Not all plugins have this file - proceed without it if unavailable
+- For Nx plugin best practices, check `node_modules/@nx/<plugin>/PLUGIN.md`. Not all plugins have this file - proceed without it if unavailable.
 - NEVER guess CLI flags - always check nx_docs or `--help` first when unsure
 
 ## Scaffolding & Generators

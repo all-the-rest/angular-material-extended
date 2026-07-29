@@ -2,6 +2,8 @@ import { Component, ChangeDetectionStrategy, signal, type WritableSignal } from 
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { ShowcaseCode } from '../../shared/showcase-code';
 import { RuiMultiSelect } from '@all-the.rest/mat-extended/multi-select';
 
@@ -13,6 +15,8 @@ import { RuiMultiSelect } from '@all-the.rest/mat-extended/multi-select';
     ReactiveFormsModule,
     JsonPipe,
     MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
     ShowcaseCode,
     RuiMultiSelect,
   ],
@@ -28,11 +32,13 @@ import { RuiMultiSelect } from '@all-the.rest/mat-extended/multi-select';
     <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Using <code>[(values)]</code> with a <code>signal</code>.</p>
     <mat-card>
       <mat-card-content class="rui-pt-4">
-        <rui-multi-select
-          label="Select fruits"
-          [options]="fruits"
-          [(values)]="selectedFruits"
-        />
+        <mat-form-field appearance="outline" class="rui-w-full">
+          <mat-label>Select fruits</mat-label>
+          <rui-multi-select
+            [options]="fruits"
+            [(values)]="selectedFruits"
+          />
+        </mat-form-field>
         <p class="rui-text-sm rui-text-on-surface-variant">
           Selected: {{ selectedFruits() | json }}
         </p>
@@ -46,12 +52,14 @@ import { RuiMultiSelect } from '@all-the.rest/mat-extended/multi-select';
     <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Using <code>[formControl]</code> with <code>sortable</code> enabled for drag reorder.</p>
     <mat-card>
       <mat-card-content class="rui-pt-4">
-        <rui-multi-select
-          label="Select fruits"
-          [options]="fruits"
-          [formControl]="reactiveControl"
-          [sortable]="true"
-        />
+        <mat-form-field appearance="outline" class="rui-w-full">
+          <mat-label>Select fruits</mat-label>
+          <rui-multi-select
+            [options]="fruits"
+            [formControl]="reactiveControl"
+            [sortable]="true"
+          />
+        </mat-form-field>
         <p class="rui-text-sm rui-text-on-surface-variant">
           Selected: {{ reactiveControl.value | json }}
         </p>
@@ -65,11 +73,13 @@ import { RuiMultiSelect } from '@all-the.rest/mat-extended/multi-select';
     <p class="rui-text-sm rui-text-on-surface-variant rui-mb-3">Using <code>[(ngModel)]</code> with the multi-select.</p>
     <mat-card>
       <mat-card-content class="rui-pt-4">
-        <rui-multi-select
-          label="Select fruits"
-          [options]="fruits"
-          [(ngModel)]="ngModelFruits"
-        />
+        <mat-form-field appearance="outline" class="rui-w-full">
+          <mat-label>Select fruits</mat-label>
+          <rui-multi-select
+            [options]="fruits"
+            [(ngModel)]="ngModelFruits"
+          />
+        </mat-form-field>
         <p class="rui-text-sm rui-text-on-surface-variant">
           Selected: {{ ngModelFruits | json }}
         </p>
@@ -86,16 +96,18 @@ export class MultiSelectDemo {
 
   readonly selectedFruits: WritableSignal<string[]> = signal<string[]>(['Apple', 'Banana']);
 
-  readonly reactiveControl = new FormControl<string[]>([]);
+  readonly reactiveControl = new FormControl<string[]>(['Apple', 'Cherry']);
 
   ngModelFruits: string[] = ['Fig', 'Grape'];
 
   protected signalHtmlCode = [
-    `<rui-multi-select`,
-    `  label="Select fruits"`,
-    `  [options]="fruits"`,
-    `  [(values)]="selectedFruits"`,
-    `/>`,
+    `<mat-form-field appearance="outline">`,
+    `  <mat-label>Select fruits</mat-label>`,
+    `  <rui-multi-select`,
+    `    [options]="fruits"`,
+    `    [(values)]="selectedFruits"`,
+    `  />`,
+    `</mat-form-field>`,
   ].join('\n');
 
   protected signalTsCode = [
@@ -107,12 +119,14 @@ export class MultiSelectDemo {
   ].join('\n');
 
   protected reactiveHtmlCode = [
-    `<rui-multi-select`,
-    `  label="Select fruits"`,
-    `  [options]="fruits"`,
-    `  [formControl]="fruitsControl"`,
-    `  [sortable]="true"`,
-    `/>`,
+    `<mat-form-field appearance="outline">`,
+    `  <mat-label>Select fruits</mat-label>`,
+    `  <rui-multi-select`,
+    `    [options]="fruits"`,
+    `    [formControl]="fruitsControl"`,
+    `    [sortable]="true"`,
+    `  />`,
+    `</mat-form-field>`,
   ].join('\n');
 
   protected reactiveTsCode = [
@@ -124,11 +138,13 @@ export class MultiSelectDemo {
   ].join('\n');
 
   protected templateHtmlCode = [
-    `<rui-multi-select`,
-    `  label="Select fruits"`,
-    `  [options]="fruits"`,
-    `  [(ngModel)]="selectedFruits"`,
-    `/>`,
+    `<mat-form-field appearance="outline">`,
+    `  <mat-label>Select fruits</mat-label>`,
+    `  <rui-multi-select`,
+    `    [options]="fruits"`,
+    `    [(ngModel)]="selectedFruits"`,
+    `  />`,
+    `</mat-form-field>`,
   ].join('\n');
 
   protected templateTsCode = [

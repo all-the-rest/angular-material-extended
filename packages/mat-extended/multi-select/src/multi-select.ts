@@ -3,7 +3,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSelectModule, MatSelectChange } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import { DragDropModule, moveItemInArray, type CdkDragDrop } from '@angular/cdk/drag-drop';
 import { RuiArrayValueAccessor } from '@all-the.rest/mat-extended';
 
@@ -14,7 +14,6 @@ import { RuiArrayValueAccessor } from '@all-the.rest/mat-extended';
     MatSelectModule,
     MatChipsModule,
     MatIconModule,
-    MatFormFieldModule,
     DragDropModule,
   ],
   templateUrl: './multi-select.html',
@@ -26,22 +25,23 @@ import { RuiArrayValueAccessor } from '@all-the.rest/mat-extended';
       useExisting: forwardRef(() => RuiMultiSelect),
       multi: true,
     },
+    {
+      provide: MatFormFieldControl,
+      useExisting: forwardRef(() => RuiMultiSelect),
+    },
   ],
 })
 export class RuiMultiSelect<T = unknown> extends RuiArrayValueAccessor<T> {
   readonly options = input<T[]>([]);
-  readonly label = input<string>('');
-  readonly placeholder = input<string>('');
   readonly labelKey = input<string>('');
   readonly sortable = input(false);
-  readonly appearance = input<'fill' | 'outline'>('outline');
   readonly compareWith = input<((a: T, b: T) => boolean) | null>(null);
 
   readonly selectionChange = output<T[]>();
 
   private _selectionOrder: T[] = [];
 
-  override writeValue(values: T[] | undefined): void {
+  override writeValue(values: T[] | null): void {
     super.writeValue(values);
     this._selectionOrder = [...(values ?? [])];
   }

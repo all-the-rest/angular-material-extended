@@ -127,7 +127,7 @@ import { ShowcaseCode } from '../../shared/showcase-code';
         <p class="rui-text-sm rui-text-on-surface-variant">
           Files in control: {{ fileControl.value?.length ?? 0 }}
         </p>
-        <button mat-flat-button (click)="fileControl.disable()" class="rui-self-start">
+        <button mat-flat-button (click)="toggleControl()" class="rui-self-start">
           {{ fileControl.disabled ? 'Enable' : 'Disable' }} form control
         </button>
       </mat-card-content>
@@ -247,14 +247,17 @@ export class MyComponent {
   [uploadHandler]="handler"
 />`;
 
-  protected acceptTs = `// Accept only images, limit to 5 files
-<rui-file-upload accept="image/*" [maxFiles]="5" />
+  protected acceptTs = `import { RuiFileUpload } from '@all-the.rest/mat-extended/file-upload';
+import type { RuiUploadHandler } from '@all-the.rest/mat-extended/file-upload';
 
-// Accept specific extensions
-<rui-file-upload accept=".pdf,.doc,.docx" />
-
-// Accept exact MIME types
-<rui-file-upload accept="application/pdf,text/csv" />`;
+@Component({
+  imports: [RuiFileUpload],
+})
+export class MyComponent {
+  uploadHandler: RuiUploadHandler = async (file) => {
+    file.progress = 100;
+  };
+}`;
 
   protected formsHtml = `<rui-file-upload
   [formControl]="fileControl"
@@ -262,11 +265,19 @@ export class MyComponent {
 />`;
 
   protected formsTs = `import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { RuiFileUpload } from '@all-the.rest/mat-extended/file-upload';
+import type { RuiFileItem, RuiUploadHandler } from '@all-the.rest/mat-extended/file-upload';
 
-fileControl = new FormControl<RuiFileItem[]>([]);
+@Component({
+  imports: [ReactiveFormsModule, RuiFileUpload],
+})
+export class MyComponent {
+  fileControl = new FormControl<RuiFileItem[]>([]);
 
-// Read files from control
-const files = this.fileControl.value;`;
+  uploadHandler: RuiUploadHandler = async (file) => {
+    file.progress = 100;
+  };
+}`;
 
   protected sortableHtml = `<rui-file-upload
   [sortable]="true"
@@ -274,9 +285,17 @@ const files = this.fileControl.value;`;
   [uploadHandler]="handler"
 />`;
 
-  protected sortableTs = `// sortable enables drag & drop reordering with up/down buttons
-// editable enables inline rename on double-click (pencil icon)
-<rui-file-upload [sortable]="true" [editable]="true" />`;
+  protected sortableTs = `import { RuiFileUpload } from '@all-the.rest/mat-extended/file-upload';
+import type { RuiUploadHandler } from '@all-the.rest/mat-extended/file-upload';
+
+@Component({
+  imports: [RuiFileUpload],
+})
+export class MyComponent {
+  uploadHandler: RuiUploadHandler = async (file) => {
+    file.progress = 100;
+  };
+}`;
 
   onUploadStart(files: RuiFileItem[]): void {
     this.uploadedFiles.update(current => [...current, ...files]);
@@ -285,5 +304,13 @@ const files = this.fileControl.value;`;
   onMaxSizeChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.maxFileSize.set(Number(input.value));
+  }
+
+  toggleControl(): void {
+    if (this.fileControl.disabled) {
+      this.fileControl.enable();
+    } else {
+      this.fileControl.disable();
+    }
   }
 }

@@ -270,6 +270,9 @@ importers:
       '@angular/material':
         specifier: ^22.0.0
         version: 22.0.5(df1d7570efc7f5fa32927bcdd46a7b73)
+      rxjs:
+        specifier: ^7.0.0
+        version: 7.8.2
     devDependencies:
       vitest-canvas-mock:
         specifier: ^1.1.4

@@ -4,6 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { RuiMultiSelect } from './multi-select';
 import { RuiArrayValueAccessor } from '@all-the.rest/mat-extended';
 
@@ -13,7 +14,6 @@ import { RuiArrayValueAccessor } from '@all-the.rest/mat-extended';
   template: `
     <rui-multi-select
       [options]="options()"
-      [label]="label()"
       [(values)]="selected"
       (selectionChange)="onSelectionChange($event)"
     />
@@ -21,7 +21,6 @@ import { RuiArrayValueAccessor } from '@all-the.rest/mat-extended';
 })
 class SignalHostComponent {
   readonly options = signal<string[]>(['Apple', 'Banana', 'Cherry']);
-  readonly label = signal<string>('Fruits');
   readonly selected = signal<string[]>(['Apple']);
   selectionChangeCalled = false;
   lastSelection: string[] | undefined;
@@ -39,7 +38,6 @@ class SignalHostComponent {
     <rui-multi-select
       [options]="fruits"
       [formControl]="control"
-      label="Reactive"
     />
   `,
 })
@@ -55,7 +53,6 @@ class ReactiveHostComponent {
     <rui-multi-select
       [options]="fruits"
       [(ngModel)]="selected"
-      label="NgModel"
     />
   `,
 })
@@ -70,7 +67,6 @@ class TemplateDrivenHostComponent {
   template: `
     <rui-multi-select
       [options]="people()"
-      label="People"
       labelKey="name"
       [(values)]="selected"
     />
@@ -91,7 +87,6 @@ class ObjectOptionsHostComponent {
   template: `
     <rui-multi-select
       [options]="options()"
-      label="Sortable"
       [sortable]="true"
       [(values)]="selected"
     />
@@ -100,6 +95,24 @@ class ObjectOptionsHostComponent {
 class SortableHostComponent {
   readonly options = signal<string[]>(['Apple', 'Banana', 'Cherry']);
   readonly selected = signal<string[]>(['Apple', 'Banana', 'Cherry']);
+}
+
+@Component({
+  standalone: true,
+  imports: [RuiMultiSelect, MatFormFieldModule],
+  template: `
+    <mat-form-field appearance="outline">
+      <mat-label>Select fruits</mat-label>
+      <rui-multi-select
+        [options]="options()"
+        [(values)]="selected"
+      />
+    </mat-form-field>
+  `,
+})
+class FormFieldHostComponent {
+  readonly options = signal<string[]>(['Apple', 'Banana', 'Cherry']);
+  readonly selected = signal<string[]>(['Apple']);
 }
 
 describe('RuiMultiSelect', () => {
@@ -123,26 +136,11 @@ describe('RuiMultiSelect', () => {
       expect(fixture.componentInstance).toBeTruthy();
     });
 
-    it('renders the label inside mat-label', () => {
-      const fixture = TestBed.createComponent(SignalHostComponent);
-      fixture.detectChanges();
-      const labelEl = fixture.nativeElement.querySelector('mat-label');
-      expect(labelEl).toBeTruthy();
-      expect(labelEl.textContent.trim()).toBe('Fruits');
-    });
-
     it('renders mat-select element', () => {
       const fixture = TestBed.createComponent(SignalHostComponent);
       fixture.detectChanges();
       const selectEl = fixture.nativeElement.querySelector('mat-select');
       expect(selectEl).toBeTruthy();
-    });
-
-    it('renders mat-form-field with appearance', () => {
-      const fixture = TestBed.createComponent(SignalHostComponent);
-      fixture.detectChanges();
-      const ff = fixture.nativeElement.querySelector('mat-form-field');
-      expect(ff).toBeTruthy();
     });
   });
 
@@ -221,7 +219,7 @@ describe('RuiMultiSelect', () => {
       fixture.componentInstance.control.disable();
       fixture.detectChanges();
       const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
-      expect(multiSelect.disabled()).toBe(true);
+      expect(multiSelect.disabled).toBe(true);
     });
   });
 
@@ -350,7 +348,7 @@ describe('RuiMultiSelect', () => {
       const comp = fixture.componentInstance as unknown as RuiMultiSelect<string> & RuiArrayValueAccessor<string>;
       comp.setDisabledState(true);
       fixture.detectChanges();
-      expect(comp.disabled()).toBe(true);
+      expect(comp.disabled).toBe(true);
     });
 
     it('implements registerOnChange', () => {
@@ -372,6 +370,88 @@ describe('RuiMultiSelect', () => {
       comp.registerOnTouched(() => { called = true; });
       comp.markAsTouched();
       expect(called).toBe(true);
+    });
+  });
+
+  describe('MatFormFieldControl integration', () => {
+    beforeEach(async () => {
+      TestBed.configureTestingModule({
+        imports: [RuiMultiSelect, FormFieldHostComponent, MatFormFieldModule, NoopAnimationsModule],
+      });
+      await TestBed.compileComponents();
+    });
+
+    it('should float label when field has a value', () => {
+      const fixture = TestBed.createComponent(FormFieldHostComponent);
+      fixture.detectChanges();
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string>;
+      expect(multiSelect.empty).toBe(false);
+      expect(multiSelect.shouldLabelFloat).toBe(true);
+    });
+
+    it('should have mat-form-field-container with floating class when value is set', () => {
+      const fixture = TestBed.createComponent(FormFieldHostComponent);
+      fixture.detectChanges();
+      const formFieldEl = fixture.nativeElement.querySelector('mat-form-field');
+      const labelEl = formFieldEl?.querySelector('.mat-mdc-floating-label');
+      expect(labelEl).toBeTruthy();
+      const isFloating = labelEl?.classList.contains('mat-mdc-floating-label--floating')
+        ?? formFieldEl?.classList.contains('mat-form-field-label-floating');
+      expect(isFloating).toBe(true);
+    });
+
+    it('should report empty=false when values are set', () => {
+      const fixture = TestBed.createComponent(FormFieldHostComponent);
+      fixture.detectChanges();
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string>;
+      expect(multiSelect.empty).toBe(false);
+    });
+
+    it('should report empty=true when no values are set', async () => {
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        imports: [RuiMultiSelect, MatFormFieldModule, NoopAnimationsModule],
+      });
+      await TestBed.compileComponents();
+
+      @Component({
+        standalone: true,
+        imports: [RuiMultiSelect, MatFormFieldModule],
+        template: `
+          <mat-form-field appearance="outline">
+            <mat-label>Select</mat-label>
+            <rui-multi-select [options]="['A','B']" [(values)]="selected" />
+          </mat-form-field>
+        `,
+      })
+      class EmptyHostComponent {
+        selected = signal<string[]>([]);
+      }
+
+      const fixture = TestBed.createComponent(EmptyHostComponent);
+      fixture.detectChanges();
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string>;
+      expect(multiSelect.empty).toBe(true);
+    });
+
+    it('should have correct id for form field association', () => {
+      const fixture = TestBed.createComponent(FormFieldHostComponent);
+      fixture.detectChanges();
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string>;
+      expect(multiSelect.id).toBeTruthy();
+      expect(multiSelect.id).toMatch(/^rui-form-field-\d+$/);
+    });
+
+    it('should set focused=true on focus and focused=false on blur', () => {
+      const fixture = TestBed.createComponent(FormFieldHostComponent);
+      fixture.detectChanges();
+      const multiSelect = fixture.debugElement.query(By.directive(RuiMultiSelect)).componentInstance as unknown as RuiMultiSelect<string>;
+      expect(multiSelect.focused).toBe(false);
+      multiSelect.focus();
+      expect(multiSelect.focused).toBe(true);
+      expect(multiSelect.shouldLabelFloat).toBe(true);
+      multiSelect.blur();
+      expect(multiSelect.focused).toBe(false);
     });
   });
 });

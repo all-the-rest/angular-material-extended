@@ -1,5 +1,6 @@
 import { Component, ElementRef, viewChild, input, model, output, signal, computed, effect, afterNextRender, ChangeDetectionStrategy, ChangeDetectorRef, inject, DestroyRef, NgZone, Injector, forwardRef } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import { RuiValueAccessor, ensureBrowser } from '@all-the.rest/mat-extended';
 import { RuiCropperCanvas } from './cropper-canvas';
 import { RuiCropperInteraction } from './cropper-interaction';
@@ -29,6 +30,10 @@ import { RUI_CROPPER_DEFAULT_OPTIONS } from './cropper.config';
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => RuiCropper),
       multi: true,
+    },
+    {
+      provide: MatFormFieldControl,
+      useExisting: forwardRef(() => RuiCropper),
     },
   ],
 })
@@ -108,6 +113,13 @@ export class RuiCropper extends RuiValueAccessor<string> {
     super();
 
     effect(() => {
+      const img = this.croppedImage();
+      if (img && img !== this.value) {
+        this.markAsChanged(img);
+      }
+    });
+
+    effect(() => {
       this._activeSrc.set(this.src());
     });
 
@@ -173,9 +185,9 @@ export class RuiCropper extends RuiValueAccessor<string> {
     });
   }
 
-  override writeValue(value: string | undefined): void {
+  override writeValue(value: string | null): void {
     super.writeValue(value);
-    if (value !== undefined) {
+    if (value !== null) {
       this._activeSrc.set(value);
     }
   }

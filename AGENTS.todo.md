@@ -44,9 +44,21 @@
 ### Phase 4: Validierung
 
 - [x] ESLint auf allen geänderten Dateien geprüft — keine Fehler
-- [ ] `pnpm nx lint --fix` — blockiert durch pre-existing `postcss-safe-parser`-Problem
-- [ ] `pnpm nx run-many -t test` — blockiert durch dasselbe Problem
-- [ ] `pnpm nx build mat-extended` — blockiert durch dasselbe Problem
+- [x] `pnpm nx lint --fix` — alle 13 Projekte grün
+- [x] `pnpm nx run-many -t test` — 120 Tests, 7 Test-Files passed
+- [x] `pnpm nx build mat-extended` — alle 10 Entry Points gebaut
+- [x] `pnpm nx build demo` — Demo gebaut, 45 static routes prerendered
+
+### Phase 5: Bugfixes (nach ersten Lint/Tests)
+
+- [x] `file-upload-dropzone.component.ts` — `disabled` → `disabled()` (Signal-Call) in Template und onClick
+- [x] `file-upload-demo.ts` — `toggleControl()` Methode hinzugefügt, Button korrigiert
+- [x] `file-upload.spec.ts` (E2E) — File Chooser Wait verbessert
+
+### Phase 6: AGENTS.md-Regel ergänzt
+
+- [x] Regel: Signal Inputs IMMER mit `()` aufrufen (NG8109)
+- [x] Regel: Build-Warnings (NG8109, Angular Compiler) nie ignorieren
 
 ---
 

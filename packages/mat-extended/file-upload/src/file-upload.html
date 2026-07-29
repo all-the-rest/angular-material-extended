@@ -1,5 +1,5 @@
 <input #fileInput type="file" class="rui-file-upload__input" [multiple]="multiple()" [attr.accept]="accept()" (change)="onFilesSelected($event)" />
-<div [class.rui-file-upload--disabled]="disabled()">
+<div [class.rui-file-upload--disabled]="disabled">
   <rui-file-upload-dropzone
     [isDragOver]="isDragOver()"
     [dropzoneText]="dropzoneText()"
@@ -9,7 +9,7 @@
     [maxSize]="maxSize()"
     [maxFiles]="maxFiles()"
     [multiple]="multiple()"
-    [disabled]="disabled()"
+    [disabled]="disabled"
     (filePickerOpen)="openFilePicker()"
   />
 

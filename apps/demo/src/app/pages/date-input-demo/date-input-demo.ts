@@ -202,21 +202,21 @@ export class MyComponent {
 
   protected formatOverrideHtml = `<mat-form-field>
   <mat-label>dd.MM.YYYY</mat-label>
-  <input matInput ruiDateInputMask="dd.MM.YYYY" [matDatepicker]="dp" [(ngModel)]="date1" />
-  <mat-datepicker-toggle matSuffix [for]="dp" />
-  <mat-datepicker #dp />
+  <input matInput ruiDateInputMask="dd.MM.YYYY" [matDatepicker]="dp1" [(ngModel)]="date1" />
+  <mat-datepicker-toggle matSuffix [for]="dp1" />
+  <mat-datepicker #dp1 />
 </mat-form-field>
 <mat-form-field>
   <mat-label>MM/dd/YYYY</mat-label>
-  <input matInput ruiDateInputMask="MM/dd/YYYY" [matDatepicker]="dp" [(ngModel)]="date2" />
-  <mat-datepicker-toggle matSuffix [for]="dp" />
-  <mat-datepicker #dp />
+  <input matInput ruiDateInputMask="MM/dd/YYYY" [matDatepicker]="dp2" [(ngModel)]="date2" />
+  <mat-datepicker-toggle matSuffix [for]="dp2" />
+  <mat-datepicker #dp2 />
 </mat-form-field>
 <mat-form-field>
   <mat-label>YYYY/MM/dd</mat-label>
-  <input matInput ruiDateInputMask="YYYY/MM/dd" [matDatepicker]="dp" [(ngModel)]="date3" />
-  <mat-datepicker-toggle matSuffix [for]="dp" />
-  <mat-datepicker #dp />
+  <input matInput ruiDateInputMask="YYYY/MM/dd" [matDatepicker]="dp3" [(ngModel)]="date3" />
+  <mat-datepicker-toggle matSuffix [for]="dp3" />
+  <mat-datepicker #dp3 />
 </mat-form-field>`;
 
   protected formatOverrideTs = `// Jedes Input hat sein eigenes ruiDateInputMask-Format — Maskierung UND Parsing
@@ -257,17 +257,17 @@ export class MyComponent {
   protected globalConfigHtml = `<!-- Ohne ruiDateInputMask → globales Format (dd.MM.YYYY) -->
 <mat-form-field>
   <mat-label>Global: dd.MM.YYYY</mat-label>
-  <input matInput [matDatepicker]="dp" [(ngModel)]="myDate" />
-  <mat-datepicker-toggle matSuffix [for]="dp" />
-  <mat-datepicker #dp />
+  <input matInput [matDatepicker]="dp6" [(ngModel)]="myDate" />
+  <mat-datepicker-toggle matSuffix [for]="dp6" />
+  <mat-datepicker #dp6 />
 </mat-form-field>
 
 <!-- Mit ruiDateInputMask → per-field override -->
 <mat-form-field>
   <mat-label>Override: MM/dd/YYYY</mat-label>
-  <input matInput ruiDateInputMask="MM/dd/YYYY" [matDatepicker]="dp" [(ngModel)]="myDate" />
-  <mat-datepicker-toggle matSuffix [for]="dp" />
-  <mat-datepicker #dp />
+  <input matInput ruiDateInputMask="MM/dd/YYYY" [matDatepicker]="dp7" [(ngModel)]="myDate" />
+  <mat-datepicker-toggle matSuffix [for]="dp7" />
+  <mat-datepicker #dp7 />
 </mat-form-field>`;
 
   protected globalConfigTs = `import { provideRuiDateAdapter, createDateFormats, RuiDateInputMask } from '@all-the.rest/mat-extended';

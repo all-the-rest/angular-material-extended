@@ -32,7 +32,7 @@ class TestArrayAccessor extends RuiArrayValueAccessor<string> {
     this.clearValues();
   }
 
-  setOnChange(fn: (v: string[] | undefined) => void): void {
+  setOnChange(fn: (v: string[] | null) => void): void {
     this.registerOnChange(fn);
   }
 
@@ -67,14 +67,14 @@ class TestObjectArrayAccessor extends RuiArrayValueAccessor<{ id: number; name: 
     return this.containsValue(item, compareWith);
   }
 
-  setOnChange(fn: (v: { id: number; name: string }[] | undefined) => void): void {
+  setOnChange(fn: (v: { id: number; name: string }[] | null) => void): void {
     this.registerOnChange(fn);
   }
 }
 
 describe('RuiArrayValueAccessor', () => {
   let accessor: TestArrayAccessor;
-  let onChange: (v: string[] | undefined) => void;
+  let onChange: (v: string[] | null) => void;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -91,8 +91,8 @@ describe('RuiArrayValueAccessor', () => {
       expect(accessor.values()).toEqual([]);
     });
 
-    it('should default value to undefined', () => {
-      expect(accessor.value).toBeUndefined();
+    it('should default value to null', () => {
+      expect(accessor.value).toBeNull();
     });
   });
 
@@ -104,12 +104,12 @@ describe('RuiArrayValueAccessor', () => {
       expect(accessor.value).toEqual(['a', 'b', 'c']);
     });
 
-    it('should set values to empty array when called with undefined', () => {
+    it('should set values to empty array when called with null', () => {
       accessor.writeValue(['a']);
-      accessor.writeValue(undefined);
+      accessor.writeValue(null);
 
       expect(accessor.values()).toEqual([]);
-      expect(accessor.value).toBeUndefined();
+      expect(accessor.value).toBeNull();
     });
 
     it('should set values to empty array when called with empty array', () => {
@@ -444,9 +444,9 @@ describe('RuiArrayValueAccessor', () => {
     });
 
     it('should update disabled state via setDisabledState', () => {
-      expect(accessor.disabled()).toBe(false);
+      expect(accessor.disabled).toBe(false);
       accessor.setDisabledState(true);
-      expect(accessor.disabled()).toBe(true);
+      expect(accessor.disabled).toBe(true);
     });
 
     it('should sync value signal with values signal after writeValue', () => {
@@ -458,7 +458,7 @@ describe('RuiArrayValueAccessor', () => {
 
   describe('custom compareWith with objects', () => {
     let objAccessor: TestObjectArrayAccessor;
-    let objOnChange: (v: { id: number; name: string }[] | undefined) => void;
+    let objOnChange: (v: { id: number; name: string }[] | null) => void;
 
     beforeEach(() => {
       const fixture = TestBed.createComponent(TestObjectArrayAccessor);

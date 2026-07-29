@@ -1,42 +1,36 @@
-<mat-form-field class="rui-multi-select" [appearance]="appearance()">
-  @if (label()) {
-    <mat-label>{{ label() }}</mat-label>
-  }
-  <mat-select
-    [value]="values()"
-    (selectionChange)="onSelectionChange($event)"
-    [placeholder]="placeholder()"
-    [compareWith]="compareFn"
-    [disabled]="disabled()"
-    multiple>
-    <mat-select-trigger>
-      @if (sortable()) {
-        <mat-chip-set
-          cdkDropList
-          cdkDropListOrientation="horizontal"
-          (cdkDropListDropped)="onDrop($event)">
-          @for (item of values(); track trackByValue(item)) {
-            <mat-chip cdkDrag (removed)="removeItem(item)">
-              {{ displayLabel(item) }}
-              <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
-          }
-        </mat-chip-set>
-      } @else {
-        <mat-chip-set>
-          @for (item of values(); track trackByValue(item)) {
-            <mat-chip (removed)="removeItem(item)">
-              {{ displayLabel(item) }}
-              <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
-          }
-        </mat-chip-set>
-      }
-    </mat-select-trigger>
-    @for (opt of options(); track trackByValue(opt)) {
-      <mat-option [value]="opt">
-        {{ displayLabel(opt) }}
-      </mat-option>
+<mat-select
+  [value]="values()"
+  (selectionChange)="onSelectionChange($event)"
+  [compareWith]="compareFn"
+  [disabled]="disabled"
+  multiple>
+  <mat-select-trigger>
+    @if (sortable()) {
+      <mat-chip-set
+        cdkDropList
+        cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="onDrop($event)">
+        @for (item of values(); track trackByValue(item)) {
+          <mat-chip cdkDrag (removed)="removeItem(item)">
+            {{ displayLabel(item) }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        }
+      </mat-chip-set>
+    } @else {
+      <mat-chip-set>
+        @for (item of values(); track trackByValue(item)) {
+          <mat-chip (removed)="removeItem(item)">
+            {{ displayLabel(item) }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        }
+      </mat-chip-set>
     }
-  </mat-select>
-</mat-form-field>
+  </mat-select-trigger>
+  @for (opt of options(); track trackByValue(opt)) {
+    <mat-option [value]="opt">
+      {{ displayLabel(opt) }}
+    </mat-option>
+  }
+</mat-select>

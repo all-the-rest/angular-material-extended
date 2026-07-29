@@ -1,11 +1,21 @@
-import { Directive, model } from '@angular/core';
+import { Directive, model, effect } from '@angular/core';
 import { RuiValueAccessor } from './control-value-accessor';
 
 @Directive({ standalone: true })
 export abstract class RuiArrayValueAccessor<T> extends RuiValueAccessor<T[]> {
   readonly values = model<T[]>([]);
 
-  override writeValue(values: T[] | undefined): void {
+  constructor() {
+    super();
+    effect(() => {
+      const v = this.values();
+      if (JSON.stringify(v) !== JSON.stringify(this.value)) {
+        this.markAsChanged(v);
+      }
+    });
+  }
+
+  override writeValue(values: T[] | null): void {
     super.writeValue(values);
     this.values.set(values ?? []);
   }

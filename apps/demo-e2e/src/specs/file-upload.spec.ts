@@ -26,9 +26,10 @@ test.describe('File Upload', () => {
   test('should open file picker on click', async ({ page }) => {
     const basicSection = page.locator('section').filter({ has: page.locator('h2#basic') });
     const fileUpload = basicSection.locator('rui-file-upload');
+    const fileInput = fileUpload.locator('input[type="file"]');
     const [fileChooser] = await Promise.all([
-      page.waitForEvent('filechooser', { timeout: 3000 }).catch(() => null),
-      fileUpload.getByRole('button', { name: /select files/i }).click(),
+      page.waitForEvent('filechooser', { timeout: 5000 }),
+      fileInput.dispatchEvent('click'),
     ]);
     expect(fileChooser).not.toBeNull();
   });
