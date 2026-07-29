@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.5-alpha] – Unreleased
+
+### Added
+
+- Initial 0.1.5-alpha development branch
+
 ## [0.1.4] – 2026-07-29
 
 ### Removed

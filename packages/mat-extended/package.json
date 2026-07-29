@@ -1,6 +1,6 @@
 {
   "name": "@all-the.rest/mat-extended",
-  "version": "0.1.4",
+  "version": "0.1.5-alpha",
   "description": "Extended Angular Material components — Cropper, File Upload, Data Table, Dialog, Toast, Menu, Multi-Select, Breadcrumb, and File Manager",
   "license": "MIT",
   "author": "Florian Reisinger",
