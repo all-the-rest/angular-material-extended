@@ -9,19 +9,35 @@ This project publishes `@all-the.rest/mat-extended` to npm via GitHub Actions tr
 
 ## Version strategy on `main`
 
-The version on `main` is always the **next** unreleased version with a `-snapshot` suffix:
+The version on `main` is always the **next** unreleased version with a `-next.x` suffix:
 
 ```
-packages/mat-extended/package.json → "0.x.y-snapshot"
+packages/mat-extended/package.json → "0.x.y-next.0"
 ```
 
-This means `main` always reflects what the next release will be, and the released tag points to HEAD - 1 (the commit before the snapshot bump).
+This means `main` always reflects what the next release will be, and the released tag points to HEAD - 1 (the commit before the version bump to `-next.x`).
+
+## Determining the next version number
+
+Derive the bump from conventional commits since the last tag (`git log --oneline v$(...)..HEAD`).
+
+| Bump | Trigger | Example |
+|------|---------|---------|
+| **minor** (0.x.y → 0.(x+1).0) | `feat:` or `BREAKING CHANGE:` / `!` | `feat(cropper): add rotation`, `fix!: remove deprecated api` |
+| **patch** (0.x.y → 0.x.(y+1)) | `fix:`, `refactor:`, `chore:`, `docs:`, `test:`, `perf:` | `fix(cropper): prevent crop rect leaving bounds` |
+
+**0.x rules** (relaxed vs strict SemVer):
+- `BREAKING CHANGE:` → minor bump, NOT major (won't reach 1.0 until explicitly decided)
+- `feat:` → minor bump
+- `fix:` and all other non-feat types → patch bump
+- If BOTH `feat:`/breaking AND fixes are present → minor bump (higher wins)
+- Multiple bumps of same type still produce one bump (e.g. 3 fixes → one patch)
 
 ## Release flow
 
 ### 1. Prepare release commit (HEAD - 1)
 
-The commit being tagged must have the **stable** version (no `-snapshot` suffix):
+The commit being tagged must have the **stable** version (no `-next.x` suffix):
 
 ```
 packages/mat-extended/package.json → "0.x.y"
@@ -29,10 +45,10 @@ packages/mat-extended/package.json → "0.x.y"
 
 ### 2. Bump version on `main` (HEAD)
 
-After tagging, bump `main` to the next version with `-snapshot`:
+After tagging, bump `main` to the next version with `-next.x`:
 
 ```
-packages/mat-extended/package.json → "0.x.(y+1)-snapshot"
+packages/mat-extended/package.json → "0.x.(y+1)-next.0"
 ```
 
 Also update demo version strings (see below).
@@ -44,7 +60,7 @@ git tag -a vX.Y.Z -m "Release vX.Y.Z"
 git push origin main --follow-tags
 ```
 
-The tag `vX.Y.Z` points to the commit **before** the snapshot bump (HEAD - 1). The release workflow builds from that tagged commit.
+The tag `vX.Y.Z` points to the commit **before** the `-next.x` bump (HEAD - 1). The release workflow builds from that tagged commit.
 
 ## Demo page version strings
 
@@ -52,17 +68,17 @@ Three files contain hardcoded version strings that must be updated on `main` aft
 
 | File | String | Example |
 | ---- | ------ | ------- |
-| `apps/demo/src/app/overview.ts` | `Active Development &middot; v0.1.5-alpha` | `v0.1.6-snapshot` |
-| `apps/demo/src/app/app.html` | `v0.1.5-alpha &middot; MIT` | `v0.1.6-snapshot &middot; MIT` |
+| `apps/demo/src/app/overview.ts` | `Active Development &middot; v0.x.y-next.0` | `v0.x.(y+1)-next.0` |
+| `apps/demo/src/app/app.html` | `v0.x.y-next.0 &middot; MIT` | `v0.x.(y+1)-next.0 &middot; MIT` |
 
-After bumping `package.json` to the next snapshot version, update these demo strings to match.
+After bumping `package.json` to the next `-next.x` version, update these demo strings to match.
 
 ## Prerequisites
 
 - All CI steps must pass (lint, test, build, e2e)
 - CHANGELOG.md must be updated for the new version (under `## [Unreleased]`, then moved to a versioned section)
 - `packages/mat-extended/package.json` must have the correct stable version for the tag commit
-- Demo version strings on `main` must reflect the next snapshot version
+- Demo version strings on `main` must reflect the next `-next.x` version
 - git working tree must be clean
 
 ## Step 1: Validate pre-publish state
@@ -87,7 +103,7 @@ All must pass green. If any fail, fix before proceeding.
 
 ## Step 3: Tag the stable commit and push
 
-Tag the commit that has the stable (non-snapshot) version — this is HEAD - 1:
+Tag the commit that has the stable version (no `-next.x` suffix) — this is HEAD - 1:
 
 ```
 git tag -a vX.Y.Z -m "Release vX.Y.Z"
