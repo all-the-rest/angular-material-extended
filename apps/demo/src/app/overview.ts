@@ -43,24 +43,6 @@ import { MatIconModule } from '@angular/material/icon';
     </div>
   </div>
 
-  <!-- Date & Time -->
-  <div class="rui-mb-10">
-    <h2 class="rui-text-xs rui-font-semibold rui-text-on-surface-variant rui-uppercase rui-tracking-wide rui-mb-4 rui-px-1">Date &amp; Time</h2>
-    <div class="rui-grid rui-grid-cols-1 rui-sm:grid-cols-2 rui-lg:grid-cols-3 rui-gap-4">
-      @for (card of dateTimeCards; track card.route) {
-        <a [routerLink]="card.route" class="rui-block rui-p-5 rui-rounded-xl rui-border rui-border-outline-variant rui-bg-surface rui-no-underline" style="transition:all 0.15s;">
-          <div class="rui-flex rui-items-center rui-gap-3 rui-mb-2">
-            <span class="rui-flex rui-items-center rui-justify-center" style="width:2.25rem;height:2.25rem;border-radius:0.5rem;background:var(--mat-sys-primary-container);flex-shrink:0;">
-              <mat-icon style="color:var(--mat-sys-on-primary-container);">{{ card.icon }}</mat-icon>
-            </span>
-            <h3 class="rui-text-base rui-font-semibold rui-text-on-surface" style="transition:color 0.15s;">{{ card.label }}</h3>
-          </div>
-          <p class="rui-text-sm rui-text-on-surface-variant rui-leading-relaxed">{{ card.description }}</p>
-        </a>
-      }
-    </div>
-  </div>
-
   <!-- Material Catalog CTA -->
   <a routerLink="/material/overview" class="rui-block rui-p-5 rui-rounded-xl rui-border rui-border-outline-variant rui-bg-surface rui-no-underline" style="transition:all 0.15s;">
     <div class="rui-flex rui-items-center rui-gap-4">
@@ -97,10 +79,7 @@ export class Overview {
     { label: 'Menu', route: '/menu', icon: 'menu', description: 'Kontextmen\u00fc mit Icons, Separator, Disabled-Items, Keyboard-Navigation und Submen\u00fcs' },
     { label: 'Breadcrumb', route: '/breadcrumb', icon: 'arrow_right_alt', description: 'Auto-Breadcrumb aus Route-Data, manueller Modus, benutzerdefinierte Trennzeichen und Icons' },
     { label: 'Multi-Select', route: '/multi-select', icon: 'playlist_add_check', description: 'Dropdown mit Mehrfachauswahl, Filterung, Select-All, Checkboxen und konfigurierbaren Optionen' },
-    { label: 'Navigation', route: '/navigation', icon: 'near_me', description: 'Breadcrumb und On This Page Komponenten für Seitenstruktur und Navigation' },
-  ];
-
-  readonly dateTimeCards = [
     { label: 'Date Input', route: '/date-input', icon: 'calendar_today', description: 'Datumseingabe mit Input-Mask, Format-Override, MatDatepicker-Integration und Maskierung' },
+    { label: 'Navigation', route: '/navigation', icon: 'near_me', description: 'Breadcrumb und On This Page Komponenten für Seitenstruktur und Navigation' },
   ];
 }

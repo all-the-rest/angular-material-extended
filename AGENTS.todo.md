@@ -65,3 +65,12 @@
 **Breaking Changes**:
 - `RuiAutocomplete` komplett entfernt
 - `RuiMultiSelect`: Inputs `label`, `appearance` entfernt
+
+---
+
+## Task: Date Input — Keine eigene Subcategory, Reihenfolge angleichen
+
+- [x] `apps/demo/src/app/overview.ts` — "Date & Time" Section entfernen, Date Input in `componentCards` einfügen
+- [x] Reihenfolge in `overview.ts` und `app.ts` (Sidebar) abgleichen
+
+**Begründung**: Date Input ist ein Component wie alle anderen und sollte nicht als eigene Kategorie分离 werden.

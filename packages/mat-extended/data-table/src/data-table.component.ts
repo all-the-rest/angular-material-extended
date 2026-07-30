@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { FormsModule } from '@angular/forms';
 import { RuiDataColumn, RuiDataAction, RuiDataSortDirection, RuiDataSortEvent, RuiDataSelectionEvent, RuiDataTableConfig } from './data-table.types';
@@ -21,7 +22,7 @@ import { RUI_DATA_TABLE_DEFAULT_OPTIONS, RUI_DATA_TABLE_DEFAULTS } from './data-
 @Component({
   selector: 'rui-data-table',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatTableModule, MatSortModule, MatPaginatorModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatIconModule, MatMenuModule, MatDividerModule, RuiDataTableFilter, RuiDataTableLoading, RuiDataTableEmptyState, RuiDataTablePaginator],
+  imports: [CommonModule, FormsModule, MatTableModule, MatSortModule, MatPaginatorModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatIconModule, MatMenuModule, MatButtonModule, MatDividerModule, RuiDataTableFilter, RuiDataTableLoading, RuiDataTableEmptyState, RuiDataTablePaginator],
   templateUrl: './data-table.html',
   styleUrl: './data-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

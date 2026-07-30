@@ -131,10 +131,17 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
           [aspectRatio]="'16:9'"
           [rotationMin]="-10"
           [rotationMax]="10"
+          [(croppedImage)]="fixedOutput"
           (cropChange)="onFixedCrop($event)"
         />
+        @if (fixedOutput()) {
+          <div class="rui-mt-4">
+            <p class="rui-text-sm rui-font-medium rui-mb-1 rui-text-on-surface">Cropped Result</p>
+            <img [src]="fixedOutput()" class="rui-max-w-sm rui-rounded rui-border rui-border-outline-variant" alt="Fixed width crop output" />
+          </div>
+        }
         @if (fixedResult()) {
-          <p class="rui-text-xs rui-text-on-surface-variant rui-mt-2">{{ fixedResult()!.width }} × {{ fixedResult()!.height }} px</p>
+          <p class="rui-text-xs rui-text-on-surface-variant rui-mt-1">{{ fixedResult()!.width }} × {{ fixedResult()!.height }} px</p>
         }
       </mat-card-content>
     </mat-card>
@@ -248,7 +255,7 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
       <mat-card-content class="rui-pt-4 rui-grid rui-grid-cols-1 rui-md:grid-cols-2 rui-gap-4">
         <div class="rui-space-y-1">
           <p class="rui-text-xs rui-font-medium">Bottom (default)</p>
-          <rui-cropper [src]="basicSrc" toolbarPosition="bottom" [rotationMin]="-10" [rotationMax]="10" />
+          <rui-cropper [src]="basicSrc" toolbarPosition="bottom" [(croppedImage)]="toolbarOutput" (cropChange)="onToolbarCrop($event)" [rotationMin]="-10" [rotationMax]="10" />
         </div>
         <div class="rui-space-y-1">
           <p class="rui-text-xs rui-font-medium">Top</p>
@@ -262,6 +269,13 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
           <p class="rui-text-xs rui-font-medium">Right</p>
           <rui-cropper [src]="basicSrc" toolbarPosition="right" [rotationMin]="-10" [rotationMax]="10" />
         </div>
+        @if (toolbarOutput()) {
+          <div class="rui-mt-4 rui-col-span-2">
+            <p class="rui-text-sm rui-font-medium rui-mb-1 rui-text-on-surface">Cropped Result</p>
+            <img [src]="toolbarOutput()" class="rui-max-w-sm rui-rounded rui-border rui-border-outline-variant" alt="Toolbar crop output" />
+            <p class="rui-text-xs rui-text-on-surface-variant rui-mt-1">{{ toolbarDimensions().width }} × {{ toolbarDimensions().height }} px</p>
+          </div>
+        }
       </mat-card-content>
     </mat-card>
     <rui-showcase-code [html]="positionHtml" ts="Check the basic example for the TypeScript setup." />
@@ -285,9 +299,16 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
             [aspectRatio]="'free'"
             [rotationMin]="-180"
             [rotationMax]="180"
+            [(croppedImage)]="constrainOutput"
             (cropChange)="onConstrainCrop($event)"
           />
         </div>
+        @if (constrainOutput()) {
+          <div>
+            <p class="rui-text-sm rui-font-medium rui-mb-1 rui-text-on-surface">Cropped Result</p>
+            <img [src]="constrainOutput()" class="rui-max-w-sm rui-rounded rui-border rui-border-outline-variant" alt="Constrain crop output" />
+          </div>
+        }
         @if (constrainResult()) {
           <p class="rui-text-xs rui-text-on-surface-variant">{{ constrainResult()!.width }} x {{ constrainResult()!.height }} px</p>
         }
@@ -318,6 +339,12 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
             (cropChange)="onTemplateCrop($event)"
           />
         </div>
+        @if (cropperModelRef.value) {
+          <div class="rui-mt-4">
+            <p class="rui-text-sm rui-font-medium rui-mb-1 rui-text-on-surface">Cropped Result</p>
+            <img [src]="cropperModelRef.value" class="rui-max-w-sm rui-rounded rui-border rui-border-outline-variant" alt="Template-driven crop output" />
+          </div>
+        }
         <p class="rui-text-sm rui-text-on-surface-variant rui-mt-2">Model value: {{ cropperModelRef.value?.length ? (cropperModelRef.value?.length + ' chars') : 'none' }}</p>
       </mat-card-content>
     </mat-card>
@@ -339,9 +366,17 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
             (cropChange)="onReactiveCrop($event)"
           />
         </div>
+        @if (cropControl.value) {
+          <div class="rui-mt-4">
+            <p class="rui-text-sm rui-font-medium rui-mb-1 rui-text-on-surface">Cropped Result</p>
+            <img [src]="cropControl.value" class="rui-max-w-sm rui-rounded rui-border rui-border-outline-variant" alt="Reactive form crop output" />
+          </div>
+        }
         <p class="rui-text-sm rui-text-on-surface-variant rui-mt-2">Control value: {{ cropControl.value?.length ? (cropControl.value.length + ' chars') : 'none' }}</p>
         <p class="rui-text-sm">Control enabled: {{ cropControl.enabled }}</p>
-        <button mat-stroked-button (click)="cropControl.disable()" class="rui-mt-2">Toggle disabled</button>
+        <button mat-stroked-button (click)="toggleCropControl()" class="rui-mt-2">
+          {{ cropControl.disabled ? 'Enable' : 'Disable' }}
+        </button>
       </mat-card-content>
     </mat-card>
     <rui-showcase-code [html]="reactiveHtml" [ts]="reactiveTs" />
@@ -362,6 +397,12 @@ const INVALID_IMAGE = 'https://invalid.example/nonexistent.jpg';
             (cropChange)="onSignalCrop($event)"
           />
         </div>
+        @if (signalCropped()) {
+          <div class="rui-mt-4">
+            <p class="rui-text-sm rui-font-medium rui-mb-1 rui-text-on-surface">Cropped Result</p>
+            <img [src]="signalCropped()" class="rui-max-w-sm rui-rounded rui-border rui-border-outline-variant" alt="Signal form crop output" />
+          </div>
+        }
         <p class="rui-text-sm rui-text-on-surface-variant rui-mt-2">Signal value: {{ signalCropped().length ? (signalCropped().length + ' chars') : 'none' }}</p>
       </mat-card-content>
     </mat-card>
@@ -455,6 +496,8 @@ export class MyComponent {
 
   readonly cropControl = new FormControl<string>('');
   readonly signalCropped = signal('');
+  readonly templateOutput = signal('');
+  readonly reactiveOutput = signal('');
 
   readonly templateHtml = `<rui-cropper
   [src]="'https://picsum.photos/800/600'"
@@ -513,6 +556,14 @@ export class MyComponent {
     void result;
   }
 
+  toggleCropControl(): void {
+    if (this.cropControl.disabled) {
+      this.cropControl.enable();
+    } else {
+      this.cropControl.disable();
+    }
+  }
+
   onReactiveCrop(result: RuiCropperResult): void {
     void result;
   }
@@ -537,7 +588,10 @@ export class MyComponent {
     this.dynDimensions.set({ width: result.width, height: result.height });
   }
 
+  readonly fixedOutput = signal('');
   readonly fixedResult = signal<RuiCropperResult | null>(null);
+  readonly toolbarOutput = signal('');
+  readonly toolbarDimensions = signal({ width: 0, height: 0 });
 
   readonly fixedWidthHtml = `<rui-cropper
   [src]="'...'"
@@ -549,6 +603,11 @@ export class MyComponent {
     this.fixedResult.set(result);
   }
 
+  onToolbarCrop(result: RuiCropperResult): void {
+    this.toolbarDimensions.set({ width: result.width, height: result.height });
+  }
+
+  readonly constrainOutput = signal('');
   readonly constrainEnabled = signal(true);
   readonly constrainResult = signal<RuiCropperResult | null>(null);
 
