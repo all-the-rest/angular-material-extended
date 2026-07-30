@@ -7,11 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.5-alpha] – Unreleased
+## [0.1.5] – 2026-07-30
 
-### Added
+### Fixed
 
-- Initial 0.1.5-alpha development branch
+- Cropper: move crop rect with image during panning to prevent it leaving image bounds
+- Cropper demo: fix signal bindings and crop output display
+
+### Changed
+
+- Data-table: add MatButtonModule
+- Demo: order Date Input in componentCards, remove Date & Time section
 
 ## [0.1.4] – 2026-07-29
 

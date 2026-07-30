@@ -61,7 +61,7 @@ import { MatIconModule } from '@angular/material/icon';
   <div class="rui-mt-8 rui-flex rui-justify-center">
     <div class="rui-inline-flex rui-items-center rui-gap-2 rui-px-4 rui-py-2 rui-rounded-full rui-bg-surface-container-high rui-text-xs rui-text-on-surface-variant">
       <span class="rui-w-2 rui-h-2 rui-rounded-full" style="background:var(--mat-sys-tertiary);"></span>
-      Active Development &middot; v0.1.5-alpha
+      Active Development &middot; v0.1.5
     </div>
   </div>
 </div>
