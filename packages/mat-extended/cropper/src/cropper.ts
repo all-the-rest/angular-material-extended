@@ -268,8 +268,25 @@ export class RuiCropper extends RuiValueAccessor<string> {
       const sinR = Math.sin(rotationRad);
       const deltaX = event.clientX - this._panStartPointerX;
       const deltaY = event.clientY - this._panStartPointerY;
-      this._canvasEngine.panX = this._panStartPanX + deltaX * cosR + deltaY * sinR;
-      this._canvasEngine.panY = this._panStartPanY - deltaX * sinR + deltaY * cosR;
+      const newPanX = this._panStartPanX + deltaX * cosR + deltaY * sinR;
+      const newPanY = this._panStartPanY - deltaX * sinR + deltaY * cosR;
+      const dpx = newPanX - this._canvasEngine.panX;
+      const dpy = newPanY - this._canvasEngine.panY;
+      this._canvasEngine.panX = newPanX;
+      this._canvasEngine.panY = newPanY;
+      const vw = this._canvasEngine.getDisplayWidth();
+      const vh = this._canvasEngine.getDisplayHeight();
+      if (vw > 0 && vh > 0) {
+        const r = this._canvasEngine.getCropRect();
+        const constrained = this._constrainCropRect({
+          x: r.x + dpx / vw,
+          y: r.y + dpy / vh,
+          width: r.width,
+          height: r.height,
+        });
+        this._canvasEngine.setCropRect(constrained);
+        this._cropRect.set(constrained);
+      }
       this._canvasEngine.render();
       return;
     }
@@ -296,6 +313,11 @@ export class RuiCropper extends RuiValueAccessor<string> {
     if (this._panning) {
       this._panning = false;
       this._interaction.reset();
+      if (this._canvasEngine) {
+        const constrained = this._constrainCropRect(this._canvasEngine.getCropRect());
+        this._canvasEngine.setCropRect(constrained);
+        this._cropRect.set(constrained);
+      }
       this._emitResult();
       return;
     }

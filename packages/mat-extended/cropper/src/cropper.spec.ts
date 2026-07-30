@@ -954,6 +954,7 @@ describe('RuiCropper', () => {
     expect(mockCanvas.panX).toBe(50);
     expect(mockCanvas.panY).toBe(100);
     expect(mockCanvas.render).toHaveBeenCalled();
+    expect(mockCanvas.setCropRect).toHaveBeenCalled();
   });
 
   it('ends panning on pointer up and emits result', () => {
@@ -1009,6 +1010,37 @@ describe('RuiCropper', () => {
 
     expect(mockCanvas.panX).toBeCloseTo(0, 10);
     expect(mockCanvas.panY).toBeCloseTo(-50, 10);
+  });
+
+  it('constrains crop rect to image bounds after panning ends', () => {
+    const fixture = TestBed.createComponent(RuiCropper);
+    const comp = fixture.componentInstance;
+    fixture.detectChanges();
+    asCropper(comp)._initCanvas();
+    comp.imageLoaded.set(true);
+    comp.effectiveAspectRatio.set('free');
+    mockCanvas.getDisplayWidth.mockReturnValue(800);
+    mockCanvas.getDisplayHeight.mockReturnValue(600);
+    mockCanvas.getImageBoundsInView.mockReturnValue({ left: 100, top: 50, right: 700, bottom: 550 });
+    mockCanvas.getCropRect.mockReturnValue({ x: 0.5, y: 0.5, width: 0.3, height: 0.3 });
+
+    const viewportRef = comp.viewportRef();
+    if (!viewportRef) return;
+    const viewportEl = viewportRef.nativeElement;
+    vi.spyOn(viewportEl, 'getBoundingClientRect').mockReturnValue({ left: 0, top: 0, width: 800, height: 600 } as DOMRect);
+    Object.defineProperty(viewportEl, 'setPointerCapture', { value: vi.fn(), writable: true });
+
+    comp.onPointerDown({ clientX: 150, clientY: 200, pointerId: 1 } as PointerEvent);
+    comp.onPointerMove({ clientX: 50, clientY: 100 } as PointerEvent);
+
+    const calls = (mockCanvas.setCropRect as unknown as { mock: { calls: Array<[RuiCropRect]> } }).mock.calls;
+    const lastCall = calls[calls.length - 1]?.[0];
+    if (!lastCall) return;
+    const bounds = { left: 100 / 800, top: 50 / 600, right: 700 / 800, bottom: 550 / 600 };
+    expect(lastCall.x).toBeGreaterThanOrEqual(bounds.left);
+    expect(lastCall.y).toBeGreaterThanOrEqual(bounds.top);
+    expect(lastCall.x + lastCall.width).toBeLessThanOrEqual(bounds.right);
+    expect(lastCall.y + lastCall.height).toBeLessThanOrEqual(bounds.bottom);
   });
 
   it('does not start panning when clicking outside image bounds', () => {
