@@ -280,4 +280,10 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./pages/navigation-demo/navigation-demo').then((m) => m.NavigationDemo),
   },
+  {
+    path: 'impressum',
+    data: { title: 'Impressum' },
+    loadComponent: () =>
+      import('./pages/impressum/impressum').then((m) => m.Impressum),
+  },
 ];

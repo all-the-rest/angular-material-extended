@@ -68,6 +68,14 @@
 
 ---
 
+## Task: Impressum & Datenschutz in Demo-App
+
+- [x] `apps/demo/src/app/pages/impressum/impressum.ts` — Impressum-Seite mit Kontaktdaten
+- [x] `apps/demo/src/app/app.routes.ts` — `/impressum` Route ergänzt
+- [x] `apps/demo/src/app/app.html` — Footer-Links (Impressum, Datenschutz)
+
+---
+
 ## Task: Date Input — Keine eigene Subcategory, Reihenfolge angleichen
 
 - [x] `apps/demo/src/app/overview.ts` — "Date & Time" Section entfernen, Date Input in `componentCards` einfügen
