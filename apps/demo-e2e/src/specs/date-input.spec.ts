@@ -52,6 +52,7 @@ test.describe('Date Input', () => {
 
   test('should show datepicker toggle buttons on date inputs', async ({ page }) => {
     const toggles = page.locator('mat-datepicker-toggle');
+    await expect(toggles.first()).toBeVisible();
     const count = await toggles.count();
     expect(count).toBeGreaterThanOrEqual(6);
   });

@@ -58,25 +58,28 @@ test.describe('Data Table', () => {
     const expandCard = (page: import('@playwright/test').Page) =>
       page.locator('h2#data-table-expandable + mat-card');
 
+    const firstRowToggle = (card: ReturnType<typeof expandCard>) =>
+      card.getByRole('button', { name: /^(Expand|Collapse) row$/ }).first();
+
     test('should show expand button on expandable table rows', async ({ page }) => {
       const card = expandCard(page);
-      const expandBtn = card.locator('rui-data-table button').first();
+      const expandBtn = firstRowToggle(card);
       await expect(expandBtn).toBeVisible();
-      const icon = card.locator('mat-icon').first();
+      const icon = expandBtn.locator('mat-icon');
       await expect(icon).toContainText('expand_more');
     });
 
     test('should expand a row and show detail content', async ({ page }) => {
       const card = expandCard(page);
-      await card.locator('rui-data-table button').first().click();
+      await firstRowToggle(card).click();
       await expect(card).toContainText('Department:', { timeout: 5000 });
-      const icon = card.locator('mat-icon').first();
+      const icon = firstRowToggle(card).locator('mat-icon');
       await expect(icon).toContainText('expand_less');
     });
 
     test('should collapse an expanded row', async ({ page }) => {
       const card = expandCard(page);
-      const expandBtn = card.locator('rui-data-table button').first();
+      const expandBtn = firstRowToggle(card);
       await expandBtn.click();
       await expect(card).toContainText('Department:', { timeout: 5000 });
       await expandBtn.click();

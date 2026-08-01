@@ -42,8 +42,6 @@ test.describe('Breadcrumb', () => {
 
   test('should have clickable links in breadcrumb items', async ({ page }) => {
     const links = page.locator('rui-breadcrumb nav a');
-    const count = await links.count();
-    expect(count).toBeGreaterThan(0);
     await expect(links.first()).toBeVisible();
   });
 
@@ -55,6 +53,7 @@ test.describe('Breadcrumb', () => {
 
   test('should display multiple breadcrumbs on the page', async ({ page }) => {
     const breadcrumbs = page.locator('rui-breadcrumb');
+    await expect(breadcrumbs.first()).toBeVisible();
     expect(await breadcrumbs.count()).toBeGreaterThanOrEqual(4);
   });
 });
