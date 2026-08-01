@@ -35,7 +35,18 @@ jobs:
       - run: pnpm nx build mat-extended
       - run: pnpm nx build demo
       - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm exec playwright test --config=apps/demo-e2e/playwright.config.ts
+      - name: Run E2E tests
+        id: e2e
+        run: pnpm exec playwright test --config=apps/demo-e2e/playwright.config.ts
+        continue-on-error: true
+      - name: Write e2e job summary
+        if: always()
+        run: node .github/scripts/playwright-summary.mjs
+        env:
+          REPORT_FILE: apps/demo-e2e/e2e-results.json
+      - name: Fail job on e2e failures
+        if: steps.e2e.outcome == 'failure'
+        run: exit 1
       - uses: actions/upload-artifact@v4
         if: always()
         with:

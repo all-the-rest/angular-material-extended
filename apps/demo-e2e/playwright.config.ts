@@ -8,7 +8,13 @@ export default defineConfig({
   forbidOnly: isCI,
   retries: isCI ? 2 : 0,
   workers: isCI ? 4 : 8,
-  reporter: [['html', { outputFolder: 'playwright-report' }]],
+  reporter: isCI
+    ? [
+        ['github'],
+        ['html', { outputFolder: 'playwright-report' }],
+        ['json', { outputFile: 'e2e-results.json' }],
+      ]
+    : [['html', { outputFolder: 'playwright-report' }]],
   use: {
     baseURL: 'http://localhost:4200',
     trace: 'on-first-retry',
