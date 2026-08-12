@@ -83,7 +83,7 @@
     "material-symbols": "^0.45.8",
     "ng-packagr": "~22.0.1",
     "nx": "23.1.0",
-    "postcss": "^8.5.21",
+    "postcss": "^8.5.23",
     "postcss-safe-parser": "^7.0.1",
     "prettier": "^3.9.6",
     "supertest": "^7.2.2",
