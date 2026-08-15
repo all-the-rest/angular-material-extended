@@ -12,7 +12,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
       <h2 id="button-icon" class="rui-font-bold rui-text-on-surface rui-mb-1">Icon Buttons</h2>
       <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-icon-button with different colors and states.</p>
 
-      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-2 rui-flex-wrap rui-items-center">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface demo-controls rui-p-5 rui-flex rui-gap-2 rui-flex-wrap rui-items-center">
         <button mat-icon-button aria-label="Favorite">
           <mat-icon>favorite</mat-icon>
         </button>

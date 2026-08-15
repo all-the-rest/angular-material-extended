@@ -29,7 +29,7 @@ class ConfirmDialog {}
       <h2 id="dialog-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Dialog</h2>
       <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">Open a dialog with a custom component using MatDialog service.</p>
 
-      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-2 rui-flex-wrap rui-items-center">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface demo-controls rui-p-5 rui-flex rui-gap-2 rui-flex-wrap rui-items-center">
         <button mat-raised-button color="primary" (click)="openDialog()">Open Dialog</button>
         @if (result()) {
           <span class="rui-ml-2 rui-text-sm rui-text-primary">Confirmed: {{ result() }}</span>

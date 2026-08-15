@@ -21,36 +21,38 @@ interface Dessert {
       <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">Sortable table columns using mat-sort-header with matSort directive.</p>
 
       <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
-        <table mat-table [dataSource]="dataSource" matSort class="rui-w-full">
+        <div class="rui-overflow-x-auto">
+          <table mat-table [dataSource]="dataSource" matSort class="rui-w-full">
 
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-            <td mat-cell *matCellDef="let d">{{ d.name }}</td>
-          </ng-container>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+              <td mat-cell *matCellDef="let d">{{ d.name }}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="calories">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Calories</th>
-            <td mat-cell *matCellDef="let d">{{ d.calories }}</td>
-          </ng-container>
+            <ng-container matColumnDef="calories">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Calories</th>
+              <td mat-cell *matCellDef="let d">{{ d.calories }}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="fat">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Fat (g)</th>
-            <td mat-cell *matCellDef="let d">{{ d.fat }}</td>
-          </ng-container>
+            <ng-container matColumnDef="fat">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Fat (g)</th>
+              <td mat-cell *matCellDef="let d">{{ d.fat }}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="carbs">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Carbs (g)</th>
-            <td mat-cell *matCellDef="let d">{{ d.carbs }}</td>
-          </ng-container>
+            <ng-container matColumnDef="carbs">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Carbs (g)</th>
+              <td mat-cell *matCellDef="let d">{{ d.carbs }}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="protein">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Protein (g)</th>
-            <td mat-cell *matCellDef="let d">{{ d.protein }}</td>
-          </ng-container>
+            <ng-container matColumnDef="protein">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Protein (g)</th>
+              <td mat-cell *matCellDef="let d">{{ d.protein }}</td>
+            </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let r; columns: displayedColumns;"></tr>
-        </table>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let r; columns: displayedColumns;"></tr>
+          </table>
+        </div>
       </div>
 
       <rui-showcase-code [html]="codeHtml" [ts]="codeTs" />

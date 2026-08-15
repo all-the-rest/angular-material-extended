@@ -11,7 +11,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
       <h2 id="icon-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Material Icons</h2>
       <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-icon with color variants.</p>
 
-      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-3 rui-flex-wrap rui-text-on-surface-variant">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface demo-controls rui-p-5 rui-grid rui-grid-cols-4 rui-sm:grid-cols-6 rui-gap-x-2 rui-gap-y-4 rui-justify-items-center rui-text-on-surface-variant">
         <mat-icon>home</mat-icon>
         <mat-icon color="primary">favorite</mat-icon>
         <mat-icon color="accent">star</mat-icon>

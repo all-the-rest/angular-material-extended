@@ -13,7 +13,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
       <h2 id="form-fields-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Form Fields</h2>
       <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-form-field with outline and fill appearances, prefix/suffix icons.</p>
 
-      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-flex-col rui-gap-3">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface demo-controls rui-p-5 rui-flex rui-flex-col rui-gap-3">
         <mat-form-field appearance="outline" class="rui-w-full">
           <mat-label>Text Input</mat-label>
           <input matInput placeholder="Enter text" />

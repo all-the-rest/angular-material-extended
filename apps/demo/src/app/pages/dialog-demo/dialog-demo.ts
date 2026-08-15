@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RuiDialogService, RuiDialogSize } from '@all-the.rest/mat-extended/dialog';
@@ -16,6 +17,7 @@ import { ShowcaseCode } from '../../shared/showcase-code';
     JsonPipe,
     MatCardModule,
     MatButtonModule,
+    MatButtonToggleModule,
     MatFormFieldModule,
     MatInputModule,
     ShowcaseCode,
@@ -41,13 +43,17 @@ import { ShowcaseCode } from '../../shared/showcase-code';
             <button mat-button (click)="dialogRef.close('closed')">Close</button>
           </div>
         </ng-template>
-        <div class="rui-flex rui-gap-4 rui-flex-wrap">
-          @for (size of sizes; track size) {
-            <button mat-raised-button (click)="openWithTemplate(sizeDialog, size)">
-              {{ size }}
-            </button>
-          }
+        <div class="rui-flex rui-gap-4 rui-flex-wrap rui-items-center">
+          <mat-button-toggle-group [(ngModel)]="selectedSize" aria-label="Dialog size" name="dialog-size">
+            @for (size of sizes; track size) {
+              <mat-button-toggle [value]="size">{{ size }}</mat-button-toggle>
+            }
+          </mat-button-toggle-group>
+          <button mat-raised-button color="primary" (click)="openWithTemplate(sizeDialog, selectedSize)">
+            Open {{ selectedSize }} Dialog
+          </button>
         </div>
+        <p class="rui-text-xs rui-text-on-surface-variant rui-mt-2">Selected size: <strong class="rui-text-on-surface">{{ selectedSize }}</strong></p>
       </mat-card-content>
     </mat-card>
     <rui-showcase-code [html]="sizesHtml" [ts]="sizesTs" />
@@ -66,7 +72,7 @@ import { ShowcaseCode } from '../../shared/showcase-code';
             <button mat-button (click)="dialogRef.close('custom closed')">Ok</button>
           </div>
         </ng-template>
-        <div class="rui-flex rui-gap-4 rui-items-end rui-flex-nowrap">
+        <div class="rui-flex rui-flex-col rui-sm:flex-row rui-gap-4 rui-items-stretch rui-sm:items-end">
           <mat-form-field class="rui-flex-1 rui-min-w-0">
             <mat-label>Title</mat-label>
             <input matInput [(ngModel)]="dialogTitle" />
@@ -75,7 +81,7 @@ import { ShowcaseCode } from '../../shared/showcase-code';
             <mat-label>Message</mat-label>
             <input matInput [(ngModel)]="dialogMessage" />
           </mat-form-field>
-          <button class="rui-shrink-0 rui-mb-5" mat-raised-button (click)="openWithSlots(customContent, customFooter, dialogTitle)">
+          <button class="rui-shrink-0 rui-sm:mb-5" mat-raised-button color="primary" (click)="openWithSlots(customContent, customFooter, dialogTitle)">
             Open Custom
           </button>
         </div>
@@ -153,6 +159,7 @@ export class DialogDemo {
   private dialogService = inject(RuiDialogService);
 
   sizes: RuiDialogSize[] = ['sm', 'md', 'lg', 'xl'];
+  selectedSize: RuiDialogSize = 'md';
   dialogTitle = 'Custom Dialog';
   dialogMessage = 'This is a custom dialog message.';
   lastResult = signal<unknown>(undefined);

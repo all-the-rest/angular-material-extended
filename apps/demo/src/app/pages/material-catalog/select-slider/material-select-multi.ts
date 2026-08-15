@@ -14,7 +14,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
       <h2 id="select-multi" class="rui-font-bold rui-text-on-surface rui-mb-1">Multi Selection</h2>
       <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-select with multiple attribute allowing several options.</p>
 
-      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface demo-controls rui-p-5">
         <mat-form-field appearance="outline" class="rui-w-full rui-max-w-xs">
           <mat-label>Skills</mat-label>
           <mat-select [(value)]="selectedSkills" multiple>

@@ -29,6 +29,7 @@ import { ShowcaseCode } from '../../shared/showcase-code';
     <mat-card>
       <mat-card-content class="rui-pt-4">
         <rui-menu-button [items]="menuItems" />
+        <p class="rui-text-xs rui-text-on-surface-variant rui-mt-2">Tap the hamburger button to open the menu.</p>
       </mat-card-content>
     </mat-card>
     <rui-showcase-code [html]="basicHtml" [ts]="basicTs" />

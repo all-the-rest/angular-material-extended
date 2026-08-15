@@ -12,7 +12,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
       <h2 id="list-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic List</h2>
       <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-list with mat-list-item, icons, titles and description lines.</p>
 
-      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface demo-controls rui-p-5">
         <mat-list>
           <mat-list-item>
             <mat-icon matListItemIcon>inbox</mat-icon>

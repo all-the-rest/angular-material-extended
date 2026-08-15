@@ -11,7 +11,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
       <h2 id="expansion-accordion" class="rui-font-bold rui-text-on-surface rui-mb-1">Accordion</h2>
       <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-accordion with single-panel expansion (default behavior).</p>
 
-      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface demo-controls rui-p-5">
         <mat-accordion>
           <mat-expansion-panel>
             <mat-expansion-panel-header>

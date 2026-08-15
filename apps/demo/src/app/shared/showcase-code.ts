@@ -27,16 +27,16 @@ import { RuiCodeHighlight } from './code-highlight.directive';
       </div>
       <mat-tab-group disableRipple>
         <mat-tab label="Template">
-          <div class="rui-p-3 rui-bg-surface-container-low" style="max-height:24rem;overflow-y:auto;">
+          <div class="rui-p-3 rui-bg-surface-container-low" style="max-height:24rem;overflow:auto;">
             @if (html()) {
-              <pre ruiCodeHighlight language="html" class="rui-m-0 rui-text-xs rui-leading-relaxed" style="overflow-x:auto;"><code>{{ html() }}</code></pre>
+              <pre ruiCodeHighlight language="html" class="rui-m-0 rui-text-xs rui-leading-relaxed" style="min-width:max-content;white-space:pre;"><code>{{ html() }}</code></pre>
             }
           </div>
         </mat-tab>
         <mat-tab label="TypeScript">
-          <div class="rui-p-3 rui-bg-surface-container-low" style="max-height:24rem;overflow-y:auto;">
+          <div class="rui-p-3 rui-bg-surface-container-low" style="max-height:24rem;overflow:auto;">
             @if (ts()) {
-              <pre ruiCodeHighlight language="typescript" class="rui-m-0 rui-text-xs rui-leading-relaxed" style="overflow-x:auto;"><code>{{ ts() }}</code></pre>
+              <pre ruiCodeHighlight language="typescript" class="rui-m-0 rui-text-xs rui-leading-relaxed" style="min-width:max-content;white-space:pre;"><code>{{ ts() }}</code></pre>
             }
           </div>
         </mat-tab>

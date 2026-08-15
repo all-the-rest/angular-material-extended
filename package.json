@@ -8,7 +8,8 @@
     "lint": "nx lint mat-extended",
     "build": "nx build mat-extended",
     "build:demo": "nx build demo",
-    "e2e": "nx e2e demo-e2e"
+    "e2e": "nx e2e demo-e2e",
+    "test:screenshots": "playwright test -c playwright.screenshots.config.ts"
   },
   "private": true,
   "packageManager": "pnpm@11.10.0",
@@ -58,7 +59,7 @@
     "@nx/web": "23.1.0",
     "@nx/workspace": "23.1.0",
     "@oxc-project/runtime": "^0.115.0",
-    "@playwright/test": "^1.61.1",
+    "@playwright/test": "1.62.1",
     "@schematics/angular": "22.0.6",
     "@swc-node/register": "1.11.1",
     "@swc/core": "1.15.8",

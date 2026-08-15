@@ -13,6 +13,12 @@
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
+/* M3 emits no legacy `.mat-primary/.mat-accent/.mat-warn` classes — map icon color
+   variants to the theme roles explicitly so they are visibly distinguishable. */
+.mat-icon.mat-primary { color: var(--mat-sys-primary); }
+.mat-icon.mat-accent { color: var(--mat-sys-tertiary); }
+.mat-icon.mat-warn { color: var(--mat-sys-error); }
+
 html, body {
   margin: 0;
   padding: 0;
@@ -304,4 +310,72 @@ main h2[id] {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--mat-sys-outline);
+}
+
+/* --- UI-Review fixes (global — demo pages are lazily loaded, so these must NOT be
+     component-scoped like app.scss; they have to live in the global stylesheet) --- */
+
+/* Code panels: never let the outer container clip; let the scroller be the container. */
+pre {
+  white-space: pre;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* Demo surface: constrain the interactive controls area (code panels stay full width). */
+.demo-controls {
+  max-width: 48rem;
+}
+
+/* Responsive helper utilities */
+@media (min-width: 640px) {
+  .rui-sm\:flex-row { flex-direction: row; }
+  .rui-sm\:flex-col { flex-direction: column; }
+  .rui-sm\:grid-cols-6 { grid-template-columns: repeat(6, 1fr); }
+  .rui-sm\:mb-0 { margin-bottom: 0; }
+  .rui-sm\:mb-5 { margin-bottom: 1.25rem; }
+}
+
+/* Grid helpers */
+.rui-grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+.rui-gap-x-2 { column-gap: 0.5rem; }
+.rui-gap-y-4 { row-gap: 1rem; }
+
+/* Mobile-specific Material demo adjustments */
+@media (max-width: 767px) {
+  /* Sidenav: keep the overlay drawer below full width so content stays visible */
+  .mat-drawer-container .mat-drawer-over {
+    width: min(20rem, 85vw);
+  }
+
+  /* Stepper: step labels wrap instead of truncating ("Personal I…") */
+  .mat-horizontal-stepper-header .mat-step-label {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  /* Expansion panel: stack title/description in the header */
+  .mat-expansion-panel-header {
+    flex-wrap: wrap;
+    row-gap: 0.25rem;
+  }
+  .mat-expansion-panel-header .mat-expansion-panel-header-description {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  /* Tree: comfortable 44px touch target for expand toggles */
+  mat-tree-node button[mat-icon-button] {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Disabled state contrast: slightly darker than Material's default, still clearly disabled */
+.mat-mdc-chip.mat-mdc-standard-chip.mdc-evolution-chip--disabled .mdc-evolution-chip__text-label,
+.mat-mdc-tab-disabled .mdc-tab__text-label,
+.mat-mdc-checkbox-disabled .mdc-form-field,
+.mat-mdc-radio-disabled .mdc-form-field {
+  color: color-mix(in srgb, var(--mat-sys-on-surface) 60%, transparent);
 }

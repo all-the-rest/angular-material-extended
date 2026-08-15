@@ -15,7 +15,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
       <h2 id="datepicker-range" class="rui-font-bold rui-text-on-surface rui-mb-1">Date Range Picker</h2>
       <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">Select a start and end date with mat-date-range-picker.</p>
 
-      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface demo-controls rui-p-5">
         <mat-form-field appearance="outline" class="rui-w-full rui-max-w-xs">
           <mat-label>Date range</mat-label>
           <mat-date-range-input [rangePicker]="rangePicker">

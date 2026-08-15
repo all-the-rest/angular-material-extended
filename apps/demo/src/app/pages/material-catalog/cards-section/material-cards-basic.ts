@@ -13,7 +13,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
       <h2 id="cards-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Card</h2>
       <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-card with header, image, content, actions, and footer sections.</p>
 
-      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface demo-controls rui-p-5">
         <mat-card style="border:1px solid var(--mat-sys-outline-variant);box-shadow:none;max-width:24rem;">
           <mat-card-header>
             <mat-icon mat-card-avatar>article</mat-icon>

@@ -13,7 +13,7 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
       <h2 id="slider-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Slider</h2>
       <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-slider with min/max/step and thumb value display.</p>
 
-      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface demo-controls rui-p-5">
         <div class="rui-max-w-xs">
           <mat-slider min="0" max="100" step="1" [style.width]="'100%'">
             <input matSliderThumb [(value)]="sliderValue" />

@@ -12,10 +12,10 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
       <h2 id="selection-controls-radio" class="rui-font-bold rui-text-on-surface rui-mb-1">Radio Buttons</h2>
       <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-radio-group with mat-radio-button items and a disabled state.</p>
 
-      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-4 rui-flex-wrap rui-items-center">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface demo-controls rui-p-5 rui-flex rui-gap-4 rui-flex-wrap rui-items-center">
         <fieldset>
           <legend class="rui-sr-only">Radio buttons</legend>
-          <mat-radio-group class="rui-flex rui-gap-4">
+          <mat-radio-group class="rui-flex rui-flex-wrap rui-gap-4">
             <mat-radio-button value="1">Option 1</mat-radio-button>
             <mat-radio-button value="2">Option 2</mat-radio-button>
             <mat-radio-button value="3" disabled>Disabled</mat-radio-button>

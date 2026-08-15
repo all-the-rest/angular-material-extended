@@ -21,31 +21,33 @@ interface PeriodicElement {
       <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">mat-table with matSort and mat-paginator for interactive sorting and page navigation.</p>
 
       <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5">
-        <table mat-table [dataSource]="dataSource" matSort class="rui-w-full">
+        <div class="rui-overflow-x-auto">
+          <table mat-table [dataSource]="dataSource" matSort class="rui-w-full">
 
-          <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="rui-font-medium">No.</th>
-            <td mat-cell *matCellDef="let e">{{ e.position }}</td>
-          </ng-container>
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="rui-font-medium">No.</th>
+              <td mat-cell *matCellDef="let e">{{ e.position }}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="rui-font-medium">Name</th>
-            <td mat-cell *matCellDef="let e">{{ e.name }}</td>
-          </ng-container>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="rui-font-medium">Name</th>
+              <td mat-cell *matCellDef="let e">{{ e.name }}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="weight">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="rui-font-medium">Weight</th>
-            <td mat-cell *matCellDef="let e">{{ e.weight }}</td>
-          </ng-container>
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="rui-font-medium">Weight</th>
+              <td mat-cell *matCellDef="let e">{{ e.weight }}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="symbol">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="rui-font-medium">Symbol</th>
-            <td mat-cell *matCellDef="let e">{{ e.symbol }}</td>
-          </ng-container>
+            <ng-container matColumnDef="symbol">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="rui-font-medium">Symbol</th>
+              <td mat-cell *matCellDef="let e">{{ e.symbol }}</td>
+            </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let r; columns: displayedColumns;"></tr>
-        </table>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let r; columns: displayedColumns;"></tr>
+          </table>
+        </div>
         <mat-paginator
           [pageSizeOptions]="[5, 10]"
           [showFirstLastButtons]="true"

@@ -14,8 +14,9 @@ import { ShowcaseCode } from '../../../shared/showcase-code';
       <h2 id="menu-basic" class="rui-font-bold rui-text-on-surface rui-mb-1">Basic Menu</h2>
       <p class="rui-text-sm rui-text-on-surface-variant rui-mb-4">A simple dropdown menu with text items triggered by a button.</p>
 
-      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface rui-p-5 rui-flex rui-gap-2 rui-flex-wrap rui-items-center">
+      <div class="rui-rounded-lg rui-border rui-border-outline-variant rui-bg-surface demo-controls rui-p-5 rui-flex rui-gap-2 rui-flex-wrap rui-items-center">
         <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">Menu</button>
+        <p class="rui-text-xs rui-text-on-surface-variant rui-mt-1 rui-w-full">Tap the button to open the menu.</p>
         <mat-menu #menu="matMenu">
           <button mat-menu-item>Refresh</button>
           <button mat-menu-item>Settings</button>
