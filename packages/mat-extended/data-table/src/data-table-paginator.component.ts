@@ -9,6 +9,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-paginator
+      [length]="length()"
       [pageSize]="pageSize()"
       [pageSizeOptions]="pageSizeOptions()"
       (page)="pageChange.emit($event)"
@@ -18,6 +19,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
   `,
 })
 export class RuiDataTablePaginator {
+  readonly length = input(0);
   readonly pageSize = input(10);
   readonly pageSizeOptions = input<number[]>([5, 10, 25, 50]);
   readonly pageChange = output<PageEvent>();

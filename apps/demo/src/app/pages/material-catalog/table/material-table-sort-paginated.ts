@@ -50,6 +50,7 @@ interface PeriodicElement {
         </div>
         <mat-paginator
           [pageSizeOptions]="[5, 10]"
+          [length]="dataSource.length"
           [showFirstLastButtons]="true"
           aria-label="Table paginator"
           class="rui-mt-2"

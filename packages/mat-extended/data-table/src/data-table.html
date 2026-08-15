@@ -100,5 +100,5 @@
     </table>
   </div>
 
-  <rui-data-table-paginator [pageSize]="mergedConfig().pageSize" [pageSizeOptions]="mergedConfig().pageSizeOptions" (pageChange)="pageChange.emit($event)" />
+  <rui-data-table-paginator [length]="dataSource.filteredData.length" [pageSize]="mergedConfig().pageSize" [pageSizeOptions]="mergedConfig().pageSizeOptions" (pageChange)="pageChange.emit($event)" />
 </div>
