@@ -12,7 +12,7 @@ test.describe('Dialog', () => {
   });
 
   test('should open and close md dialog', async ({ page }) => {
-    await page.getByRole('button', { name: 'md' }).first().click();
+    await page.getByRole('button', { name: 'Open md Dialog' }).click();
     await expect(page.getByRole('dialog')).toBeVisible();
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog')).not.toBeVisible();
@@ -20,7 +20,8 @@ test.describe('Dialog', () => {
 
   test('should open all sizes sequentially', async ({ page }) => {
     for (const size of ['sm', 'md', 'lg', 'xl']) {
-      await page.getByRole('button', { name: size }).first().click();
+      await page.getByLabel('Dialog size').getByText(size, { exact: true }).click();
+      await page.getByRole('button', { name: `Open ${size} Dialog` }).click();
       await expect(page.getByRole('dialog')).toBeVisible();
       await page.keyboard.press('Escape');
       await expect(page.getByRole('dialog')).not.toBeVisible();
@@ -57,7 +58,7 @@ test.describe('Dialog', () => {
   });
 
   test('should close dialog on escape key', async ({ page }) => {
-    await page.getByRole('button', { name: 'md' }).first().click();
+    await page.getByRole('button', { name: 'Open md Dialog' }).click();
     await expect(page.getByRole('dialog')).toBeVisible();
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog')).not.toBeVisible();
