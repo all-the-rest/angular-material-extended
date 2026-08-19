@@ -5,6 +5,16 @@
       "type": "local",
       "command": ["npx", "nx", "mcp"],
       "enabled": true
+    },
+    "servers": {
+      "codegraph": {
+        "type": "local",
+        "command": [
+          "codegraph",
+          "serve",
+          "--mcp"
+        ]
+      }
     }
   }
 }
