@@ -82,3 +82,27 @@
 - [x] Reihenfolge in `overview.ts` und `app.ts` (Sidebar) abgleichen
 
 **Begründung**: Date Input ist ein Component wie alle anderen und sollte nicht als eigene Kategorie分离 werden.
+
+---
+
+## Task: Dependency-Upgrade 2026-08-23 (chore/deps-2026-08-23)
+
+- [x] pnpm `packageManager` `11.10.0` → `11.23.0`; `engines.pnpm` `>=9` → `>=11`
+- [x] Angular `22.0` → `22.1` (alle `@angular/*`, `@angular-devkit/build-angular`, `@angular/material`, `@angular/cdk`)
+- [x] Nx `23.1.0` → `23.1.1` (alle `@nx/*`)
+- [x] ESLint `9` → `10` (+ `@eslint/js` `9` → `10`)
+- [x] Major: `@types/node` `24` → `26`, `@types/supertest` `6` → `7`, `jsonc-eslint-parser` `2` → `3`, `vite-tsconfig-paths` `5` → `6`, `eslint-plugin-playwright` `1` → `2`, `jsdom` `22` → `30`
+- [x] Major: `express` `4` → `5` (+ `@types/express` `4` → `5`); Demo SSR `server.ts` Express-5-kompatibel gemacht (Catch-All `app.use('/**', …)` → `app.use((req, res, next) => …)`)
+- [x] `@oxc-project/runtime` `0.115` → `0.146` (0.x-Minor als Major behandelt, vorsichtig geprüft — Tests grün)
+- [x] Vitest `4.1.10` → `4.1.11`, Vite `8.0` → `8.2`, `@analogjs/*` `2.6` → `2.7`, `ng-packagr` `22.0` → `22.1`, `@swc/*`, `typescript-eslint` `8.65` → `8.67`, `material-symbols`, etc.
+- [x] GH Actions `ci.yml`/`release.yml` bereits auf v7 (`actions/checkout@v7`, `actions/setup-node@v7`, `pnpm/action-setup@v6`, `actions/upload-artifact@v7`, `actions/download-artifact@v8`) — keine Änderung nötig
+
+### Deprecated Packages
+
+- [~] `@angular/animations`: **behalten** — wird weiterhin via `provideAnimationsAsync()` (`apps/demo/src/app/app.config.ts`) genutzt und als transitive Dependency von `@angular/platform-browser@22.1.3` gezogen. Auf `^22.1.3` angehoben. Entfernen erst sinnvoll, wenn `provideAnimationsAsync` nicht mehr verwendet wird.
+- [~] `@angular-devkit/build-angular`: **behalten** — ist zwingender Peer-Dependency von `@nx/angular@23.1.1` (`>= 20.0.0 < 23.0.0`). Nicht direkt als Builder importiert (Demo nutzt `@angular/build:application`), aber Peer-Pflicht. Auf `22.1.5` angehoben.
+
+### Blockiert
+
+- [!] **typescript 6 → 7**: blockiert durch Angular 22 / Nx 23 (erzwingen `typescript >=6.0 <6.1`). Upgrade erst nach Angular 23 / Nx-Version mit TS7-Support durchführen.
+- [~] **`RuiDateAdapter`**: DI-Deprecation-Warnung ("add @Injectable()") — wird erst in künftiger Angular-Version ein Error; nicht durch dieses Upgrade verursacht, daher hier nicht behoben.
