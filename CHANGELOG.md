@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Toolchain: `packageManager` pnpm `11.10.0` → `11.23.0`; `engines.pnpm` `>=9` → `>=11`
+- Angular: `22.0` → `22.1` (alle `@angular/*`, `@angular-devkit/build-angular`, `@angular/material`, `@angular/cdk`)
+- Nx: `23.1.0` → `23.1.1` (alle `@nx/*`)
+- ESLint: `9` → `10` (inkl. `@eslint/js`)
+- `typescript-eslint` `8.65` → `8.67`
+- Vitest `4.1.10` → `4.1.11`, Vite `8.0` → `8.2`, `@analogjs/*` `2.6` → `2.7`, `ng-packagr` `22.0` → `22.1`
+- `@swc/*`, `material-symbols` und weitere Patch/Minor-Updates
+- Major-Updates: `@types/node` `24` → `26`, `@types/supertest` `6` → `7`, `jsonc-eslint-parser` `2` → `3`, `vite-tsconfig-paths` `5` → `6`, `eslint-plugin-playwright` `1` → `2`, `jsdom` `22` → `30`, `express` `4` → `5` (inkl. `@types/express` `4` → `5`)
+- Demo SSR `server.ts`: Express-5-kompatible Catch-All-Route (`/**` entfernt)
+
 ## [0.1.5] – 2026-07-30
 
 ### Fixed
