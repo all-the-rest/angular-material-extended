@@ -19,6 +19,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Major-Updates: `@types/node` `24` → `26`, `@types/supertest` `6` → `7`, `jsonc-eslint-parser` `2` → `3`, `vite-tsconfig-paths` `5` → `6`, `eslint-plugin-playwright` `1` → `2`, `jsdom` `22` → `30`, `express` `4` → `5` (inkl. `@types/express` `4` → `5`)
 - Demo SSR `server.ts`: Express-5-kompatible Catch-All-Route (`/**` entfernt)
 
+### Changed
+
+- Multi-select README: Basic Usage and API table aligned with the composable form-field pattern (`<mat-form-field>` wrapper instead of the removed `label`/`placeholder`/`appearance` inputs)
+
+### Removed
+
+- **BREAKING**: Multi-select: unused global config removed — `RUI_MULTI_SELECT_DEFAULT_OPTIONS`, `RUI_MULTI_SELECT_DEFAULTS` and type `RuiMultiSelectConfig` were no longer consumed by the component since the composable `<mat-form-field>` refactor (and still contained the removed `appearance` option). Configure the component via its inputs instead.
+
 ### Fixed
 
 - Date adapter: `RuiDateAdapter` is now decorated with `@Injectable()` — removes the DI deprecation warning ("inherits its @Injectable decorator … will become an error in a future version of Angular") when provided via `{ provide: DateAdapter, useClass: RuiDateAdapter }`

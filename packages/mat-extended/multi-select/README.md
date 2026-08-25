@@ -28,14 +28,16 @@ export class MyComponent {}
 
 ## Basic Usage
 
+`rui-multi-select` follows the **composable form field pattern**: the component renders only the inner `<mat-select>` — you own the `<mat-form-field>`. Label, appearance, hints and errors are controlled by the wrapper form field:
+
 ```html
-<rui-multi-select
-  [options]="fruits"
-  [label]="'Fruits'"
-  [placeholder]="'Select fruits'"
-  [labelKey]="'name'"
-  [(values)]="selectedFruits"
-/>
+<mat-form-field appearance="outline">
+  <mat-label>Fruits</mat-label>
+  <rui-multi-select
+    [options]="fruits"
+    [(values)]="selectedFruits"
+  />
+</mat-form-field>
 ```
 
 ## Inputs
@@ -43,11 +45,8 @@ export class MyComponent {}
 | Input | Type | Default | Description |
 |---|---|---|---|
 | `options` | `T[]` | `[]` | Available options |
-| `label` | `string` | `''` | Form field label |
-| `placeholder` | `string` | `''` | Placeholder text |
 | `labelKey` | `string` | `''` | Key to extract display label from object options |
 | `sortable` | `boolean` | `false` | Enable drag-and-drop reordering of selected items |
-| `appearance` | `'fill' \| 'outline'` | `'outline'` | Mat form field appearance |
 | `compareWith` | `(a: T, b: T) => boolean \| null` | `null` | Custom comparison function (default: `===`) |
 
 ## Outputs
@@ -63,39 +62,33 @@ myControl = new FormControl<string[]>([]);
 ```
 
 ```html
-<rui-multi-select [formControl]="myControl" [options]="items" [labelKey]="'name'" />
+<mat-form-field appearance="outline">
+  <mat-label>Items</mat-label>
+  <rui-multi-select [formControl]="myControl" [options]="items" [labelKey]="'name'" />
+</mat-form-field>
 ```
 
 ## Template-driven Forms
 
 ```html
-<rui-multi-select [(ngModel)]="selected" name="fruits" [options]="fruits" />
+<mat-form-field appearance="outline">
+  <mat-label>Fruits</mat-label>
+  <rui-multi-select [(ngModel)]="selected" name="fruits" [options]="fruits" />
+</mat-form-field>
 ```
 
 ## Signal API
 
 ```html
-<rui-multi-select [options]="items" [(values)]="selectedItems" />
+<mat-form-field appearance="outline">
+  <mat-label>Items</mat-label>
+  <rui-multi-select [options]="items" [(values)]="selectedItems" />
+</mat-form-field>
 ```
 
 ## Drag-Reorder
 
 When `sortable` is enabled, selected chips can be reordered via drag-and-drop. The selection order is preserved and reflected in the `values` model.
-
-## Global Configuration
-
-Provide defaults via `RUI_MULTI_SELECT_DEFAULT_OPTIONS`:
-
-```typescript
-import { RUI_MULTI_SELECT_DEFAULT_OPTIONS } from '@all-the.rest/mat-extended/multi-select';
-
-providers: [
-  {
-    provide: RUI_MULTI_SELECT_DEFAULT_OPTIONS,
-    useValue: { appearance: 'fill', sortable: true },
-  },
-]
-```
 
 ## Accessibility
 
