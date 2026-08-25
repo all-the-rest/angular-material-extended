@@ -17,8 +17,8 @@
     "toast/src/**/*.ts",
     "menu/src/**/*.ts",
     "dialog/src/**/*.ts",
-    "autocomplete/src/**/*.ts",
-    "i18n/src/**/*.ts",
+    "breadcrumb/src/**/*.ts",
+    "multi-select/src/**/*.ts",
     "on-this-page/src/**/*.ts"
   ],
   "exclude": [
@@ -38,10 +38,10 @@
     "menu/src/**/*.test.ts",
     "dialog/src/**/*.spec.ts",
     "dialog/src/**/*.test.ts",
-    "autocomplete/src/**/*.spec.ts",
-    "autocomplete/src/**/*.test.ts",
-    "i18n/src/**/*.spec.ts",
-    "i18n/src/**/*.test.ts",
+    "breadcrumb/src/**/*.spec.ts",
+    "breadcrumb/src/**/*.test.ts",
+    "multi-select/src/**/*.spec.ts",
+    "multi-select/src/**/*.test.ts",
     "on-this-page/src/**/*.spec.ts",
     "on-this-page/src/**/*.test.ts"
   ],
