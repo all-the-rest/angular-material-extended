@@ -50,8 +50,13 @@ jobs:
             // und werden bewusst NIE auto-gemergt
             const notDocker = !dependencyGroup.includes('docker');
 
-            const result = (safeGroup || safeIndividual) && notDocker;
-            core.setOutput('result', String(result));
+            const merge = (safeGroup || safeIndividual) && notDocker;
+            core.notice(`Auto-merge decision: ${merge} (group=${dependencyGroup}, type=${updateType})`);
+            // WICHTIG: Der Rueckgabewert wird von github-script als Step-Output
+            // `result` geschrieben. Ein eigenes core.setOutput('result', ...)
+            // wuerde vom Action-Finale UEBERSCHRIEBEN (fehlender Return ->
+            // "undefined"), deshalb entscheidet der Return-Wert.
+            return merge;
 
       - name: Wait for CI checks
         if: steps.should-merge.outputs.result == 'true'
