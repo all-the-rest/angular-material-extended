@@ -2,6 +2,37 @@ import { TestBed } from '@angular/core/testing';
 import { DateAdapter } from '@angular/material/core';
 import { RuiDateAdapter, createDateFormats, provideRuiDateAdapter } from './date-adapter';
 
+describe('RuiDateAdapter DI decoration', () => {
+  it('should not emit the "inherits its @Injectable decorator" deprecation warning when instantiated via useClass', () => {
+    TestBed.resetTestingModule();
+    const warnings: string[] = [];
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation((...args: unknown[]) => {
+      warnings.push(args.map(String).join(' '));
+    });
+    try {
+      TestBed.configureTestingModule({
+        providers: [provideRuiDateAdapter()],
+      });
+      TestBed.inject(DateAdapter);
+      expect(
+        warnings.some(w => w.includes('RuiDateAdapter') && w.includes('@Injectable')),
+      ).toBe(false);
+    } finally {
+      warnSpy.mockRestore();
+    }
+  });
+
+  it('should carry its own injectable definition instead of inheriting it', () => {
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      providers: [provideRuiDateAdapter()],
+    });
+    const adapter = TestBed.inject(DateAdapter);
+    expect(adapter).toBeInstanceOf(RuiDateAdapter);
+    expect(adapter.parse('2026-12-24', 'YYYY-MM-dd')).not.toBeNull();
+  });
+});
+
 describe('RuiDateAdapter', () => {
   let adapter: RuiDateAdapter;
 

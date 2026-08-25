@@ -1,4 +1,4 @@
-import { Provider } from '@angular/core';
+import { Injectable, Provider } from '@angular/core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
 
 function parseFormat(format: string): { type: 'lit' | 'year' | 'month' | 'day'; value: string }[] {
@@ -46,6 +46,7 @@ export function provideRuiDateAdapter(formats = MAT_NATIVE_DATE_FORMATS): Provid
   ];
 }
 
+@Injectable()
 export class RuiDateAdapter extends NativeDateAdapter {
   override parse(value: unknown, parseFormat: unknown): Date | null {
     if (typeof value === 'number') return new Date(value);
