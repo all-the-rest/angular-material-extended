@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, PLATFORM_ID, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, PLATFORM_ID, signal, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ShowcaseCode } from '../../../shared/showcase-code';
@@ -44,7 +44,7 @@ imports: [MatGridListModule],"
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MaterialGridListBasic {
+export class MaterialGridListBasic implements OnDestroy {
   protected readonly cols = signal(3);
 
   private readonly platformId = inject(PLATFORM_ID);

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, PLATFORM_ID, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, PLATFORM_ID, signal, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
@@ -64,7 +64,7 @@ imports: [MatSidenavModule],"
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MaterialSidenavBasic {
+export class MaterialSidenavBasic implements OnDestroy {
   protected readonly isDesktop = signal(true);
   protected readonly drawerOpen = signal(false);
 
