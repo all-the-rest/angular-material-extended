@@ -17,7 +17,9 @@ permissions:
   actions: read
 
 concurrency:
-  group: dependabot-automerge-${{ github.event.pull_request.number }}
+  # Actor im Group-Key: Events anderer Actors (z.B. manuelle Label-Aenderungen)
+  # duerfen einen wartenden dependabot-Run NICHT cancellieren.
+  group: dependabot-automerge-${{ github.event.pull_request.number }}-${{ github.actor }}
   cancel-in-progress: true
 
 jobs:
