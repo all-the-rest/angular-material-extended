@@ -190,7 +190,6 @@ export class RuiCropper extends RuiValueAccessor<string> implements ControlValue
 
 ## 19. Agent-Verhalten
 
-- **KEINE** Commits/Pushes ohne explizite Anweisung.
 - **KEINE** `pnpm add` ohne Rückfrage. Bei Unsicherheit: nachfragen.
 - VOR jedem Commit: `pnpm nx lint --fix` + `pnpm nx test` + `pnpm nx build demo` + `pnpm nx e2e demo-e2e`. Erst committen wenn alle grün.
 - Lint IMMER mit `--fix`. Bei Fehlern: vollen Output lesen, nicht retry.
@@ -200,10 +199,9 @@ export class RuiCropper extends RuiValueAccessor<string> implements ControlValue
 
 ### 19.1 Build-Agent-Delegation
 
-- **Build-Agent steuert und delegiert**: Er schreibt ausschließlich `AGENTS.md` und `AGENTS.todo.md`. Alles andere wird via `task`-Tool an Sub-Agents delegiert.
-- **Delegation MUSS verifiziert werden**: Sub-Agent-Ergebnisse werden nie blind übernommen.
-- **Sub-Agents sind eigenständig**: Vollständige Spezifikation inkl. Dateipfade, Code-Convention, Test-Anforderung.
-- **Keine Nx-Befehle durch Sub-Agents**: Nur Dateibasiert (Write/Edit/Read). Nx-Befehle laufen im Build-Agent.
+- Der Build-/Verify-Flow (pull → delegieren → verifizieren → committen → pushen + CI) steht im Skill `build-verify` (`agents-skills`), Always-on-Kern: `.agents/rules/build-verify.md`. Er wird hier bewusst nicht wiederholt — zwei Regeln im selben Prompt haben keine Rangfolge.
+- Commit-Schema und Amend-vs.-neuer-Commit: Skill `build-verify`; Conventional Commits zusätzlich §14.
+- Repo-spezifisch bleibt hier nur, **wann** etwas grün sein muss: die Kommandos oben in §19.
 
 ## 20. Parallelisierung & Sub-Agents
 
