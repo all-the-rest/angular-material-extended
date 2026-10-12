@@ -83,7 +83,7 @@
     "jsonc-eslint-parser": "^3.3.0",
     "material-symbols": "^0.46.0",
     "ng-packagr": "~22.1.1",
-    "nx": "23.1.1",
+    "nx": "23.2.1",
     "postcss": "^8.5.26",
     "postcss-safe-parser": "^7.0.1",
     "prettier": "^3.9.6",
