@@ -186,7 +186,7 @@ export class RuiCropper extends RuiValueAccessor<string> implements ControlValue
 
 - `ci.yml`: PRs + `main` → lint, test, build.
 - `release.yml`: semver-Tag → npm publish.
-- `deploy-demo.yml`: `main` → build demo → push nach `gh-pages`.
+- `ci.yml`-Job `deploy-demo`: `main` → Demo-Build → GitHub Pages.
 
 ## 19. Agent-Verhalten
 
