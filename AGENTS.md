@@ -199,7 +199,7 @@ export class RuiCropper extends RuiValueAccessor<string> implements ControlValue
 
 ### 19.1 Build-Agent-Delegation
 
-- Der Build-/Verify-Flow (pull → delegieren → verifizieren → committen → pushen + CI) steht im Skill `build-verify` (`agents-skills`), Always-on-Kern: `.agents/rules/build-verify.md`. Er wird hier bewusst nicht wiederholt — zwei Regeln im selben Prompt haben keine Rangfolge.
+- Der Build-/Verify-Flow (pull → delegieren → verifizieren → committen → pushen + CI) steht im Skill `build-verify` (`agents-skills`), Kernregel: `.agents/rules/build-verify.md`. Er wird hier bewusst nicht wiederholt — zwei Regeln im selben Prompt haben keine Rangfolge.
 - Commit-Schema und Amend-vs.-neuer-Commit: Skill `build-verify`; Conventional Commits zusätzlich §14.
 - Repo-spezifisch bleibt hier nur, **wann** etwas grün sein muss: die Kommandos oben in §19.
 
