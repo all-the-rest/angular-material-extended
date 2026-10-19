@@ -28,5 +28,6 @@
 
 ## Follow-ups
 
+- [ ] **UI-Review-Screenshot-Skill noch nicht angewendet** — Playwright-Harness + Vision-Analyse. Referenz: `ocg-price-tracker/tests/screenshots` (`ui-screenshots.spec.ts` mit Section-Captures).
 - [ ] **Demo-SSR-Prerender: NG0203 im Build-Log** — `pnpm nx build demo` loggt wiederholt `uncaughtException Error: NG0203` (inject() außerhalb Injection-Context, Stack: `get ngControl` → `get errorState` aus MatFormFieldControl-Chunks), Build läuft trotzdem grün durch (46 Routen). Verifiziert am 2026-08-25: auch ohne lokale Änderungen vorhanden (pre-existing, nicht durch Multi-Select-/DateAdapter-Änderungen verursacht). Ursache klären und beheben (vermutlich Effect/Signal-Zugriff auf `errorState` während SSR auf einer Demo-Seite).
 

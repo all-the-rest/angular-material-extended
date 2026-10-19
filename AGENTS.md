@@ -2,6 +2,8 @@
 
 > Verbindliches Regelwerk für ALLE Agents (KI & Humans), die an diesem Repository arbeiten. MUSS vor jeder Arbeit gelesen werden.
 
+> **Nur Regeln, keine Entscheidungen:** Diese Datei enthält ausschließlich Regeln — Anweisungen, die für jede Arbeit in diesem Repo gelten. Dauerhafte Entscheidungen, Begründungen, Messwerte und Historie gehören nicht hierher, sondern in `docs/`/`features/` bzw. die Projekt-Doku; offene Punkte nach `AGENTS.todo.md`; Erledigtes in die Git-Historie.
+
 ## 0. TL;DR
 
 - Plan in [`AGENTS.todo.md`](./AGENTS.todo.md) FÜHREN – nichts ohne Task-Eintrag bauen.
@@ -33,7 +35,7 @@
 
 |                        |                                                    |
 | ---------------------- | -------------------------------------------------- |
-| Node                   | `>=22` (lokal v26)                                 |
+| Node                   | `>=22`                                             |
 | Package Manager        | **pnpm** (`engines.pnpm` in `package.json` setzen) |
 | Angular                | v22 (oder neuestes stable)                         |
 | Angular Material + CDK | v22 (M3 Theming)                                   |
@@ -199,9 +201,9 @@ export class RuiCropper extends RuiValueAccessor<string> implements ControlValue
 
 ### 19.1 Build-Agent-Delegation
 
-- Der Build-/Verify-Flow (pull → delegieren → verifizieren → committen → pushen + CI) steht im Skill `build-verify` (`agents-skills`), Kernregel: `.agents/rules/build-verify.md`. Er wird hier bewusst nicht wiederholt — zwei Regeln im selben Prompt haben keine Rangfolge.
+- Der Build-/Verify-Flow (pull → delegieren → verifizieren → committen → pushen + CI) folgt dem Skill `build-verify` (`agents-skills`), Kernregel: `.agents/rules/build-verify.md`. Er wird hier nicht wiederholt.
 - Commit-Schema und Amend-vs.-neuer-Commit: Skill `build-verify`; Conventional Commits zusätzlich §14.
-- Repo-spezifisch bleibt hier nur, **wann** etwas grün sein muss: die Kommandos oben in §19.
+- **Wann** etwas grün sein muss, steht in §19.
 
 ## 20. Parallelisierung & Sub-Agents
 
@@ -233,7 +235,3 @@ export class RuiCropper extends RuiValueAccessor<string> implements ControlValue
 - The `nx-generate` skill handles generator discovery internally - don't call nx_docs just to look up generator syntax
 
 <!-- nx configuration end-->
-
-## TODO (UI-Review)
-
-UI-Review-Screenshot-Skill noch nicht angewendet (Playwright-Harness + Vision-Analyse). Referenz: ocg-price-tracker/tests/screenshots (ui-screenshots.spec.ts mit Section-Captures).
