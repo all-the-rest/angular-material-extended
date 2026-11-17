@@ -59,7 +59,7 @@
     "@nx/web": "23.1.1",
     "@nx/workspace": "23.1.1",
     "@oxc-project/runtime": "^0.146.0",
-    "@playwright/test": "1.62.1",
+    "@playwright/test": "1.65.1",
     "@schematics/angular": "22.1.5",
     "@swc-node/register": "1.12.1",
     "@swc/core": "1.16.1",
