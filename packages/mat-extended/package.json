@@ -44,6 +44,6 @@
     "registry": "https://registry.npmjs.org"
   },
   "devDependencies": {
-    "vitest-canvas-mock": "^1.1.4"
+    "vitest-canvas-mock": "^1.2.0"
   }
 }
