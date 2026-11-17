@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `typescript-eslint` `8.65` → `8.67`
 - Vitest `4.1.10` → `4.1.11`, Vite `8.0` → `8.2`, `@analogjs/*` `2.6` → `2.7`, `ng-packagr` `22.0` → `22.1`
 - `@swc/*`, `material-symbols` und weitere Patch/Minor-Updates
+- Playwright: `@playwright/test` `1.62.1` → `1.65.1` (Chromium-Revision 1255)
 - Major-Updates: `@types/node` `24` → `26`, `@types/supertest` `6` → `7`, `jsonc-eslint-parser` `2` → `3`, `vite-tsconfig-paths` `5` → `6`, `eslint-plugin-playwright` `1` → `2`, `jsdom` `22` → `30`, `express` `4` → `5` (inkl. `@types/express` `4` → `5`)
 - Demo SSR `server.ts`: Express-5-kompatible Catch-All-Route (`/**` entfernt)
 
